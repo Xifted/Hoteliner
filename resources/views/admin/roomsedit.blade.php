@@ -39,8 +39,11 @@
                                 <p class="fw-bold">Status : {{ $LKamar->status }}</p>
                             </div>
                             <div class="d-flex flex-row flex-fill justify-content-between">
-                                <p class="fw-bold" id="room-price">{{ $LKamar->harga }}</p>
-                                <a class="col-sm-5 btn btn-warning nav-link text-black fw-bold" href="{{url('rooms/reservasi/'. $LKamar->id_kamar)}}">Pesan</a>
+                                <p class="fw-bold">Rp.{{ $LKamar->harga }}/Malam</p>
+                            </div>
+                            <div class="d-flex flex-row flex-fill justify-content-between">
+                                <a class="col-sm-5 btn btn-danger nav-link text-white fw-bold" href="#">Hapus</a>
+                                <a class="col-sm-5 btn btn-warning nav-link text-black fw-bold" href="#">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -52,7 +55,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="{{ asset('/js/scripts.js')}}"></script>
+    <script src="js/scripts.js"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

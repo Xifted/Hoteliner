@@ -39,7 +39,7 @@
   --bs-info: #0dcaf0;
   --bs-warning: #ffc800;
   --bs-danger: #dc3545;
-  --bs-light: #f8f9fa;
+  --bs-light: #cde3f9;
   --bs-dark: #212529;
   --bs-primary-rgb: 255, 200, 0;
   --bs-secondary-rgb: 108, 117, 125;
@@ -11787,7 +11787,7 @@ header.masthead .masthead-heading {
 
 section#contact {
   background-color: #212529;
-  background-image: url("../assets/img/map-image.png");
+  background-image: url("../assets/img/header-bg.jpg");
   background-repeat: no-repeat;
   background-position: center;
 }
