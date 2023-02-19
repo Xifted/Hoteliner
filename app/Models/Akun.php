@@ -8,9 +8,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Akun extends Model
 {
     use HasFactory, Notifiable;
 
     protected $table = 'akun';
+    protected $primaryKey = 'id_user';
+    public $timestamps = false;
+
+    protected $fillable = ['username','password','email'];
 }

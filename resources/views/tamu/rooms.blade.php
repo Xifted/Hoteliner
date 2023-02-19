@@ -24,7 +24,7 @@
     <section class="page-section bg-light d-flex justify-content-center" id="rooms">
         <div class="container mx-0 mt-5">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">rooms</h2>
+                <h2 class="section-heading text-uppercase">Rooms</h2>
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
 
@@ -32,15 +32,15 @@
                 @foreach ($LKamar as $LKamar)
                     <div class="d-flex p-2 border-bottom border-top justify-content-between mb-2 col-sm-11 p-3">
                         <img class="col-sm-5 img-fluid" src="assets/img/rooms/room1.jpg" alt="">
-                        <div class="d-flex col-sm-6 flex-col align-content-between flex-wrap">
+                        <div class="d-flex col-sm-6 flex-column justify-content-between flex-wrap">
                             <div>
                                 <h4>{{ $LKamar->nama }}</h4>
                                 <p>{{ $LKamar->deskripsi }}</p>
                                 <p class="fw-bold">Status : {{ $LKamar->status }}</p>
                             </div>
-                            <div class="d-flex flex-row flex-fill justify-content-between">
-                                <p class="fw-bold" id="room-price">{{ $LKamar->harga }}</p>
-                                <a class="col-sm-5 btn btn-warning nav-link text-black fw-bold" href="{{url('rooms/reservasi/'. $LKamar->id_kamar)}}">Pesan</a>
+                            <div class="d-flex flex-row justify-content-between w-100" style="">
+                                <p class="fw-bold room-price">{{ $LKamar->harga }}</p>
+                                <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold" href="{{url('rooms/reservasi/'. $LKamar->id_kamar)}}">Pesan</a>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,8 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="{{ asset('/js/scripts.js')}}"></script>
+    <script src="{{ asset('/js/tamu/scripts.js')}}"></script>
+    <script src="{{ asset('/js/tamu/rooms.js')}}"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

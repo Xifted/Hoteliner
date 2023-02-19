@@ -66,7 +66,7 @@
         <section class="page-section bg-light" id="rooms">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">rooms</h2>
+                    <h2 class="section-heading text-uppercase">Rooms</h2>
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row">

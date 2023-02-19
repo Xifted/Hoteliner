@@ -17,9 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//acc
+Route::get('login', [AccountsController::class, 'login'])->name('login');
+Route::post('actionlogin', [AccountsController::class, 'actionlogin'])->name('actionlogin');
+Route::get('register', [AccountsController::class, 'register'])->name('register');
+Route::post('register/action', [AccountsController::class, 'actionregister'])->name('actionregister');
+Route::get('datadiri', [AccountsController::class, 'datadiri'])->name('datadiri');
+Route::post('datadiri/action', [AccountsController::class, 'actiondatadiri'])->name('actiondatadiri');
+Route::get('logout', [AccountsController::class, 'actionlogout'])->name('actionlogout');
+
+//tamu
 Route::get('', [HomeController::class, 'index']);
 Route::get('rooms', [RoomsController::class, 'index']);
-Route::get('roomsedit', [RoomsController::class, 'edit']);
-Route::get('rooms/reservasi/{id}', [RoomsController::class, 'reservasi']);
+Route::get('rooms/reservasi/{id}', [RoomsController::class, 'reservasi'])->middleware('auth');
+
+
+//admin
 Route::get('admin-dashboard', [AdminController::class, 'index']);
-Route::get('login', [AccountsController::class, 'login']);
+Route::get('roomsedit', [RoomsController::class, 'edit']);

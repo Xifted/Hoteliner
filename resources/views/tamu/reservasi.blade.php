@@ -53,21 +53,15 @@
                         <h4>Fasilitas Tambahan : </h4>
                         <form action="">
                             <div class="d-flex flex-column ms-3">
+                                @foreach ($daftarFasilitas as $fasilitas)                                
                                 <div class="d-flex form-check">
-                                    <input class="form-check-input" type="radio" name="metode-pembayaran"
-                                        id="" value="Lorem Ipsum" />
-                                    <label class="form-check-label ms-2" for="html">Lorem Ipsum</label><br>
+                                    <input class="form-check-input" type="checkbox" value="{{$fasilitas->id_fasilitas}}"
+                                        id="flexCheckDefault" name="fasilitas[]">
+                                    <label class="form-check-label ms-2" for="flexCheckDefault">
+                                        {{$fasilitas->nama}}
+                                    </label>
                                 </div>
-                                <div class="d-flex form-check">
-                                    <input class="form-check-input" type="radio" name="metode-pembayaran"
-                                        id="" value="Lorem Ipsum" />
-                                    <label class="form-check-label ms-2" for="html">Lorem Ipsum</label><br>
-                                </div>
-                                <div class="d-flex form-check">
-                                    <input class="form-check-input" type="radio" name="metode-pembayaran"
-                                        id="" value="Lorem Ipsum" />
-                                    <label class="form-check-label ms-2" for="html">Lorem Ipsum</label><br>
-                                </div>
+                                @endforeach
                             </div>
                         </form>
                         <h4>Catatan : </h4>
@@ -120,7 +114,8 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="/js/scripts.js"></script>
+    <script src="{{ asset('/js/tamu/scripts.js') }}"></script>
+    <script src="{{ asset('/js/tamu/reservasi.js') }}"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

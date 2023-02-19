@@ -50,14 +50,5 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-
-    // Harga
-    const price = document.querySelector('#harga') ?? 0;
-    const price2 = document.querySelector('#room-price') ?? 0;
-    let IDRRupiah = new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-    });
-    price.textContent = IDRRupiah.format(price.textContent);
-    price2.textContent = IDRRupiah.format(price2.textContent);
+   
 });

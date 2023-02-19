@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="/#page-top"><img src="assets/img/logos/Hoteliner-logos_transparent.png" alt="..." /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="/#page-top"><img src="assets/img/logos/Hoteliner-logos_transparent.png"
+                alt="..." /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars ms-1"></i>
             <i class="fa-solid fa-bed"></i>
@@ -13,7 +15,11 @@
                 <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="/#contact">Contact Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="/rooms">Rooms List</a></li>
-                <li class="nav-item"><a class="btn btn-warning nav-link text-black fw-bold" href="/login">Sign Up</a></li>
+                @if (Auth::check())
+                    <li class="nav-item"><a class="nav-link text-light fw-bold" href="/profile">Hi! {{Auth::user()->username}}</a></li>
+                @else
+                    <li class="nav-item"><a class="btn btn-warning nav-link text-black fw-bold" href="/login">Sign Up</a></li>
+                @endif
             </ul>
         </div>
     </div>

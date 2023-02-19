@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Hoteliner - Login</title>
+    <title>Hoteliner - Register</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -25,30 +25,38 @@
     <section class="" style="margin-top: 70px;" id="contact">
         <div class="container col-md-3 bg-light py-5 rounded">
             <div class="text-center mb-5">
-                <h2 class="section-heading text-uppercase text-dark">Login</h2>
+                <h2 class="section-heading text-dark text-uppercase">Register</h2>
             </div>
-            <form id="contactForm" action="{{ route('actionlogin') }}" method="POST">
+            <form id="contactForm" action="{{route('actionregister')}}" method="POST">
                 @csrf
-                <div class="row align-items-stretch mb-5 d-flex justify-content-center">
+                <div class="row align-items-stretch mb-3 d-flex justify-content-center">
                     <div class="col-md-10">
+                        <div class="form-group">
+                            <!-- Email input-->
+                            <input class="form-control text-dark" id="email" name="email" type="email" placeholder="Your Email *" required />
+                            {{-- <div class="invalid-feedback" data-sb-feedback="name:required">A Username is required.</div> --}}
+                        </div>
                         <div class="form-group">
                             <!-- Username input-->
                             <input class="form-control text-dark" id="name" name="username" type="text" placeholder="Your Username *" required />
                             {{-- <div class="invalid-feedback" data-sb-feedback="name:required">A Username is required.</div> --}}
                         </div>
-                        <div class="form-group mb-md-0">
+                        <div class="form-group">
                             <!-- Password input-->
-                            <input class="form-control text-dark" type="password" placeholder="Your Password *" name="password" required />
+                            <input class="form-control text-dark" id="password" type="password" name="password" placeholder="Your Password *" required />
                             {{-- <div class="invalid-feedback" data-sb-feedback="phone:required">A Password is required.</div> --}}
                         </div>
+                        {{-- <div class="form-group mb-md-0"> --}}
+                            <!-- Password input-->
+                            {{-- <input class="form-control text-dark" type="password" placeholder="Repeat Your Password *" required /> --}}
+                            {{-- <div class="invalid-feedback" data-sb-feedback="phone:required">A Password is required.</div> --}}
+                        {{-- </div> --}}
                     </div>
                 </div>
                 <!-- Submit Button-->
-                <div class="text-center"><button class="btn btn-primary text-dark btn-lg text-uppercase"
-                        style="width: 83%;" id="submitButton" type="submit">Login</button></div>
+                <div class="text-center "><button class="btn btn-primary btn-lg text-uppercase text-dark" style="width: 83%;" id="submitButton" type="submit">Register</button></div>
             </form>
-            <p class="text-center mt-3">Belum Punya Akun? <a class="text-decoration-none" href="/register">Register</a>
-                Sekarang </p>
+            <p class="text-center mt-3">Sudah Punya Akun? <a class="text-decoration-none" href="/login">Login</a></p>
         </div>
     </section>
 
@@ -56,7 +64,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="{{ asset('/js/tamu/scripts.js') }}"></script>
+    <script src="{{ asset('/js/tamu/scripts.js')}}"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
