@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2023 at 05:46 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Generation Time: Feb 21, 2023 at 02:33 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -105,6 +105,7 @@ INSERT INTO `fasilitas_tambahan` (`id_fasilitas`, `nama`, `harga`, `status`) VAL
 
 CREATE TABLE `kamar` (
   `id_kamar` int(11) NOT NULL,
+  `img_url` varchar(60) DEFAULT NULL,
   `nama` varchar(30) NOT NULL,
   `deskripsi` text DEFAULT NULL,
   `harga` int(15) NOT NULL,
@@ -116,8 +117,11 @@ CREATE TABLE `kamar` (
 -- Dumping data for table `kamar`
 --
 
-INSERT INTO `kamar` (`id_kamar`, `nama`, `deskripsi`, `harga`, `id_fasilitas`, `status`) VALUES
-(7, 'Room 1', 'dasdsadsadsadadasdsadsadasdasdasdas', 1000000, '1;2;3', 'Tersedia');
+INSERT INTO `kamar` (`id_kamar`, `img_url`, `nama`, `deskripsi`, `harga`, `id_fasilitas`, `status`) VALUES
+(7, 'http://127.0.0.1:8000/assets/img/rooms/room1.jpg', 'Room 1', 'dasdsadsadsadadasdsadsadasdasdasdas', 1000000, '1;2;3', 'Tersedia'),
+(8, 'http://127.0.0.1:8000/assets/img/rooms/room2.jpg', 'Room 2', 'dauhsdadiuhdauhuniauhnka s', 1500000, '1;2;3;4', 'Tersedia'),
+(9, 'http://127.0.0.1:8000/assets/img/rooms/room3.jpg', 'Room 3', 'sadasdkajdsakjhdsajdhadjhaskdjahdkajsdajhdajdhajdhakjd', 1200000, '2;3;4', 'Tersedia'),
+(10, 'http://127.0.0.1:8000/assets/img/rooms/room1.jpg', 'Room 4', 'sadasdkajdsakjhdsajdhadjhaskdjahdkajsdajhdajdhajdhakjd', 1400000, '2;3;4', 'Tersedia');
 
 -- --------------------------------------------------------
 
@@ -232,6 +236,7 @@ CREATE TABLE `tamu` (
   `id_akun` int(11) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `tgl_lahir` date NOT NULL,
+  `gender` enum('Laki - Laki','Perempuan') NOT NULL,
   `alamat` text NOT NULL,
   `no_telp` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -240,8 +245,8 @@ CREATE TABLE `tamu` (
 -- Dumping data for table `tamu`
 --
 
-INSERT INTO `tamu` (`id_tamu`, `id_akun`, `nama`, `tgl_lahir`, `alamat`, `no_telp`) VALUES
-(2, 1, 'Rafi', '2023-02-03', 'dasdasdasdas', '01823187421');
+INSERT INTO `tamu` (`id_tamu`, `id_akun`, `nama`, `tgl_lahir`, `gender`, `alamat`, `no_telp`) VALUES
+(3, 1, 'Rafi', '2023-02-03', 'Laki - Laki', 'dajdksajdasdasjnda', '09812972913');
 
 -- --------------------------------------------------------
 
@@ -407,7 +412,7 @@ ALTER TABLE `fasilitas_tambahan`
 -- AUTO_INCREMENT for table `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `karyawan`
@@ -443,7 +448,7 @@ ALTER TABLE `reservasi`
 -- AUTO_INCREMENT for table `tamu`
 --
 ALTER TABLE `tamu`
-  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
