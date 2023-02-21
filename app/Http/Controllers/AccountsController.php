@@ -76,6 +76,7 @@ class AccountsController extends Controller
             'id_akun' => $id_akun,
             'nama' => $request->nama,
             'tgl_lahir' => $request->tgl_lahir,
+            'gender' => $request->gender,
             'alamat' => $request->alamat,
             'no_telp' => $request->no_telp
         ]);

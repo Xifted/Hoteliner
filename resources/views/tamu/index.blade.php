@@ -70,6 +70,7 @@
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row">
+                    @foreach ($LKamar as $Kamar)                
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <!-- rooms items -->
                         <div class="rooms-item">
@@ -77,17 +78,17 @@
                                 <div class="rooms-hover">
                                     <div class="rooms-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="assets/img/rooms/1.jpg" alt="..." />
+                                <img class="img-fluid" src="{{$Kamar->img_url}}" alt="..." />
                             </a>
                             <div class="rooms-caption">
-                                <div class="rooms-caption-heading">Threads</div>
-                                <div class="rooms-caption-subheading text-muted">Illustration</div>
+                                <div class="rooms-caption-heading">{{$Kamar->nama}}</div>
+                                <div class="rooms-caption-subheading text-muted room-price">{{$Kamar->harga}}</div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
 
-
-                    <div class="col-lg-4 col-sm-6 mb-4">
+                    {{-- <div class="col-lg-4 col-sm-6 mb-4">
                         <!-- rooms item 2-->
                         <div class="rooms-item">
                             <a class="rooms-link" data-bs-toggle="modal" href="#roomsModal2">
@@ -161,7 +162,7 @@
                                 <div class="rooms-caption-subheading text-muted">Photography</div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
@@ -586,11 +587,11 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="{{ asset('/js/tamu/scripts.js')}}"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        {{-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> --}}
     </body>
 </html>

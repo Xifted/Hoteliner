@@ -29,9 +29,10 @@
             <div class="d-flex">
                 <div class="bg-white" style="width: 60%;">
                     <h4 class="bg-dark text-white p-1 ps-2 mt-3 mx-4">Reservasi</h4>
-                    <div class="d-grid bg-white rounded p-4" style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
-                        <h4>Metode Pembayaran : </h4>
-                        <form action="">
+                    <form action="">
+                        <div class="d-grid bg-white rounded p-4"
+                            style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
+                            <h4>Metode Pembayaran : </h4>
                             <div class="d-flex flex-column ms-3">
                                 <div class="d-flex form-check">
                                     <input class="form-check-input" type="radio" name="metode-pembayaran"
@@ -49,33 +50,36 @@
                                     <label class="form-check-label ms-2" for="html">Lorem Ipsum</label><br>
                                 </div>
                             </div>
-                        </form>
-                        <h4>Fasilitas Tambahan : </h4>
-                        <form action="">
+                            <h4>Fasilitas Tambahan : </h4>
+
                             <div class="d-flex flex-column ms-3">
-                                @foreach ($daftarFasilitas as $fasilitas)                                
-                                <div class="d-flex form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{$fasilitas->id_fasilitas}}"
-                                        id="flexCheckDefault" name="fasilitas[]">
-                                    <label class="form-check-label ms-2" for="flexCheckDefault">
-                                        {{$fasilitas->nama}}
-                                    </label>
-                                </div>
+                                @foreach ($daftarFasilitas as $fasilitas)
+                                    <div class="d-flex form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                            value="{{ $fasilitas->id_fasilitas }}" id="flexCheckDefault"
+                                            name="fasilitas[]">
+                                        <label class="form-check-label ms-2" for="flexCheckDefault">
+                                            {{ $fasilitas->nama }}
+                                        </label>
+                                    </div>
                                 @endforeach
                             </div>
-                        </form>
-                        <h4>Catatan : </h4>
-                        <form action="">
+                            <h4>Tanggal Check-In</h4>
+                            <input class="form-control text-dark w-50" name="tgl_in" type="date"
+                                placeholder="Tanggal Check-In *" required />
+                            <h4>Catatan : </h4>
                             <div class="form-floating">
                                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                                 <label for="floatingTextarea2">Catatan</label>
                             </div>
-                        </form>
-                    </div>
-                    <div class="d-flex border-top justify-content-between p-3">
-                        <h4>Total : Rp.500.000</h4>
-                        <a class="col-sm-2 btn btn-warning nav-link text-black fw-bold" href="#">Pesan</a>
-                    </div>
+
+                        </div>
+
+                        <div class="d-flex border-top justify-content-between p-3">
+                            <h4>Total : Rp.500.000</h4>
+                            <a class="col-sm-2 btn btn-warning nav-link text-black fw-bold" href="#">Pesan</a>
+                        </div>
+                    </form>
                 </div>
                 <div class="bg-white p-3 ms-4 d-flex flex-column" style="width: 40%;">
                     <h4 class="bg-dark text-white p-1 ps-2">Detail</h4>
@@ -105,6 +109,23 @@
                                 </ol>
                             </div>
                         </div>
+                        <h5>Identitas</h5>
+                        <div class="d-flex">
+                            <div class="d-flex flex-column border-end">
+                                <ol class="list-group">
+                                    <li class="list-group-item border-0">Nama</li>
+                                    <li class="list-group-item border-0">Jenis Kelamin</li>
+                                    <li class="list-group-item border-0">Nomor HP</li>
+                                </ol>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <ol class="list-group list-group-start">
+                                    <li class="list-group-item border-0">{{ $identitasTamu->nama }}</li>
+                                    <li class="list-group-item border-0">{{ $identitasTamu->gender }}</li>
+                                    <li class="list-group-item border-0">{{ $identitasTamu->no_telp }}</li>
+                                </ol>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,7 +135,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="{{ asset('/js/tamu/scripts.js') }}"></script>
+    {{-- <script src="{{ asset('/js/tamu/scripts.js') }}"></script> --}}
     <script src="{{ asset('/js/tamu/reservasi.js') }}"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
