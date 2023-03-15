@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 02:33 PM
+-- Generation Time: Mar 15, 2023 at 01:55 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -29,34 +29,34 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id_admin` int(11) NOT NULL,
-  `id_akun` int(11) NOT NULL,
-  `id_karyawan` int(11) NOT NULL,
-  `keterangan` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `akun`
---
-
-CREATE TABLE `akun` (
-  `id` int(11) NOT NULL,
   `username` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('Tamu','VIP','Admin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Tamu',
-  `verified` tinyint(1) NOT NULL DEFAULT 0,
+  `nama` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `gender` enum('Laki - Laki','Perempuan') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jabatan` enum('Admin','Resepsionis') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tgl_diterima` date NOT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_telp` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keterangan` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `akun`
+-- Table structure for table `detail_reservasi`
 --
 
-INSERT INTO `akun` (`id`, `username`, `password`, `email`, `role`, `verified`, `created_at`, `updated_at`) VALUES
-(1, 'test', '$2y$10$HY24praFM/f7QNRl19T57uHT2hFjd6uuncK1GH2sFAaA2RcdKjl/.', 'dsuiahdaudas@gmail.com', 'Tamu', 0, NULL, NULL);
+CREATE TABLE `detail_reservasi` (
+  `id_rsv` int(11) NOT NULL,
+  `id_kamar` int(11) NOT NULL,
+  `tgl_in` datetime DEFAULT NULL,
+  `tgl_out` datetime DEFAULT NULL,
+  `harga` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -105,39 +105,23 @@ INSERT INTO `fasilitas_tambahan` (`id_fasilitas`, `nama`, `harga`, `status`) VAL
 
 CREATE TABLE `kamar` (
   `id_kamar` int(11) NOT NULL,
-  `img_url` varchar(60) DEFAULT NULL,
+  `id_tipe` int(11) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `deskripsi` text DEFAULT NULL,
-  `harga` int(15) NOT NULL,
-  `id_fasilitas` varchar(30) NOT NULL,
   `status` enum('Tersedia','Tidak Tersedia') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `kamar`
---
-
-INSERT INTO `kamar` (`id_kamar`, `img_url`, `nama`, `deskripsi`, `harga`, `id_fasilitas`, `status`) VALUES
-(7, 'http://127.0.0.1:8000/assets/img/rooms/room1.jpg', 'Room 1', 'dasdsadsadsadadasdsadsadasdasdasdas', 1000000, '1;2;3', 'Tersedia'),
-(8, 'http://127.0.0.1:8000/assets/img/rooms/room2.jpg', 'Room 2', 'dauhsdadiuhdauhuniauhnka s', 1500000, '1;2;3;4', 'Tersedia'),
-(9, 'http://127.0.0.1:8000/assets/img/rooms/room3.jpg', 'Room 3', 'sadasdkajdsakjhdsajdhadjhaskdjahdkajsdajhdajdhajdhakjd', 1200000, '2;3;4', 'Tersedia'),
-(10, 'http://127.0.0.1:8000/assets/img/rooms/room1.jpg', 'Room 4', 'sadasdkajdsakjhdsajdhadjhaskdjahdkajsdajhdajdhajdhakjd', 1400000, '2;3;4', 'Tersedia');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `karyawan`
+-- Table structure for table `metode_pembayaran`
 --
 
-CREATE TABLE `karyawan` (
-  `id_karyawan` int(11) NOT NULL,
+CREATE TABLE `metode_pembayaran` (
+  `id_metode` int(11) NOT NULL,
   `nama` varchar(30) NOT NULL,
-  `tgl_lahir` date NOT NULL,
-  `jabatan` varchar(30) NOT NULL,
-  `tgl_diterima` date NOT NULL,
-  `gender` enum('Laki - Laki','Perempuan','Tidak Menyebutkan') NOT NULL,
-  `no_telp` varchar(16) NOT NULL,
-  `keterangan` text DEFAULT NULL
+  `no_rekening_hotel` varchar(30) NOT NULL,
+  `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -161,7 +145,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2023_02_19_125018_create_akun_table', 2);
+(5, '2023_02_19_125018_create_akun_table', 2),
+(6, '2023_03_02_162109_create_tamu_table', 3),
+(7, '2023_03_02_170852_create_admin_table', 4),
+(8, '2023_03_02_171732_create_admin_table', 5);
 
 -- --------------------------------------------------------
 
@@ -174,21 +161,6 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pembayaran`
---
-
-CREATE TABLE `pembayaran` (
-  `id_pembayaran` int(11) NOT NULL,
-  `id_tamu` int(11) NOT NULL,
-  `metode` varchar(30) NOT NULL,
-  `jumlah` int(11) NOT NULL,
-  `tgl_pembayaran` datetime NOT NULL,
-  `status` enum('Sukses','Gagal') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -217,13 +189,17 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `reservasi` (
   `id_rsv` int(11) NOT NULL,
-  `id_kamar` int(11) NOT NULL,
   `id_tamu` int(11) NOT NULL,
-  `tgl_rsv` datetime NOT NULL,
-  `tgl_in` datetime NOT NULL,
-  `tgl_out` datetime NOT NULL,
-  `total_harga` int(15) NOT NULL
+  `tgl_rsv` datetime NOT NULL DEFAULT current_timestamp(),
+  `booking_code` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reservasi`
+--
+
+INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `tgl_rsv`, `booking_code`) VALUES
+(2, 1, '2023-03-08 10:44:18', 'UUID()');
 
 -- --------------------------------------------------------
 
@@ -233,20 +209,50 @@ CREATE TABLE `reservasi` (
 
 CREATE TABLE `tamu` (
   `id_tamu` int(11) NOT NULL,
-  `id_akun` int(11) NOT NULL,
-  `nama` varchar(30) NOT NULL,
-  `tgl_lahir` date NOT NULL,
-  `gender` enum('Laki - Laki','Perempuan') NOT NULL,
-  `alamat` text NOT NULL,
-  `no_telp` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `username` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `verified` tinyint(1) NOT NULL DEFAULT 0,
+  `nama` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
+  `gender` enum('Laki - Laki','Perempuan') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_telp` bigint(15) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tamu`
 --
 
-INSERT INTO `tamu` (`id_tamu`, `id_akun`, `nama`, `tgl_lahir`, `gender`, `alamat`, `no_telp`) VALUES
-(3, 1, 'Rafi', '2023-02-03', 'Laki - Laki', 'dajdksajdasdasjnda', '09812972913');
+INSERT INTO `tamu` (`id_tamu`, `username`, `password`, `email`, `verified`, `nama`, `tgl_lahir`, `gender`, `alamat`, `no_telp`, `created_at`, `updated_at`) VALUES
+(1, 'test', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'testuser', '$2y$10$.pWdXz.dSV80ZDZqQ8Azbusv5.TtMmkE2SiTfo.2mNZSFmMINAkoW', 'test123@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tipe_kamar`
+--
+
+CREATE TABLE `tipe_kamar` (
+  `id_tipe` int(11) NOT NULL,
+  `nama` varchar(30) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `harga` bigint(15) NOT NULL,
+  `status` enum('Tersedia','Tidak Tersedia') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tipe_kamar`
+--
+
+INSERT INTO `tipe_kamar` (`id_tipe`, `nama`, `deskripsi`, `harga`, `status`) VALUES
+(1, 'Standard Room', 'jdsadjadhjkashdkasjhdasjhdjkahdjkahdasdakhdkasda', 5000000, 'Tersedia'),
+(2, 'Deluxe Room', 'jdsadjadhjkashdkasjhdasjhdjkahdjkahdasdakhdkasda', 10000000, 'Tersedia'),
+(3, 'Superior Room', 'jdsadjadhjkashdkasjhdasjhdjkahdjkahdasdakhdkasda', 15000000, 'Tersedia'),
+(4, 'Presidential Room', 'jdsadjadhjkashdkasjhdasjhdjkahdjkahdasdakhdkasda', 20000000, 'Tersedia');
 
 -- --------------------------------------------------------
 
@@ -256,10 +262,12 @@ INSERT INTO `tamu` (`id_tamu`, `id_akun`, `nama`, `tgl_lahir`, `gender`, `alamat
 
 CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
-  `id_tamu` int(11) NOT NULL,
-  `id_pembayaran` int(11) NOT NULL,
   `id_rsv` int(11) NOT NULL,
-  `tgl_transaksi` datetime NOT NULL
+  `metode` int(11) NOT NULL,
+  `tgl_transaksi` datetime NOT NULL,
+  `no_rekening_tamu` varchar(30) NOT NULL,
+  `total_harga` bigint(15) NOT NULL,
+  `status_pembayaran` enum('Gagal','Pending','berhasil') NOT NULL DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -287,15 +295,14 @@ CREATE TABLE `users` (
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id_admin`),
-  ADD KEY `id_karyawan` (`id_karyawan`),
-  ADD KEY `id_akun` (`id_akun`);
+  ADD PRIMARY KEY (`id_admin`);
 
 --
--- Indexes for table `akun`
+-- Indexes for table `detail_reservasi`
 --
-ALTER TABLE `akun`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `detail_reservasi`
+  ADD KEY `id_rsv` (`id_rsv`),
+  ADD KEY `id_kamar` (`id_kamar`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -314,13 +321,14 @@ ALTER TABLE `fasilitas_tambahan`
 -- Indexes for table `kamar`
 --
 ALTER TABLE `kamar`
-  ADD PRIMARY KEY (`id_kamar`);
+  ADD PRIMARY KEY (`id_kamar`),
+  ADD KEY `id_tipe` (`id_tipe`);
 
 --
--- Indexes for table `karyawan`
+-- Indexes for table `metode_pembayaran`
 --
-ALTER TABLE `karyawan`
-  ADD PRIMARY KEY (`id_karyawan`);
+ALTER TABLE `metode_pembayaran`
+  ADD PRIMARY KEY (`id_metode`);
 
 --
 -- Indexes for table `migrations`
@@ -335,13 +343,6 @@ ALTER TABLE `password_resets`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `pembayaran`
---
-ALTER TABLE `pembayaran`
-  ADD PRIMARY KEY (`id_pembayaran`),
-  ADD KEY `id_tamu` (`id_tamu`);
-
---
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -354,24 +355,27 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `reservasi`
   ADD PRIMARY KEY (`id_rsv`),
-  ADD KEY `id_tamu` (`id_tamu`),
-  ADD KEY `id_kamar` (`id_kamar`);
+  ADD KEY `id_tamu` (`id_tamu`);
 
 --
 -- Indexes for table `tamu`
 --
 ALTER TABLE `tamu`
-  ADD PRIMARY KEY (`id_tamu`),
-  ADD KEY `id_akun` (`id_akun`);
+  ADD PRIMARY KEY (`id_tamu`);
+
+--
+-- Indexes for table `tipe_kamar`
+--
+ALTER TABLE `tipe_kamar`
+  ADD PRIMARY KEY (`id_tipe`);
 
 --
 -- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `id_tamu` (`id_tamu`),
-  ADD KEY `id_pembayaran` (`id_pembayaran`),
-  ADD KEY `id_rsv` (`id_rsv`);
+  ADD KEY `id_rsv` (`id_rsv`),
+  ADD KEY `metode` (`metode`);
 
 --
 -- Indexes for table `users`
@@ -389,12 +393,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `akun`
---
-ALTER TABLE `akun`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -415,22 +413,16 @@ ALTER TABLE `kamar`
   MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `karyawan`
+-- AUTO_INCREMENT for table `metode_pembayaran`
 --
-ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `metode_pembayaran`
+  MODIFY `id_metode` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `pembayaran`
---
-ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -442,13 +434,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tamu`
 --
 ALTER TABLE `tamu`
-  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tipe_kamar`
+--
+ALTER TABLE `tipe_kamar`
+  MODIFY `id_tipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
@@ -467,31 +465,30 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `admin`
+-- Constraints for table `detail_reservasi`
 --
-ALTER TABLE `admin`
-  ADD CONSTRAINT `admin_ibfk_2` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`);
+ALTER TABLE `detail_reservasi`
+  ADD CONSTRAINT `detail_reservasi_ibfk_1` FOREIGN KEY (`id_rsv`) REFERENCES `reservasi` (`id_rsv`),
+  ADD CONSTRAINT `detail_reservasi_ibfk_3` FOREIGN KEY (`id_kamar`) REFERENCES `kamar` (`id_kamar`);
 
 --
--- Constraints for table `pembayaran`
+-- Constraints for table `kamar`
 --
-ALTER TABLE `pembayaran`
-  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_tamu`) REFERENCES `tamu` (`id_tamu`);
+ALTER TABLE `kamar`
+  ADD CONSTRAINT `kamar_ibfk_1` FOREIGN KEY (`id_tipe`) REFERENCES `tipe_kamar` (`id_tipe`);
 
 --
 -- Constraints for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  ADD CONSTRAINT `reservasi_ibfk_1` FOREIGN KEY (`id_kamar`) REFERENCES `kamar` (`id_kamar`),
-  ADD CONSTRAINT `reservasi_ibfk_2` FOREIGN KEY (`id_tamu`) REFERENCES `tamu` (`id_tamu`);
+  ADD CONSTRAINT `reservasi_ibfk_1` FOREIGN KEY (`id_tamu`) REFERENCES `tamu` (`id_tamu`);
 
 --
 -- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_rsv`) REFERENCES `reservasi` (`id_rsv`),
-  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_pembayaran`) REFERENCES `pembayaran` (`id_pembayaran`),
-  ADD CONSTRAINT `transaksi_ibfk_3` FOREIGN KEY (`id_tamu`) REFERENCES `tamu` (`id_tamu`);
+  ADD CONSTRAINT `transaksi_ibfk_3` FOREIGN KEY (`metode`) REFERENCES `metode_pembayaran` (`id_metode`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

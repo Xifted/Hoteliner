@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Akun;
 use App\Models\Tamu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +24,7 @@ class AccountsController extends Controller
             'username' => $request->input('username'),
             'password' => $request->input('password')
         ];
-
+        
         
         if (Auth::Attempt($data)) {
             return redirect('/');
@@ -48,7 +47,7 @@ class AccountsController extends Controller
     
     public function actionregister(Request $request)
     {
-        $akun = Akun::create([
+        $akun = Tamu::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'email' => $request->email
@@ -73,7 +72,6 @@ class AccountsController extends Controller
         $id_akun = Auth::user()->id;
         // return var_dump($id_akun);
         $tamu = Tamu::create([
-            'id_akun' => $id_akun,
             'nama' => $request->nama,
             'tgl_lahir' => $request->tgl_lahir,
             'gender' => $request->gender,

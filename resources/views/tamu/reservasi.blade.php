@@ -55,9 +55,9 @@
                             <div class="d-flex flex-column ms-3">
                                 @foreach ($daftarFasilitas as $fasilitas)
                                     <div class="d-flex form-check">
-                                        <input class="form-check-input" type="checkbox"
+                                        <input class="form-check-input fasilitas_check" type="checkbox"
                                             value="{{ $fasilitas->id_fasilitas }}" id="flexCheckDefault"
-                                            name="fasilitas[]">
+                                            name="fasilitas[]" data-id-element="facility-id">
                                         <label class="form-check-label ms-2" for="flexCheckDefault">
                                             {{ $fasilitas->nama }}
                                         </label>
@@ -96,16 +96,16 @@
                         <div class="d-flex">
                             <div class="d-flex flex-column border-end">
                                 <ol class="list-group list-group-numbered">
-                                    <li class="list-group-item border-0">Extra Bed</li>
-                                    <li class="list-group-item border-0">Cras justo odio</li>
-                                    <li class="list-group-item border-0">Cras justo odio</li>
+                                    @foreach ($daftarFasilitas as $fasilitas)
+                                    <li class="list-group-item border-0" id="facility-id" hidden>{{$fasilitas->nama}}</li>
+                                    @endforeach
                                 </ol>
                             </div>
                             <div class="d-flex flex-column">
                                 <ol class="list-group list-group-start">
-                                    <li class="list-group-item border-0">Rp 100.000</li>
-                                    <li class="list-group-item border-0">Rp 100.000</li>
-                                    <li class="list-group-item border-0">Rp 100.000</li>
+                                    @foreach ($daftarFasilitas as $fasilitas)
+                                    <li class="list-group-item border-0" id="facility-id" hidden>{{$fasilitas->harga}}</li>
+                                    @endforeach
                                 </ol>
                             </div>
                         </div>

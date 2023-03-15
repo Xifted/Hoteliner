@@ -14,7 +14,7 @@
                 <li class="nav-item"><a class="nav-link" href="/#contact">Contact Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="/rooms">Rooms List</a></li>
                 @if (Auth::check())
-                    <li class="nav-item"><a class="nav-link text-light fw-bold" href="/profile">Hi! {{Auth::user()->username}}</a></li>
+                    <li class="nav-item"><a class="nav-link text-light fw-bold" href="/logout">Hi! {{Auth::user()->username}}</a></li>
                 @else
                     <li class="nav-item"><a class="btn btn-warning nav-link text-black fw-bold" href="/login">Sign Up</a></li>
                 @endif

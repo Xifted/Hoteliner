@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Fasilitas_tambahan;
 use App\Models\Kamar;
 use App\Models\Tamu;
+use App\Models\Tipe_kamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class RoomsController extends Controller
 {
     public function index()
     {
-        $LKamar = Kamar::all();
+        $LKamar = Tipe_kamar::all();
         return view('tamu.rooms', [
             'LKamar' => $LKamar
         ]);
@@ -22,22 +23,11 @@ class RoomsController extends Controller
     public function reservasi($id)
     {
         $idTamu = Auth::user()->id;
-        $akun = DB::table('akun')
-            ->join('tamu', 'akun.id', '=', 'tamu.id_akun')
-            ->where('tamu.id_akun', '=', $idTamu)
-            ->select('tamu.nama', 'tamu.alamat','tamu.gender', 'tamu.no_telp')
-            ->get();
-        $LKamar = Kamar::find($id);
-        $daftarFasilitas = explode(';', $LKamar->id_fasilitas);
-        $fasilitas = [];
-        foreach ($daftarFasilitas as $f) {
-            array_push($fasilitas, Fasilitas_tambahan::find($f));
-        }
+        $listTipeKamar = Kamar::find($id);
 
         return view('tamu.reservasi', [
-            'LKamar' => $LKamar,
-            'daftarFasilitas' => $fasilitas,
-            'identitasTamu' => $akun[0]
+            'LKamar' => $listTipeKamar,
+            'identitasTamu' => $idTamu[0]
         ]);
     }
 

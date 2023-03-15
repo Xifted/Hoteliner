@@ -17,7 +17,7 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'tamu' => [
+            'driver' => 'session',
+            'provider' => 'tamu'
+        ]
     ],
 
     /*
@@ -62,9 +66,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Tamu::class,
         ],
-
+        'tamu' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Tamu::class
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

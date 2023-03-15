@@ -13,13 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('akun', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
+        Schema::create('admin', function (Blueprint $table) {
+            $table->integer('id_admin')->autoIncrement();
             $table->string('username', 16);
             $table->string('password', 255);
             $table->string('email', 100);
-            $table->enum('role', ['Tamu', 'VIP', 'Admin'])->default('Tamu');
-            $table->boolean('verified')->default(false);
+            $table->string('nama', 30);
+            $table->date('tgl_lahir');
+            $table->enum('gender', ['Laki - Laki', 'Perempuan']);
+            $table->enum('jabatan', ['Admin', 'Resepsionis']);
+            $table->date('tgl_diterima');
+            $table->text('alamat');
+            $table->string('no_telp', 15);
+            $table->text('keterangan');
             $table->timestamps();
         });
     }
@@ -31,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('akun');
+        Schema::dropIfExists('admin');
     }
 };

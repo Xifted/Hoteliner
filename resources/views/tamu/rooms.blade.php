@@ -22,12 +22,12 @@
 
     @include('tamu.layouts.navbar2')
     <section class="page-section bg-light d-flex justify-content-center" id="rooms">
-        <div class="container mx-0 mt-5">
+        <div class="container-fluid px-5 mt-5">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Rooms</h2>
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
-            <div class="d-flex flex-row-reverse mb-5">
+            <div class="d-flex flex-row-reverse mb-5 me-4">
                 <div class="input-group rounded w-25">
                     <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                         aria-describedby="search-addon" />
@@ -47,31 +47,55 @@
                     </div>
                 </div>
             </div>
-            <div class="container d-flex flex-column justify-content-between flex-fill px-0">
-                @foreach ($LKamar as $LKamar)
-                    <div class="d-flex p-2 border-bottom border-top justify-content-between mb-2 col-sm-11 p-3">
-                        <img class="col-sm-5 img-fluid" src="assets/img/rooms/room1.jpg" alt="">
-                        <div class="d-flex col-sm-6 flex-column justify-content-between flex-wrap">
-                            <div>
-                                <h4>{{ $LKamar->nama }}</h4>
-                                <p>{{ $LKamar->deskripsi }}</p>
-                                <p class="fw-bold">Status : {{ $LKamar->status }}</p>
-                            </div>
-                            <div class="d-flex flex-row justify-content-between w-100" style="">
-                                <p class="fw-bold room-price">{{ $LKamar->harga }}</p>
-                                <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
-                                    href="{{ url('rooms/reservasi/' . $LKamar->id_kamar) }}">Pesan</a>
+            <div class="container-fluid d-flex flex-row justify-content-between flex-fill px-0">
+                <div class="col-sm-8">
+                    @foreach ($LKamar as $LKamar)
+                        <div
+                            class="d-flex p-2 border-bottom border-top justify-content-between mb-2 p-3 flex-wrap">
+                            <img class="col-sm-5 img-fluid" src="assets/img/rooms/room1.jpg" alt="">
+                            <div class="d-flex col-sm-6 flex-column justify-content-between flex-wrap">
+                                <div class="text-wrap">
+                                    <h4>{{ $LKamar->nama }}</h4>
+                                    <p>{{ $LKamar->deskripsi }}</p>
+                                    <p class="fw-bold">Status : {{ $LKamar->status }}</p>
+                                    {{-- <ol class="list-group">
+                                    @foreach ($daftarFasilitas as $Fasilitas)
+                                    <li class="list-group-item border-0">{{$Fasilitas->nama}}</li>    
+                                    @endforeach
+                                </ol> --}}
+                                </div>
+                                <div class="d-flex flex-row justify-content-between w-100" style="">
+                                    <p class="fw-bold room-price">{{ $LKamar->harga }}</p>
+                                    <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold" onclick="cartFunction({{$LKamar->id_kamar}})" href="{{ url('rooms/reservasi/' . $LKamar->id_kamar) }}">Pesan</button>
+                                </div>
                             </div>
                         </div>
+                    @endforeach
+                </div>
+                <div class="bg-light shadow-sm d-flex flex-column h-100" style="width: 30%;">
+                    <h4 class="bg-dark text-white p-1 ps-2">Detail</h4>
+                    <div class="d-flex justify-content-between border-top border-bottom p-3">
+                        <img class="img-fluid" style="width: 40%;" src="{{ asset('assets/img/rooms/room1.jpg') }}" alt="">
+                        <div style="width: 55%;">
+                            <h5>Standard Room</h5>
+                            <p>Rooms : 2</p>
+                            <p id="harga">Rp 500.000</p>
+                        </div>
                     </div>
-                @endforeach
+                    <div class="d-flex justify-content-between border-top mt-2 p-3 align-items-center">
+                        <h5>Total : Rp 500.000</h5>
+                        <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold" href="{{ url('rooms/reservasi/' . $LKamar->id_kamar) }}">Pesan</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
     @include('tamu.layouts.footer')
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha512-nnzkI2u2Dy6HMnzMIkh7CPd1KX445z38XIu4jG1jGw7x5tSL3VBjE44dY4ihMU1ijAQV930SPM12cCFrB18sVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"
+        integrity="sha512-nnzkI2u2Dy6HMnzMIkh7CPd1KX445z38XIu4jG1jGw7x5tSL3VBjE44dY4ihMU1ijAQV930SPM12cCFrB18sVw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Core theme JS-->
     {{-- <script src="{{ asset('/js/tamu/scripts.js')}}"></script> --}}
     <script src="{{ asset('/js/tamu/rooms.js') }}"></script>
