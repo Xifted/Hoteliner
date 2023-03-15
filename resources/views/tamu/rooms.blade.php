@@ -11,6 +11,7 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
@@ -50,8 +51,7 @@
             <div class="container-fluid d-flex flex-row justify-content-between flex-fill px-0">
                 <div class="col-sm-8">
                     @foreach ($LKamar as $LKamar)
-                        <div
-                            class="d-flex p-2 border-bottom border-top justify-content-between mb-2 p-3 flex-wrap">
+                        <div class="d-flex p-2 border-bottom border-top justify-content-between mb-2 p-3 flex-wrap">
                             <img class="col-sm-5 img-fluid" src="{{ $LKamar->img_url }}" alt="Kamar">
                             <div class="d-flex col-sm-6 flex-column justify-content-between flex-wrap">
                                 <div class="text-wrap">
@@ -66,7 +66,9 @@
                                 </div>
                                 <div class="d-flex flex-row justify-content-between w-100" style="">
                                     <p class="fw-bold room-price">{{ $LKamar->harga }}</p>
-                                    <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold" onclick="addCartItem({{$LKamar->id_kamar}})" href="{{ url('rooms/reservasi/' . $LKamar->id_kamar) }}">Pesan</button>
+                                    <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
+                                        onclick="addCartItem(this)" data-id-kamar="{{ $LKamar->id_tipe }}" data-img-url="{{ $LKamar->img_url }}"
+                                        data-nama-kamar="{{ $LKamar->nama }}" data-harga-kamar="{{ $LKamar->harga }}">Pesan</button>
                                 </div>
                             </div>
                         </div>
@@ -74,17 +76,21 @@
                 </div>
                 <div class="bg-light shadow-sm d-flex flex-column h-100" style="width: 30%;">
                     <h4 class="bg-dark text-white p-1 ps-2">Detail</h4>
-                    <div id="cart" class="d-flex justify-content-between border-top border-bottom p-3">
-                        <img class="img-fluid" style="width: 40%;" src="{{ asset('assets/img/rooms/room1.jpg') }}" alt="">
-                        <div style="width: 55%;">
-                            <h5>Standard Room</h5>
-                            <p>Rooms : 2</p>
-                            <p id="harga">Rp 500.000</p>
-                        </div>
+                    <div id="cart" class="d-flex flex-column">
+                        {{-- <div class="d-flex justify-content-between border-top border-bottom p-3">
+                            <img class="img-fluid" style="width: 40%;" src="{{ asset('assets/img/rooms/room1.jpg') }}"
+                                alt="">
+                            <div style="width: 55%;">
+                                <h5>Standard Room</h5>
+                                <p>Rooms : 2</p>
+                                <p id="harga">Rp 500.000</p>
+                            </div>
+                        </div> --}}
                     </div>
-                    <div class="d-flex justify-content-between border-top mt-2 p-3 align-items-center">
-                        <h5>Total : Rp 500.000</h5>
-                        <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold" href="{{ url('rooms/reservasi/' . $LKamar->id_kamar) }}">Pesan</a>
+                    <div id="cartTotalContainer" class="d-flex justify-content-between border-top mt-2 p-3 align-items-center">
+                        <h5 id="cartTotal"></h5>
+                        <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
+                            href="{{ url('rooms/reservasi/' . $LKamar->id_kamar) }}">Pesan</a>
                     </div>
                 </div>
             </div>

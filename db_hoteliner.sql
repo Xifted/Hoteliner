@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2023 at 01:55 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Mar 15, 2023 at 05:13 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -238,6 +238,7 @@ INSERT INTO `tamu` (`id_tamu`, `username`, `password`, `email`, `verified`, `nam
 
 CREATE TABLE `tipe_kamar` (
   `id_tipe` int(11) NOT NULL,
+  `img_url` varchar(100) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `deskripsi` text NOT NULL,
   `harga` bigint(15) NOT NULL,
@@ -248,11 +249,11 @@ CREATE TABLE `tipe_kamar` (
 -- Dumping data for table `tipe_kamar`
 --
 
-INSERT INTO `tipe_kamar` (`id_tipe`, `nama`, `deskripsi`, `harga`, `status`) VALUES
-(1, 'Standard Room', 'jdsadjadhjkashdkasjhdasjhdjkahdjkahdasdakhdkasda', 5000000, 'Tersedia'),
-(2, 'Deluxe Room', 'jdsadjadhjkashdkasjhdasjhdjkahdjkahdasdakhdkasda', 10000000, 'Tersedia'),
-(3, 'Superior Room', 'jdsadjadhjkashdkasjhdasjhdjkahdjkahdasdakhdkasda', 15000000, 'Tersedia'),
-(4, 'Presidential Room', 'jdsadjadhjkashdkasjhdasjhdjkahdjkahdasdakhdkasda', 20000000, 'Tersedia');
+INSERT INTO `tipe_kamar` (`id_tipe`, `img_url`, `nama`, `deskripsi`, `harga`, `status`) VALUES
+(1, 'http://127.0.0.1:8000/assets/img/rooms/room1.jpg', 'Standard Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum.', 5000000, 'Tersedia'),
+(2, 'http://127.0.0.1:8000/assets/img/rooms/room2.jpg', 'Deluxe Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum.', 10000000, 'Tersedia'),
+(3, 'http://127.0.0.1:8000/assets/img/rooms/room2.jpg', 'Superior Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum.', 15000000, 'Tersedia'),
+(4, 'http://127.0.0.1:8000/assets/img/rooms/room3.jpg', 'Presidential Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum.', 20000000, 'Tersedia');
 
 -- --------------------------------------------------------
 

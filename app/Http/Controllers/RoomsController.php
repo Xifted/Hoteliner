@@ -14,9 +14,11 @@ class RoomsController extends Controller
 {
     public function index()
     {
-        $LKamar = Tipe_kamar::all();
+        $LTipe = Tipe_kamar::all();
+        // $tipeKamar = Tipe_kamar::find($id);
         return view('tamu.rooms', [
-            'LKamar' => $LKamar
+            'LKamar' => $LTipe,
+            // 'tipeKamarPerId' => $tipeKamar
         ]);
     }
 
