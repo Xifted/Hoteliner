@@ -52,7 +52,7 @@
                     @foreach ($LKamar as $LKamar)
                         <div
                             class="d-flex p-2 border-bottom border-top justify-content-between mb-2 p-3 flex-wrap">
-                            <img class="col-sm-5 img-fluid" src="assets/img/rooms/room1.jpg" alt="">
+                            <img class="col-sm-5 img-fluid" src="{{ $LKamar->img_url }}" alt="Kamar">
                             <div class="d-flex col-sm-6 flex-column justify-content-between flex-wrap">
                                 <div class="text-wrap">
                                     <h4>{{ $LKamar->nama }}</h4>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="d-flex flex-row justify-content-between w-100" style="">
                                     <p class="fw-bold room-price">{{ $LKamar->harga }}</p>
-                                    <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold" onclick="cartFunction({{$LKamar->id_kamar}})" href="{{ url('rooms/reservasi/' . $LKamar->id_kamar) }}">Pesan</button>
+                                    <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold" onclick="addCartItem({{$LKamar->id_kamar}})" href="{{ url('rooms/reservasi/' . $LKamar->id_kamar) }}">Pesan</button>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="bg-light shadow-sm d-flex flex-column h-100" style="width: 30%;">
                     <h4 class="bg-dark text-white p-1 ps-2">Detail</h4>
-                    <div class="d-flex justify-content-between border-top border-bottom p-3">
+                    <div id="cart" class="d-flex justify-content-between border-top border-bottom p-3">
                         <img class="img-fluid" style="width: 40%;" src="{{ asset('assets/img/rooms/room1.jpg') }}" alt="">
                         <div style="width: 55%;">
                             <h5>Standard Room</h5>

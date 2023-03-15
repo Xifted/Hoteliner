@@ -174,10 +174,10 @@
                     <h3 class="section-subheading text-muted">Untuk Mengenal Kami Lebih Jauh</h3>
                 </div>
                 <div class=".flex-row d-flex justify-content-around mb-5 border-bottom pb-5">
-                    <div class="col-sm-5">
-                        <img class="img-fluid" src="assets/img/about/about.jpg" alt="">
+                    <div class="col-sm-4">
+                        <img class="img-fluid" src="{{ asset('/assets/img/about/about1.jpg')}}" alt="">
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-5 d-flex align-items-center">
                         <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero iure quasi sit dolores illum itaque pariatur, 
                             animi quae quis beatae fugiat maiores aspernatur repellendus, laborum qui nobis voluptatibus numquam rem.
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero iure quasi sit dolores illum itaque pariatur, 
@@ -188,13 +188,14 @@
                             animi quae quis beatae fugiat maiores aspernatur repellendus, laborum qui nobis voluptatibus numquam rem.</p>
                     </div>
                 </div>
-                <h2 class="text-center section-heading text-uppercase mt-6">Timeline</h2>
+                <h2 class="text-center section-heading text-uppercase my-5">Timeline</h2>
                 <ul class="timeline">  
                     <li>
                         <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/about1.jpg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>2014-2017</h4>
+                                <hr>
                                 <h4 class="subheading">Pembangunan Hotel</h4>
                             </div>
                             <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
@@ -205,6 +206,7 @@
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>12 September 2018</h4>
+                                <hr>
                                 <h4 class="subheading">Hoteliner Menjadi Hotel Dengan Jumlah Penginap Terbanyak di Indonesia</h4>
                             </div>
                             <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
@@ -215,6 +217,7 @@
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>4 januari 2019</h4>
+                                <hr>
                                 <h4 class="subheading">Melayani Reservasi Online</h4>
                             </div>
                             <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
@@ -225,6 +228,7 @@
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>19 November 2019</h4>
+                                <hr>
                                 <h4 class="subheading">Hoteliner Mencapai 1.000.000 Jumlah Penginap</h4>
                             </div>
                             <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
