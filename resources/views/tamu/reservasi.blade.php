@@ -8,9 +8,10 @@
     <meta name="author" content="" />
     <title>Hoteliner - Reservasi</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('/assets/img//logos/Hoteliner-logos.jpeg') }}" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
@@ -28,11 +29,11 @@
             </div>
             <div class="d-flex">
                 <div class="bg-white" style="width: 60%;">
-                    <h4 class="bg-dark text-white p-1 ps-2 mt-3 mx-4">Reservasi</h4>
+                    <h4 class="bg-dark text-white p-1 ps-2">Reservasi</h4>
                     <form action="">
                         <div class="d-grid bg-white rounded p-4"
                             style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
-                            <h4>Metode Pembayaran : </h4>
+                            {{-- <h4>Metode Pembayaran : </h4>
                             <div class="d-flex flex-column ms-3">
                                 <div class="d-flex form-check">
                                     <input class="form-check-input" type="radio" name="metode-pembayaran"
@@ -49,8 +50,8 @@
                                         id="" value="Lorem Ipsum" />
                                     <label class="form-check-label ms-2" for="html">Lorem Ipsum</label><br>
                                 </div>
-                            </div>
-                            <h4>Fasilitas Tambahan : </h4>
+                            </div> --}}
+                            {{-- <h4>Fasilitas Tambahan : </h4>
 
                             <div class="d-flex flex-column ms-3">
                                 @foreach ($daftarFasilitas as $fasilitas)
@@ -63,69 +64,49 @@
                                         </label>
                                     </div>
                                 @endforeach
-                            </div>
+                            </div> --}}
                             <h4>Tanggal Check-In</h4>
-                            <input class="form-control text-dark w-50" name="tgl_in" type="date"
+                            <input class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
+                                placeholder="Tanggal Check-In *" required />
+                            <h4>Tanggal Check-Out</h4>
+                            <input class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Catatan : </h4>
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <div class="form-floating ms-4">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
                                 <label for="floatingTextarea2">Catatan</label>
                             </div>
 
                         </div>
 
-                        <div class="d-flex border-top justify-content-between p-3">
+                        {{-- <div class="d-flex border-top justify-content-between p-3">
                             <h4>Total : Rp.500.000</h4>
                             <a class="col-sm-2 btn btn-warning nav-link text-black fw-bold" href="#">Pesan</a>
-                        </div>
+                        </div> --}}
                     </form>
                 </div>
-                <div class="bg-white p-3 ms-4 d-flex flex-column" style="width: 40%;">
+                <div class="bg-white shadow-sm d-flex flex-column h-100 ms-5" style="width: 30%;">
                     <h4 class="bg-dark text-white p-1 ps-2">Detail</h4>
-                    <div class="d-flex justify-content-between">
-                        <img class="img-fluid" style="width: 45%;" src="{{ asset('assets/img/rooms/room1.jpg') }}"
-                            alt="">
-                        <div class="w-50">
-                            <h4>{{ $LKamar->nama }}</h4>
-                            <p id="harga">{{ $LKamar->harga }}</p>
-                        </div>
+                    <div id="cart" class="d-flex flex-column bg-white">
+                        {{-- <div class="d-flex justify-content-between border-top border-bottom p-3">
+                            <img class="img-fluid" style="width: 40%;" src="{{ asset('assets/img/rooms/room1.jpg') }}"
+                                alt="">
+                            <div style="width: 55%;">
+                                <h5>Standard Room</h5>
+                                <p>Rooms : 2</p>
+                                <p id="harga">Rp 500.000</p>
+                            </div>
+                        </div> --}}
                     </div>
-                    <div class="d-flex flex-column mt-3">
-                        <h5>Fasilitas Tambahan</h5>
-                        <div class="d-flex">
-                            <div class="d-flex flex-column border-end">
-                                <ol class="list-group list-group-numbered">
-                                    @foreach ($daftarFasilitas as $fasilitas)
-                                    <li class="list-group-item border-0" id="facility-id" hidden>{{$fasilitas->nama}}</li>
-                                    @endforeach
-                                </ol>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <ol class="list-group list-group-start">
-                                    @foreach ($daftarFasilitas as $fasilitas)
-                                    <li class="list-group-item border-0" id="facility-id" hidden>{{$fasilitas->harga}}</li>
-                                    @endforeach
-                                </ol>
-                            </div>
-                        </div>
-                        <h5>Identitas</h5>
-                        <div class="d-flex">
-                            <div class="d-flex flex-column border-end">
-                                <ol class="list-group">
-                                    <li class="list-group-item border-0">Nama</li>
-                                    <li class="list-group-item border-0">Jenis Kelamin</li>
-                                    <li class="list-group-item border-0">Nomor HP</li>
-                                </ol>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <ol class="list-group list-group-start">
-                                    <li class="list-group-item border-0">{{ $identitasTamu->nama }}</li>
-                                    <li class="list-group-item border-0">{{ $identitasTamu->gender }}</li>
-                                    <li class="list-group-item border-0">{{ $identitasTamu->no_telp }}</li>
-                                </ol>
-                            </div>
-                        </div>
+                    <div id="cartTotalContainer"
+                        class="d-flex justify-content-between border-top mt-2 p-3 align-items-center bg-white">
+                        <h5 id="cartTotal"></h5>
+                        @if (Auth::check())
+                            <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
+                                href="{{ url('rooms/reservasi/action') }}">Pesan</a>
+                        @else
+                            <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold" href="/login">Pesan</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -136,7 +117,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     {{-- <script src="{{ asset('/js/tamu/scripts.js') }}"></script> --}}
-    <script src="{{ asset('/js/tamu/reservasi.js') }}"></script>
+    <script type="module" src="{{ asset('/js/tamu/reservasi.js') }}"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

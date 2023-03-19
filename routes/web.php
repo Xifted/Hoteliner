@@ -29,8 +29,10 @@ Route::get('logout', [AccountsController::class, 'actionlogout'])->name('actionl
 //tamu
 Route::get('', [HomeController::class, 'index']);
 Route::get('rooms', [RoomsController::class, 'index']);
-Route::get('rooms/reservasi/{id}', [RoomsController::class, 'reservasi'])->middleware('auth');
-
+Route::get('copy', [RoomsController::class, 'copy']);
+//reservasi
+Route::get('rooms/reservasi/action', [RoomsController::class, 'prosesReservasi'])->middleware('auth');
+Route::get('rooms/detailreservasi/{id}', [RoomsController::class, 'detailReservasi'])->middleware('auth');
 
 //admin
 Route::get('admin-dashboard', [AdminController::class, 'index']);

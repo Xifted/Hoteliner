@@ -22,6 +22,7 @@ const addCartItem = (e) => {
     const namaKamar = e.dataset.namaKamar
     const hargaKamar = e.dataset.hargaKamar
     const imgUrl = e.dataset.imgUrl
+
     if (localStorage.getItem('cart') == null) {
         localStorage.setItem('cart', JSON.stringify([]));
     }
@@ -45,6 +46,7 @@ const addCartItem = (e) => {
     // Save keranjang ke dalam localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
     getCartItems();
+
 };
 
 const removeCartItem = (idKamar) => {
@@ -97,21 +99,21 @@ const getCartItems = () => {
         </div>
       `;
     });
-    if (totalHarga <= 0){
-        if(!document.querySelector('#cartTotalContainer').classList.contains('d-none')){
+    if (totalHarga <= 0) {
+        if (!document.querySelector('#cartTotalContainer').classList.contains('d-none')) {
             document.querySelector('#cartTotalContainer').classList.add('d-none');
         }
-        if(document.querySelector('#cartTotalContainer').classList.contains('d-flex')){
+        if (document.querySelector('#cartTotalContainer').classList.contains('d-flex')) {
             document.querySelector('#cartTotalContainer').classList.remove('d-flex');
         }
-    }else{
-        if(document.querySelector('#cartTotalContainer').classList.contains('d-none')){
+    } else {
+        if (document.querySelector('#cartTotalContainer').classList.contains('d-none')) {
             document.querySelector('#cartTotalContainer').classList.remove('d-none');
         }
-        if(!document.querySelector('#cartTotalContainer').classList.contains('d-flex')){
+        if (!document.querySelector('#cartTotalContainer').classList.contains('d-flex')) {
             document.querySelector('#cartTotalContainer').classList.add('d-flex');
         }
-                
+
         let IDRRupiah = new Intl.NumberFormat("id-ID", {
             style: "currency",
             currency: "IDR",

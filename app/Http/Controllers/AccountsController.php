@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Tamu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Session;
 
 class AccountsController extends Controller
 {
-    public function login(){
+    public function login()
+    {
         if (Auth::check()) {
             return redirect('/');
-        }else{
+        } else {
             return view('tamu.login');
         }
     }
@@ -24,11 +26,11 @@ class AccountsController extends Controller
             'username' => $request->input('username'),
             'password' => $request->input('password')
         ];
-        
-        
+
+
         if (Auth::Attempt($data)) {
             return redirect('/');
-        }else{
+        } else {
             Session::flash('error', 'Email atau Password Salah');
             return redirect('/login');
         }
@@ -44,7 +46,7 @@ class AccountsController extends Controller
     {
         return view('tamu.register.register');
     }
-    
+
     public function actionregister(Request $request)
     {
         $akun = Tamu::create([
@@ -52,32 +54,33 @@ class AccountsController extends Controller
             'password' => Hash::make($request->password),
             'email' => $request->email
         ]);
-
+        
         Session::flash('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan username dan password.');
         return redirect('/login');
     }
-    
+
     public function datadiri()
     {
         if (Auth::check()) {
             return view('tamu.register.datadiri');
-        }else{
+        } else {
             return redirect('/login');
         }
-        
     }
-    
+
     public function actiondatadiri(Request $request)
     {
-        $id_akun = Auth::user()->id;
+        $id_akun = Auth::user()->id_tamu;
         // return var_dump($id_akun);
-        $tamu = Tamu::create([
-            'nama' => $request->nama,
-            'tgl_lahir' => $request->tgl_lahir,
-            'gender' => $request->gender,
-            'alamat' => $request->alamat,
-            'no_telp' => $request->no_telp
-        ]);
+        $tamu = DB::table('tamu')
+            ->where('id_tamu', '=', $id_akun)
+            ->update([
+                'nama' => $request->nama,
+                'tgl_lahir' => $request->tgl_lahir,
+                'gender' => $request->gender,
+                'alamat' => $request->alamat,
+                'no_telp' => $request->no_telp
+            ]);
         
         Session::flash('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan username dan password.');
         return redirect('/login');
