@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2023 at 05:13 PM
+-- Generation Time: Mar 20, 2023 at 02:12 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -199,7 +199,8 @@ CREATE TABLE `reservasi` (
 --
 
 INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `tgl_rsv`, `booking_code`) VALUES
-(2, 1, '2023-03-08 10:44:18', 'UUID()');
+(1, 4, '2023-03-19 21:49:46', '2e075d05-95d9-47fa-8136-4409dbe6cd86'),
+(2, 4, '2023-03-19 22:29:40', '7dec6902-d40f-481a-8fa7-ecd6a549786a');
 
 -- --------------------------------------------------------
 
@@ -228,7 +229,9 @@ CREATE TABLE `tamu` (
 
 INSERT INTO `tamu` (`id_tamu`, `username`, `password`, `email`, `verified`, `nama`, `tgl_lahir`, `gender`, `alamat`, `no_telp`, `created_at`, `updated_at`) VALUES
 (1, 'test', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'testuser', '$2y$10$.pWdXz.dSV80ZDZqQ8Azbusv5.TtMmkE2SiTfo.2mNZSFmMINAkoW', 'test123@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(2, 'testuser', '$2y$10$.pWdXz.dSV80ZDZqQ8Azbusv5.TtMmkE2SiTfo.2mNZSFmMINAkoW', 'test123@gmail.com', 0, 'Vincent', '2023-03-15', NULL, 'dsadad', 908309128312, NULL, NULL),
+(3, 'test123', '$2y$10$kwxdNlavd46x3uYfgAkvNegl8yioCieI348YXdNo70FFNLoheehxO', 'test@gmail.com', 0, 'Budi', '2000-06-22', NULL, 'Jalan Kaki', 8392183918, NULL, NULL),
+(4, 'Mustofa', '$2y$10$JHeC8ItytJJWUhA6d50bDOr2qfWfmGFFyC33GKzXxFr7dhlW9NM4a', 'mustofa@gmail.com', 0, 'Mustofa Nur Wahid', '2005-04-30', NULL, 'Jalan Jalan', 82187318321, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -441,7 +444,7 @@ ALTER TABLE `reservasi`
 -- AUTO_INCREMENT for table `tamu`
 --
 ALTER TABLE `tamu`
-  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tipe_kamar`
