@@ -28,9 +28,9 @@
                 <h2 class="section-heading text-uppercase">Reservasi</h2>
             </div>
             <div class="d-flex">
-                <div class="bg-white" style="width: 60%;">
+                <div class="bg-white h-75 shadow-sm" style="width: 60%;">
                     <h4 class="bg-dark text-white p-1 ps-2">Reservasi</h4>
-                    <form action="">
+                    <form action="" id="form-pengubahan" data-id="-1">
                         <div class="d-grid bg-white rounded p-4"
                             style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
                             {{-- <h4>Metode Pembayaran : </h4>
@@ -66,14 +66,14 @@
                                 @endforeach
                             </div> --}}
                             <h4>Tanggal Check-In</h4>
-                            <input class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
+                            <input id="checkIn" onchange="saveDetailValue()" class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Tanggal Check-Out</h4>
-                            <input class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
+                            <input id="checkOut" onchange="saveDetailValue()" class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Catatan : </h4>
                             <div class="form-floating ms-4">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
+                                <textarea id="catatan" onchange="saveDetailValue()" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
                                 <label for="floatingTextarea2">Catatan</label>
                             </div>
 

@@ -50,14 +50,15 @@
             </div>
             <div class="container-fluid d-flex flex-row justify-content-between flex-fill px-0">
                 <div class="col-sm-8">
-                    @foreach ($LKamar as $LKamar)
-                        <div class="d-flex p-2 border-bottom border-top justify-content-between mb-2 p-3 flex-wrap">
-                            <img class="col-sm-5 img-fluid" src="{{ $LKamar->img_url }}" alt="Kamar">
+                    @foreach ($LTipe as $LTipe)
+                        <div
+                            class="d-flex p-2 border-bottom border-top justify-content-between mb-2 p-3 flex-wrap bg-white">
+                            <img class="col-sm-5 img-fluid" src="{{ $LTipe->img_url }}" alt="Tipe">
                             <div class="d-flex col-sm-6 flex-column justify-content-between flex-wrap">
                                 <div class="text-wrap">
-                                    <h4>{{ $LKamar->nama }}</h4>
-                                    <p>{{ $LKamar->deskripsi }}</p>
-                                    <p class="fw-bold">Status : {{ $LKamar->status }}</p>
+                                    <h4>{{ $LTipe->nama }}</h4>
+                                    <p>{{ $LTipe->deskripsi }}</p>
+                                    <p class="fw-bold">{{$KQty[$LTipe->id_tipe]??0 ? "Tersedia : " . $KQty[$LTipe->id_tipe] : "Status : Tidak Tersedia"}}</p>
                                     {{-- <ol class="list-group">
                                     @foreach ($daftarFasilitas as $Fasilitas)
                                     <li class="list-group-item border-0">{{$Fasilitas->nama}}</li>    
@@ -65,12 +66,18 @@
                                 </ol> --}}
                                 </div>
                                 <div class="d-flex flex-row justify-content-between w-100" style="">
-                                    <p class="fw-bold room-price">{{ $LKamar->harga }}</p>
+                                    <p class="fw-bold room-price">{{ $LTipe->harga }}</p>
                                     @if (Auth::check())
-                                        <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
-                                            onclick="addCartItem(this)" data-id-kamar="{{ $LKamar->id_tipe }}"
-                                            data-img-url="{{ $LKamar->img_url }}" data-nama-kamar="{{ $LKamar->nama }}"
-                                            data-harga-kamar="{{ $LKamar->harga }}">Tambah</button>
+                                        @if ($KQty[$LTipe->id_tipe]??0)
+                                        <button id="tambahBtn"
+                                        class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
+                                        onclick="addCartItem(this)" data-id-tipe="{{ $LTipe->id_tipe }}"
+                                        data-img-url="{{ $LTipe->img_url }}" data-nama-kamar="{{ $LTipe->nama }}"
+                                        data-harga-kamar="{{ $LTipe->harga }}"
+                                        data-max-qty="{{ $KQty[$LTipe->id_tipe]??0 }}">Tambah</button>
+                                        @else
+                                        <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold" disabled>Tidak Tersedia</button>
+                                        @endif
                                     @else
                                         <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
                                             href="/login">Tambah</a>

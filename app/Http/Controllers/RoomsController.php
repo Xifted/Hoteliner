@@ -16,11 +16,17 @@ class RoomsController extends Controller
     public function index()
     {
         $LTipe = Tipe_kamar::all();
+        $KQty = DB::table('kamar')->select(array('id_tipe', DB::raw('COUNT(id_tipe) AS maxQty')))->where('status', '=', 'Tersedia')->groupBy('id_tipe')->get();
 
-        // $tipeKamar = Tipe_kamar::find($id);
+        $RoomAvailability = [];
+
+        foreach ($KQty as $Qty) {
+            $RoomAvailability[$Qty->id_tipe] = $Qty->maxQty;
+        }
+        // return var_dump($RoomAvailability);
         return view('tamu.rooms', [
-            'LKamar' => $LTipe,
-            // 'tipeKamarPerId' => $tipeKamar
+            'LTipe' => $LTipe,
+            'KQty' => $RoomAvailability
         ]);
     }
 
@@ -36,7 +42,7 @@ class RoomsController extends Controller
                 'booking_code' => Str::uuid()->toString()
             ]);
             $id_rsv = DB::table('reservasi')->orderBy('id_rsv', 'desc')->limit(1)->get('id_rsv');
-            
+
             return redirect('rooms/detailreservasi/' . $id_rsv[0]->id_rsv);
         }
     }
