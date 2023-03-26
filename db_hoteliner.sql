@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2023 at 02:12 AM
+-- Generation Time: Mar 27, 2023 at 12:56 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -44,6 +44,13 @@ CREATE TABLE `admin` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id_admin`, `username`, `password`, `email`, `nama`, `tgl_lahir`, `gender`, `jabatan`, `tgl_diterima`, `alamat`, `no_telp`, `keterangan`, `created_at`, `updated_at`) VALUES
+(1, 'testadmin', '$2a$12$ckQLPKYauvmLnj7P3c3j/uTPTkV3utVSLJ.J2t/Tt4X9fWgCyENSK', 'admin@gmail.com', 'Vicnent', '2023-03-22', 'Laki - Laki', 'Admin', '2023-03-08', 'dadsadasdasda', '2515151423412', 'dasdasdasdadasdas', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -57,6 +64,17 @@ CREATE TABLE `detail_reservasi` (
   `tgl_out` datetime DEFAULT NULL,
   `harga` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detail_reservasi`
+--
+
+INSERT INTO `detail_reservasi` (`id_rsv`, `id_kamar`, `tgl_in`, `tgl_out`, `harga`) VALUES
+(1, 2, '2023-03-09 09:44:19', '2023-03-08 09:44:19', 1000000),
+(2, 4, '2023-03-26 04:47:42', '2023-03-26 04:47:42', 313131232),
+(3, 5, '2023-03-26 04:48:56', '2023-03-26 04:48:56', 31290412),
+(1, 11, '2023-03-26 06:07:54', '2023-03-26 06:07:54', 42141421421),
+(1, 12, '2023-03-26 06:07:54', '2023-03-26 06:07:54', 412412412);
 
 -- --------------------------------------------------------
 
@@ -110,6 +128,24 @@ CREATE TABLE `kamar` (
   `deskripsi` text DEFAULT NULL,
   `status` enum('Tersedia','Tidak Tersedia') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kamar`
+--
+
+INSERT INTO `kamar` (`id_kamar`, `id_tipe`, `nama`, `deskripsi`, `status`) VALUES
+(1, 1, 'Room 1', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(2, 1, 'Room 2', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(3, 1, 'Room 3', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(4, 2, 'Room 4', 'dashdasdaskdasjhdjasdkjas', 'Tidak Tersedia'),
+(5, 2, 'Room 5', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(6, 2, 'Room 6', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(7, 3, 'Room 7', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(8, 3, 'Room 8', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(9, 3, 'Room 9', 'dashdasdaskdasjhdjasdkjas', 'Tidak Tersedia'),
+(10, 4, 'Room 10', 'dashdasdaskdasjhdjasdkjas', 'Tidak Tersedia'),
+(11, 4, 'Room 11', 'dashdasdaskdasjhdjasdkjas', 'Tidak Tersedia'),
+(12, 4, 'Room 12', 'dashdasdaskdasjhdjasdkjas', 'Tersedia');
 
 -- --------------------------------------------------------
 
@@ -200,7 +236,12 @@ CREATE TABLE `reservasi` (
 
 INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `tgl_rsv`, `booking_code`) VALUES
 (1, 4, '2023-03-19 21:49:46', '2e075d05-95d9-47fa-8136-4409dbe6cd86'),
-(2, 4, '2023-03-19 22:29:40', '7dec6902-d40f-481a-8fa7-ecd6a549786a');
+(2, 4, '2023-03-19 22:29:40', '7dec6902-d40f-481a-8fa7-ecd6a549786a'),
+(3, 2, '2023-03-22 06:40:46', 'd151485a-f6e3-46a3-8fbb-8e553ce7c27f'),
+(4, 2, '2023-03-22 06:47:05', 'c50a557d-d996-4b92-865c-40dc3c8605a0'),
+(5, 2, '2023-03-22 07:12:07', 'b2a67eca-c9d0-4899-9494-6962545704c4'),
+(6, 2, '2023-03-22 22:29:41', 'c9abf885-0e5c-495c-99f4-dbd47fdaf2cf'),
+(7, 2, '2023-03-24 04:28:29', '399b400d-8fc8-425e-8d73-e1ed923b71f5');
 
 -- --------------------------------------------------------
 
@@ -228,7 +269,7 @@ CREATE TABLE `tamu` (
 --
 
 INSERT INTO `tamu` (`id_tamu`, `username`, `password`, `email`, `verified`, `nama`, `tgl_lahir`, `gender`, `alamat`, `no_telp`, `created_at`, `updated_at`) VALUES
-(1, 'test', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(1, 'test', '$2a$12$ckQLPKYauvmLnj7P3c3j/uTPTkV3utVSLJ.J2t/Tt4X9fWgCyENSK', 'test@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2, 'testuser', '$2y$10$.pWdXz.dSV80ZDZqQ8Azbusv5.TtMmkE2SiTfo.2mNZSFmMINAkoW', 'test123@gmail.com', 0, 'Vincent', '2023-03-15', NULL, 'dsadad', 908309128312, NULL, NULL),
 (3, 'test123', '$2y$10$kwxdNlavd46x3uYfgAkvNegl8yioCieI348YXdNo70FFNLoheehxO', 'test@gmail.com', 0, 'Budi', '2000-06-22', NULL, 'Jalan Kaki', 8392183918, NULL, NULL),
 (4, 'Mustofa', '$2y$10$JHeC8ItytJJWUhA6d50bDOr2qfWfmGFFyC33GKzXxFr7dhlW9NM4a', 'mustofa@gmail.com', 0, 'Mustofa Nur Wahid', '2005-04-30', NULL, 'Jalan Jalan', 82187318321, NULL, NULL);
@@ -396,7 +437,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -414,7 +455,7 @@ ALTER TABLE `fasilitas_tambahan`
 -- AUTO_INCREMENT for table `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `metode_pembayaran`
@@ -438,7 +479,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tamu`
