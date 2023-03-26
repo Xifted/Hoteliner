@@ -66,14 +66,14 @@
                                 @endforeach
                             </div> --}}
                             <h4>Tanggal Check-In</h4>
-                            <input id="checkIn" onchange="saveDetailValue()" class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
+                            <input onchange="getDetailData()" id="checkIn"  class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Tanggal Check-Out</h4>
-                            <input id="checkOut" onchange="saveDetailValue()" class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
+                            <input onchange="getDetailData()" id="checkOut" class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Catatan : </h4>
                             <div class="form-floating ms-4">
-                                <textarea id="catatan" onchange="saveDetailValue()" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
+                                <textarea onchange="getDetailData()" id="catatan" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
                                 <label for="floatingTextarea2">Catatan</label>
                             </div>
 
@@ -97,6 +97,7 @@
                                 <p id="harga">Rp 500.000</p>
                             </div>
                         </div> --}}
+                        {{-- <p class="d-none" data-id-tipe="{{ $LTipe->id_tipe }}" id="data-id"></p> --}}
                     </div>
                     <div id="cartTotalContainer"
                         class="d-flex justify-content-between border-top mt-2 p-3 align-items-center bg-white">

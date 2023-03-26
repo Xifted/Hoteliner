@@ -22,6 +22,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 document.addEventListener("DOMContentLoaded", () => {
     getCartItems();
+    getDetailData();
 });
 
 const getCartItems = () => {
@@ -33,11 +34,12 @@ const getCartItems = () => {
 
     // Reset cart menjadi kosong
     cartTable.innerHTML = "";
+    
     // Looping cart item untuk dijadikan isi dari 'cart'
     cart.forEach((item) => {
         totalHarga += item.qty * item.hargaKamar;
         cartTable.innerHTML += `
-        <button data-id-tipe="{{ $LTipe->id_tipe }}" onclick="getDetailData(this)" id="dataBtn" type="button" class="btn d-flex justify-content-between border-top border-bottom p-3 border-0 bg-white">
+        <button data-id-tipe="" onclick="getDetailData(this)" id="dataBtn" type="button" class="btn d-flex justify-content-between border-top border-bottom p-3 border-0 bg-white">
             <img class="img-fluid" style="width: 40%;" src="${item.imgUrl}"
                 alt="">
             <div style="width: 55%;">
@@ -95,56 +97,93 @@ const getCartItems = () => {
     }
 };
 
-const saveDetailValue = () => {
-    const id_tipe = document.querySelector("#form-pengubahan").dataset.id;
-    let checkIn = document.querySelector("#checkIn").value;
-    let checkOut = document.querySelector("#checkOut").value;
-    let catatan = document.querySelector("#catatan").value;
+// const saveDetailValue = () => {
+//     const id_tipe = document.querySelector("#form-pengubahan").dataset.id;
+//     let checkIn = document.querySelector("#checkIn").value;
+//     let checkOut = document.querySelector("#checkOut").value;
+//     let catatan = document.querySelector("#catatan").value;
 
-    let cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
+//     let cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
 
-    editedItem = cart.find(function (item) {
-        if (item.id == id_tipe) {
-            return item.id;
-        } else {
-            return -1;
-        }
-    });
+//     editedItem = cart.find(function (item) {
+//         if (item.id == id_tipe) {
+//             return item.id;
+//         } else {
+//             return -1;
+//         }
+//     });
 
-    if (editedItem == -1) {
-        return;
-    }
+//     if (editedItem == -1) {
+//         return;
+//     }
 
-    cart[editedItem].checkIn = checkIn;
-    cart[editedItem].checkOut = checkOut;
-    cart[editedItem].catatan = catatan;
+//     cart[editedItem].checkIn = checkIn;
+//     cart[editedItem].checkOut = checkOut;
+//     cart[editedItem].catatan = catatan;
 
-    // if (cart.find((item) => item.id)) {
-    //     cart.forEach((item) => {
-    //         item.checkIn = checkIn;
-    //         item.checkOut = checkOut;
-    //         item.catatan = catatan;
-    //         return;
-    //     });
-    // }
+//     // if (cart.find((item) => item.id)) {
+//     //     cart.forEach((item) => {
+//     //         item.checkIn = checkIn;
+//     //         item.checkOut = checkOut;
+//     //         item.catatan = catatan;
+//     //         return;
+//     //     });
+//     // }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-};
+//     localStorage.setItem("cart", JSON.stringify(cart));
+// };
 
-const getDetailData = (e) => {
-    const idTipe =  e.dataset.idTipe;
+const getDetailData = (idTipe) => {
+    // const idTipe =  e.dataset.idTipe;
 
-    const detailCart = document.querySelector("#form-pengubahan")
-    // let checkIn = document.querySelector('#checkIn');
-    // let checkOut = document.querySelector('#checkOut');
-    // let catatan = document.querySelector('#catatan');
+    // const detailCart = document.querySelector("#form-pengubahan")
+    let checkIn = document.querySelector('#checkIn');
+    let checkOut = document.querySelector('#checkOut');
+    let catatan = document.querySelector('#catatan');
 
-    let dataBtn = document.querySelector('#dataBtn');
+    // let dataBtn = document.querySelector('#dataBtn');
     const cart = JSON.parse(localStorage.getItem('cart') ?? '[]')
 
-    detailCart.innerHTML = '';
+    // detailCart.innerHTML = '';
     cart.forEach((item) =>{
+        if(item.id === idTipe){
+            checkIn.value = item.checkIn;
+            checkOut.value = item.checkOut;
+            catatan.value = item.catatan;
+        }
         
+    });
+    checkIn.addEventListener("change", (event) => {
+        const id = item.id;
+        const updatedData = { ...item, checkIn: event.target.value };
+
+        // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
+        const updatedCart = cart.map((cartItem) =>
+            cartItem.id == id ? updatedData : cartItem
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    });
+
+    checkOut.addEventListener("change", (event) => {
+        const id = item.id;
+        const updatedData = { ...item, checkOut: event.target.value };
+
+        // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
+        const updatedCart = cart.map((cartItem) =>
+            cartItem.id === id ? updatedData : cartItem
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    });
+
+    catatan.addEventListener("change", (event) => {
+        const id = item.id;
+        const updatedData = { ...item, catatan: event.target.value };
+
+        // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
+        const updatedCart = cart.map((cartItem) =>
+            cartItem.id === id ? updatedData : cartItem
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
     });
 
 }

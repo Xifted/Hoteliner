@@ -43,6 +43,10 @@ return [
         'tamu' => [
             'driver' => 'session',
             'provider' => 'tamu'
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins'
         ]
     ],
 
@@ -71,6 +75,10 @@ return [
         'tamu' => [
             'driver' => 'eloquent',
             'model' => App\Models\Tamu::class
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class
         ]
         // 'users' => [
         //     'driver' => 'database',
@@ -96,6 +104,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

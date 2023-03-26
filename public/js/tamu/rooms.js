@@ -23,6 +23,9 @@ const addCartItem = (e) => {
     const hargaKamar = e.dataset.hargaKamar;
     const imgUrl = e.dataset.imgUrl;
     const maxQty = e.dataset.maxQty;
+    const checkIn = '';
+    const checkOut = '';
+    const catatan = '';
 
     if (localStorage.getItem("cart") == null) {
         localStorage.setItem("cart", JSON.stringify([]));
@@ -35,7 +38,7 @@ const addCartItem = (e) => {
         cart.forEach((item, i) => {
             if (item.id === idTipe) {
                 if (item.qty == maxQty) {
-                    alert(namaKamar + " Hanya Tersedia " + maxQty + " Kamar")
+                    alert("Stok "+ namaKamar + " Saat Ini Hanya Tersedia " + maxQty + " Kamar")
                 } else {
                     item.qty += 1;
                     cart[i] = item;
@@ -45,7 +48,7 @@ const addCartItem = (e) => {
         });
     } else {
         // Kalau tidak ketemu maka akan ditambah id baru ke dalam keranjang, dengan qty 1
-        cart.push({ id: idTipe, qty: 1, namaKamar, hargaKamar, imgUrl });
+        cart.push({ id: idTipe, qty: 1, namaKamar, hargaKamar, imgUrl, checkIn, checkOut, catatan });
     }
 
     // Save keranjang ke dalam localStorage

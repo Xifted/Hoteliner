@@ -85,4 +85,37 @@ class AccountsController extends Controller
         Session::flash('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan username dan password.');
         return redirect('/login');
     }
+
+    public function loginAdmin()
+    {
+        if (Auth::check()) {
+            return redirect('/admin-dashboard');
+        } else {
+            return view('admin.adminlogin');
+        }
+    }
+
+    public function actionLoginAdmin(Request $request)
+    {
+        $data = [
+            'username' => $request->input('username'),
+            'password' => $request->input('password')
+        ];
+        // return dd($data);
+
+
+        if (Auth::guard('admin')->attempt($data)) {
+            return redirect('/admin-dashboard');
+        } else {
+            return back()->withErrors([
+                'username' => 'Username atau password salah.',
+            ]);
+        }
+    }
+
+    public function logoutAdmin()
+    {
+        Auth::logout();
+        return redirect('/admin-dashboard/login');
+    }
 }
