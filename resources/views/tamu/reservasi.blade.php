@@ -118,7 +118,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     {{-- <script src="{{ asset('/js/tamu/scripts.js') }}"></script> --}}
-    <script type="module" src="{{ asset('/js/tamu/reservasi.js') }}"></script>
+    <script src="{{ asset('/js/tamu/reservasi.js') }}"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

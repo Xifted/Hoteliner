@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-        Soft UI Dashboard by Creative Tim
+        Hoteliner - List Reservasi
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -386,7 +386,7 @@
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Booking Code</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -416,13 +416,15 @@
                                                     <h6 class="mb-0 text-sm">{{ $item->booking_code }}</h6>
                                                 </td>
                                                 <td class="d-flex flex-column gap-2 justify-content-center">
-                                                    <span class="badge badge-sm bg-gradient-warning w-50"
+                                                    <span
+                                                        class="badge badge-sm bg-gradient-warning w-100 d-flex justify-content-center"
                                                         style="cursor: pointer;"><a href="javascript:;"
                                                             class="text-white font-weight-bold text-xs "
                                                             data-toggle="tooltip" data-original-title="Edit user">
                                                             Edit
                                                         </a></span>
-                                                    <span class="badge badge-sm bg-gradient-primary w-50"
+                                                    <span
+                                                        class="badge badge-sm bg-gradient-primary w-100 d-flex justify-content-center"
                                                         style="cursor: pointer;"><a
                                                             onclick="document.getElementById('modal{{ $item->id_rsv }}').style.display='flex'"
                                                             class="text-white font-weight-bold text-xs ">
@@ -437,18 +439,18 @@
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
             @foreach ($listRsv as $item)
                 <div id="modal{{ $item->id_rsv }}"
                     style="display: none; position: fixed; height: 100vw; width:100vw !important; top:0; left:0; background-color: #00000077; z-index: 1000000;">
                     <div class="d-flex flex-column w-50 bg-white mt-3"
-                        style="margin-left: 25%; border-radius: 10px 10px 10px 10px; overflow:hidden; height:45%">
+                        style="margin-left: 25%; border-radius: 10px 10px 10px 10px; overflow:hidden; height:44%">
                         <header
                             class="d-flex flex-row-reverse justify-content-between bg-secondary align-items-center">
                             <span onclick="document.getElementById('modal{{ $item->id_rsv }}').style.display='none'"
-                                class="d-flex justify-content-center align-items-center fs-3 bg-success h-100"
+                                class="d-flex justify-content-center align-items-center fs-3 bg-success h-100 text-white"
                                 style="width: 85px; cursor: pointer;">&times;</span>
-                            <h6 class="text-white p-3 pt-4">Detail Reservasi - {{ $item->booking_code }}</h6>
+                            <h6 class="text-white p-3 pt-4">Detail Reservasi - {{ $item->id_rsv }}</h6>
                         </header>
                         <div>
                             <table class="table align-items-center mb-0">
@@ -473,27 +475,27 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($listRsv as $item)
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm ps-2">{{ $item->id_rsv }}</h6>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm ps-2">{{ $item->id_rsv }}</h6>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h6 class="mb-0 text-sm">{{ $item->id_kamar }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6 class="mb-0 text-sm">{{ $item->tgl_in }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6 class="mb-0 text-sm">{{ $item->tgl_out }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6 class="mb-0 text-sm">{{ $item->harga }}</h6>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-0 text-sm">{{ $item->id_kamar }}</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-0 text-sm">{{ $item->tgl_in }}</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-0 text-sm">{{ $item->tgl_out }}</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-0 text-sm">{{ $item->harga }}</h6>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>

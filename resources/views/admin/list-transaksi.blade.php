@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-        Soft UI Dashboard by Creative Tim
+        Hoteliner - List Transaksi
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -223,7 +223,7 @@
                 </li>
             </ul>
         </div>
-        <div class="sidenav-footer mx-3 ">
+        <div class="sidenav-footer mx-3">
             <a class="btn bg-gradient-primary mt-9 w-100" href="/">Back to Landing Page</a>
         </div>
     </aside>
@@ -389,10 +389,10 @@
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Total Harga</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Status</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -424,10 +424,10 @@
                                                 <h6 class="mb-0 text-sm">dsahdkasdkasdhjk</h6>
                                             </td>
                                             <td>
-                                                <span class="badge badge-sm bg-gradient-warning w-50 font-weight-bold text-xs">Pending</span>
+                                                <span class="badge badge-sm bg-gradient-warning w-100 font-weight-bold text-xs justify-content-center align-items-center">Pending</span>
                                             </td>
                                             <td>
-                                                <span class="badge badge-sm bg-gradient-primary w-50"
+                                                <span class="badge badge-sm bg-gradient-primary w-100 d-flex justify-content-center align-items-center"
                                                     style="cursor: pointer;"><a
                                                         onclick="document.getElementById('modal').style.display='flex'"
                                                         class="text-white font-weight-bold text-xs ">
