@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="{{ asset('css/styles.css')}}" rel="stylesheet" />
 </head>
 
 <body class="page-top">
@@ -30,11 +30,12 @@
             </div>
             <div class="d-flex flex-row-reverse mb-5 me-4">
                 <div class="input-group rounded w-25">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon" />
-                    <span class="input-group-text border-0" id="search-addon">
-                        <i class="fas fa-search text-primary"></i>
-                    </span>
+                    <form class="d-flex w-75" action="/rooms/cari" method="GET">
+                        <input type="search" name="cari" class="form-control border-0 shadow-sm" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search text-white shadow-sm"></i>
+                        </button>
+                    </form>
                 </div>
                 <div class="dropdown me-5">
                     <a class="btn btn-primary text-dark dropdown-toggle" href="#">
@@ -58,7 +59,9 @@
                                 <div class="text-wrap">
                                     <h4>{{ $LTipe->nama }}</h4>
                                     <p>{{ $LTipe->deskripsi }}</p>
-                                    <p class="fw-bold">{{$KQty[$LTipe->id_tipe]??0 ? "Tersedia : " . $KQty[$LTipe->id_tipe] : "Status : Tidak Tersedia"}}</p>
+                                    <p class="fw-bold">
+                                        {{ $KQty[$LTipe->id_tipe] ?? 0 ? 'Tersedia : ' . $KQty[$LTipe->id_tipe] : 'Status : Tidak Tersedia' }}
+                                    </p>
                                     {{-- <ol class="list-group">
                                     @foreach ($daftarFasilitas as $Fasilitas)
                                     <li class="list-group-item border-0">{{$Fasilitas->nama}}</li>    
@@ -68,15 +71,17 @@
                                 <div class="d-flex flex-row justify-content-between w-100" style="">
                                     <p class="fw-bold room-price">{{ $LTipe->harga }}</p>
                                     @if (Auth::check())
-                                        @if ($KQty[$LTipe->id_tipe]??0)
-                                        <button id="tambahBtn"
-                                        class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
-                                        onclick="addCartItem(this)" data-id-tipe="{{ $LTipe->id_tipe }}"
-                                        data-img-url="{{ $LTipe->img_url }}" data-nama-kamar="{{ $LTipe->nama }}"
-                                        data-harga-kamar="{{ $LTipe->harga }}"
-                                        data-max-qty="{{ $KQty[$LTipe->id_tipe]??0 }}">Tambah</button>
+                                        @if ($KQty[$LTipe->id_tipe] ?? 0)
+                                            <button id="tambahBtn"
+                                                class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
+                                                onclick="addCartItem(this)" data-id-tipe="{{ $LTipe->id_tipe }}"
+                                                data-img-url="{{ $LTipe->img_url }}"
+                                                data-nama-kamar="{{ $LTipe->nama }}"
+                                                data-harga-kamar="{{ $LTipe->harga }}"
+                                                data-max-qty="{{ $KQty[$LTipe->id_tipe] ?? 0 }}">Tambah</button>
                                         @else
-                                        <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold" disabled>Tidak Tersedia</button>
+                                            <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
+                                                disabled>Tidak Tersedia</button>
                                         @endif
                                     @else
                                         <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
@@ -105,7 +110,7 @@
                         class="d-flex justify-content-between border-top mt-2 p-3 align-items-center">
                         <h5 id="cartTotal"></h5>
                         @if (Auth::check())
-                            <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
+                            <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold text-wrap"
                                 href="{{ url('rooms/reservasi/action') }}">Pesan</a>
                         @else
                             <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold" href="/login">Pesan</a>

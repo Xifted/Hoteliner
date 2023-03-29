@@ -18,8 +18,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/assets/img//logos/Hoteliner-logos.jpeg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('/assets/img//logos/Hoteliner-logos.jpeg') }}">
     <title>
         Hoteliner - List Reservasi
     </title>
@@ -41,7 +41,7 @@
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand m-0" href="/admin-dashboard" target="_blank">
+            <a class="navbar-brand m-0" href="#">
                 <img src="{{ asset('/assets/img//logos/Hoteliner-logos_black.png') }}" class="navbar-brand-img h-100"
                     alt="main_logo" style="width: 29% !important;">
                 <span class="ms-1 font-weight-bold">Hoteliner Dashboard</span>
@@ -415,21 +415,28 @@
                                                 <td>
                                                     <h6 class="mb-0 text-sm">{{ $item->booking_code }}</h6>
                                                 </td>
-                                                <td class="d-flex flex-column gap-2 justify-content-center">
-                                                    <span
-                                                        class="badge badge-sm bg-gradient-warning w-100 d-flex justify-content-center"
+                                                <td class="d-flex flex-column gap-2 justify-content-center px-3">
+                                                    <div class="d-flex gap-2 w-100">
+                                                        <span
+                                                        class="badge badge-sm bg-gradient-info w-50 d-flex justify-content-center"
                                                         style="cursor: pointer;"><a href="javascript:;"
                                                             class="text-white font-weight-bold text-xs "
                                                             data-toggle="tooltip" data-original-title="Edit user">
-                                                            Edit
-                                                        </a></span>
+                                                            Check-In
+                                                        </a>
+                                                    </span>
                                                     <span
-                                                        class="badge badge-sm bg-gradient-primary w-100 d-flex justify-content-center"
-                                                        style="cursor: pointer;"><a
-                                                            onclick="document.getElementById('modal{{ $item->id_rsv }}').style.display='flex'"
-                                                            class="text-white font-weight-bold text-xs ">
-                                                            Details
-                                                        </a></span>
+                                                        class="badge badge-sm bg-gradient-warning w-50 d-flex justify-content-center"
+                                                        style="cursor: pointer;"><a href="javascript:;"
+                                                            class="text-white font-weight-bold text-xs "
+                                                            data-toggle="tooltip" data-original-title="Edit user">
+                                                            Check-Out
+                                                        </a>
+                                                    </span>
+                                                    </div>
+                                                    <button
+                                                        class="badge badge-sm text-white font-weight-bold text-xs bg-gradient-primary w-100 d-flex justify-content-center border-0" onclick="document.getElementById('modal{{ $item->id_rsv }}').style.display='flex'"
+                                                        style="cursor: pointer;">Details</button>
                                                 </td>
                                             </tr>
                                         @endforeach

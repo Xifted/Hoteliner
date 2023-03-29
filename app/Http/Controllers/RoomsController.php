@@ -30,6 +30,30 @@ class RoomsController extends Controller
         ]);
     }
 
+    public function cari(Request $request)
+    {
+        // menangkap data pencarian
+        $cari = $request->cari;
+
+        // mengambil data dari table tipe sesuai pencarian data
+        $LTipe = DB::table('tipe_kamar')
+            ->where('nama', 'like', "%" . $cari . "%")
+            ->paginate();
+        
+        $KQty = DB::table('kamar')->select(array('id_tipe', DB::raw('COUNT(id_tipe) AS maxQty')))->where('status', '=', 'Tersedia')->groupBy('id_tipe')->get();
+
+        $RoomAvailability = [];
+
+        foreach ($KQty as $Qty) {
+            $RoomAvailability[$Qty->id_tipe] = $Qty->maxQty;
+        }
+
+        return view('tamu.rooms', [
+            'LTipe' => $LTipe,
+            'KQty' => $RoomAvailability
+        ]);
+    }
+
     public function prosesReservasi()
     {
         $id_tamu = Auth::user()->id_tamu;

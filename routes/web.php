@@ -25,10 +25,12 @@ Route::post('register/action', [AccountsController::class, 'actionregister'])->n
 Route::get('datadiri', [AccountsController::class, 'datadiri'])->name('datadiri');
 Route::post('datadiri/action', [AccountsController::class, 'actiondatadiri'])->name('actiondatadiri');
 Route::get('logout', [AccountsController::class, 'actionlogout'])->name('actionlogout');
+Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth');
 
 //tamu
 Route::get('', [HomeController::class, 'index']);
 Route::get('rooms', [RoomsController::class, 'index']);
+Route::get('rooms/cari', [RoomsController::class, 'cari']);
 
 //reservasi
 Route::get('rooms/reservasi/action', [RoomsController::class, 'prosesReservasi'])->middleware('auth');

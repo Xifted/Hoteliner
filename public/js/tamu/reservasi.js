@@ -66,71 +66,66 @@ let checkOut = document.querySelector("#checkOut");
 let catatan = document.querySelector("#catatan");
 
 const getDetailData = (idTipe) => {
-    // const idTipe =  e.dataset.idTipe;
-
-    // const detailCart = document.querySelector("#form-pengubahan")
-
-    // let dataBtn = document.querySelector('#dataBtn');
-    // const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-
-    // detailCart.innerHTML = '';
-
     checkIn.dataset.idItem = idTipe;
     checkOut.dataset.idItem = idTipe;
     catatan.dataset.idItem = idTipe;
 
-    // if (item.id === idTipe) {
-    //     checkIn.value = item.checkIn;
-    //     checkOut.value = item.checkOut;
-    //     catatan.value = item.catatan;
-    // }
-};
-
-checkIn.addEventListener("change", (event) => {
     const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-
     const id = checkIn.dataset.idItem;
     const item = cart.find((cartItem) => cartItem.id == id);
-    const updatedData = { ...item, checkIn: event.target.value };
+    checkIn.value = item.checkIn;
+    checkOut.value = item.checkOut;
+    catatan.value = item.catatan;
 
-    // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
-    const updatedCart = cart.map((cartItem) =>
-        cartItem.id == id ? updatedData : cartItem
-    );
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-});
+    checkIn.addEventListener("change", (event) => {
+        // console.log(checkIn.value);
+        const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    
+        const id = checkIn.dataset.idItem;
+        const item = cart.find((cartItem) => cartItem.id == id);
+        const updatedData = { ...item, checkIn: event.target.value };
+    
+        // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
+        const updatedCart = cart.map((cartItem) =>
+            cartItem.id == id ? updatedData : cartItem
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    });
+    
+    checkOut.addEventListener("change", (event) => {
+        const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    
+        const id = event.target.dataset.idItem;
+        const item = cart.find((cartItem) => cartItem.id == id);
+        const updatedData = { ...item, checkOut: event.target.value };
+    
+        // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
+        const updatedCart = cart.map((cartItem) =>
+            cartItem.id == id ? updatedData : cartItem
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    });
+    
+    catatan.addEventListener("change", (event) => {
+        const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    
+        const id = event.target.dataset.idItem;
+        const item = cart.find((cartItem) => cartItem.id == id);
+        const updatedData = { ...item, catatan: event.target.value };
+    
+        // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
+        const updatedCart = cart.map((cartItem) =>
+            cartItem.id == id ? updatedData : cartItem
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    });
+};
 
-checkOut.addEventListener("change", (event) => {
-    const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-
-    const id = event.target.dataset.idItem;
-    const item = cart.find((cartItem) => cartItem.id == id);
-    const updatedData = { ...item, checkOut: event.target.value };
-
-    // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
-    const updatedCart = cart.map((cartItem) =>
-        cartItem.id == id ? updatedData : cartItem
-    );
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-});
-
-catatan.addEventListener("change", (event) => {
-    const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-
-    const id = event.target.dataset.idItem;
-    const item = cart.find((cartItem) => cartItem.id == id);
-    const updatedData = { ...item, catatan: event.target.value };
-
-    // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
-    const updatedCart = cart.map((cartItem) =>
-        cartItem.id == id ? updatedData : cartItem
-    );
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-});
 
 const getCartItems = () => {
     // Ngambil node 'cart' dari HTML
     const cartTable = document.querySelector("#cart");
+    let checkForm = document.querySelector("#checkForm")
 
     const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
 
@@ -143,18 +138,29 @@ const getCartItems = () => {
     cart.forEach((item) => {
         totalHarga += item.qty * item.hargaKamar;
         cartTable.innerHTML += `
-        <button data-id-tipe="" onclick="getDetailData(${
-            item.id
-        })" id="dataBtn" type="button" class="btn d-flex justify-content-between border-top border-bottom p-3 border-0 bg-white">
+        <button onclick="getDetailData(${item.id})" id="dataBtn" type="button" class="btn d-flex justify-content-between border-top border-bottom p-3 border-0 bg-white mb-1">
             <img class="img-fluid" style="width: 40%;" src="${item.imgUrl}"
                 alt="">
             <div style="width: 55%;">
-                <h5>${item.namaKamar}</h5>
-                <p>Room${item.qty > 1 ? "s" : ""} : ${item.qty}</p>
+                <h5 class:"text-start">${item.namaKamar}</h5>
+                <p class:"text-start">Room${item.qty > 1 ? "s" : ""} : ${item.qty}</p>
             </div>
         </button>
       `;
     });
+    // cart.forEach((item) => {
+    //     checkForm.innerHTML += `
+    //         <h4>Tanggal Check-In</h4>
+    //         <input onchange="getDetailData()" id="checkIn"  class="form-control text-dark w-50 ms-4" name="tgl_in" type="date" placeholder="Tanggal Check-In *" required />
+    //         <h4>Tanggal Check-Out</h4>
+    //         <input onchange="getDetailData()" id="checkOut" class="form-control text-dark w-50 ms-4" name="tgl_in" type="date" placeholder="Tanggal Check-In *" required />
+    //         <h4>Catatan : </h4>
+    //         <div class="form-floating ms-4">
+    //             <textarea onchange="getDetailData()" id="catatan" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
+    //             <label for="floatingTextarea2">Catatan</label>
+    //         </div>
+    //     `
+    // })
     if (totalHarga <= 0) {
         if (
             !document

@@ -29,7 +29,7 @@ class AccountsController extends Controller
 
 
         if (Auth::Attempt($data)) {
-            return redirect('/');
+            return redirect()->intended('/');
         } else {
             Session::flash('error', 'Email atau Password Salah');
             return redirect('/login');

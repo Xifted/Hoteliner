@@ -23,81 +23,36 @@
 
     @include('tamu.layouts.navbar2')
     <section class="page-section bg-light d-flex justify-content-center" id="rooms">
-        <div class="container d-flex justify-content-center flex-column mt-5">
-            <div class="text-center mb-2">
+        <div class="container d-flex justify-content-center flex-column mt-5" style="margin-inline: 0 !important">
+            <div class="text-center mb-3">
                 <h2 class="section-heading text-uppercase">Reservasi</h2>
             </div>
             <div class="d-flex">
                 <div class="bg-white h-75 shadow-sm" style="width: 60%;">
                     <h4 class="bg-dark text-white p-1 ps-2">Reservasi</h4>
                     <form action="" id="form-pengubahan" data-id="-1">
-                        <div class="d-grid bg-white rounded p-4"
+                        <div id="checkForm" class="d-grid bg-white rounded p-4"
                             style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
-                            {{-- <h4>Metode Pembayaran : </h4>
-                            <div class="d-flex flex-column ms-3">
-                                <div class="d-flex form-check">
-                                    <input class="form-check-input" type="radio" name="metode-pembayaran"
-                                        id="" value="Lorem Ipsum" />
-                                    <label class="form-check-label ms-2" for="html">Lorem Ipsum</label><br>
-                                </div>
-                                <div class="d-flex form-check">
-                                    <input class="form-check-input" type="radio" name="metode-pembayaran"
-                                        id="" value="Lorem Ipsum" />
-                                    <label class="form-check-label ms-2" for="html">Lorem Ipsum</label><br>
-                                </div>
-                                <div class="d-flex form-check">
-                                    <input class="form-check-input" type="radio" name="metode-pembayaran"
-                                        id="" value="Lorem Ipsum" />
-                                    <label class="form-check-label ms-2" for="html">Lorem Ipsum</label><br>
-                                </div>
-                            </div> --}}
-                            {{-- <h4>Fasilitas Tambahan : </h4>
-
-                            <div class="d-flex flex-column ms-3">
-                                @foreach ($daftarFasilitas as $fasilitas)
-                                    <div class="d-flex form-check">
-                                        <input class="form-check-input fasilitas_check" type="checkbox"
-                                            value="{{ $fasilitas->id_fasilitas }}" id="flexCheckDefault"
-                                            name="fasilitas[]" data-id-element="facility-id">
-                                        <label class="form-check-label ms-2" for="flexCheckDefault">
-                                            {{ $fasilitas->nama }}
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div> --}}
                             <h4>Tanggal Check-In</h4>
-                            <input onchange="getDetailData()" id="checkIn"  class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
+                            <input onchange="getDetailData(idTipe)" id="checkIn"
+                                class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Tanggal Check-Out</h4>
-                            <input onchange="getDetailData()" id="checkOut" class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
+                            <input onchange="getDetailData(idTipe)" id="checkOut"
+                                class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Catatan : </h4>
                             <div class="form-floating ms-4">
-                                <textarea onchange="getDetailData()" id="catatan" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
+                                <textarea onchange="getDetailData(idTipe)" id="catatan" class="form-control" placeholder="Leave a comment here"
+                                    id="floatingTextarea2" style="height: 150px"></textarea>
                                 <label for="floatingTextarea2">Catatan</label>
                             </div>
-
                         </div>
-
-                        {{-- <div class="d-flex border-top justify-content-between p-3">
-                            <h4>Total : Rp.500.000</h4>
-                            <a class="col-sm-2 btn btn-warning nav-link text-black fw-bold" href="#">Pesan</a>
-                        </div> --}}
                     </form>
                 </div>
                 <div class="bg-white shadow-sm d-flex flex-column h-100 ms-5" style="width: 30%;">
                     <h4 class="bg-dark text-white p-1 ps-2">Detail</h4>
-                    <div id="cart" class="d-flex flex-column bg-white">
-                        {{-- <div class="d-flex justify-content-between border-top border-bottom p-3">
-                            <img class="img-fluid" style="width: 40%;" src="{{ asset('assets/img/rooms/room1.jpg') }}"
-                                alt="">
-                            <div style="width: 55%;">
-                                <h5>Standard Room</h5>
-                                <p>Rooms : 2</p>
-                                <p id="harga">Rp 500.000</p>
-                            </div>
-                        </div> --}}
-                        {{-- <p class="d-none" data-id-tipe="{{ $LTipe->id_tipe }}" id="data-id"></p> --}}
+                    <div id="cart" class="d-flex flex-column bg-white px-2">
                     </div>
                     <div id="cartTotalContainer"
                         class="d-flex justify-content-between border-top mt-2 p-3 align-items-center bg-white">

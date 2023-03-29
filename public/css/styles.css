@@ -118,6 +118,13 @@ h1, .h1 {
   }
 }
 
+.tampil{
+  display: flex !important;
+  position: absolute;
+  margin-top: 35px;
+  flex-direction: column;
+}
+
 h2, .h2 {
   font-size: calc(1.325rem + 0.9vw);
 }
