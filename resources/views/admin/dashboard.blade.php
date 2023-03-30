@@ -261,7 +261,12 @@
                         <li class="nav-item d-flex align-items-center">
                             <a href="/admin-dashboard/logout" class="nav-link text-body font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Logout - </span>
+                                @if (Auth::guard('admin')->check())
+                                    <span class="d-sm-inline d-none">Logout - {{ Auth::guard('admin')->user()->nama }} </span>
+                                @else
+                                    no
+                                @endif
+                                
                             </a>
                         </li>
                         <li class="nav-item px-3 d-flex align-items-center">

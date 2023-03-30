@@ -74,9 +74,9 @@
                 <div class="d-flex flex-column">
                     @foreach ($listReservasi as $item)
                         <div class="d-flex justify-content-evenly align-items-center border-bottom p-3">
-                            <h5>{{ $item->tgl_rsv }}</h5>
-                            <p>{{ $item->booking_code }}</p>
-                            <p id="harga">Rp 500.000</p>
+                            <h5 style="width: 30%">{{ $item->tgl_rsv }}</h5>
+                            <p style="width: 35%" class="text-wrap">{{ $item->booking_code }}</p>
+                            <p id="harga" style="width: 35%" class="text-center">Rp 500.000</p>
                         </div>
                     @endforeach
                 </div>

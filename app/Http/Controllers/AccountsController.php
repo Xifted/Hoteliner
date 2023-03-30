@@ -101,21 +101,19 @@ class AccountsController extends Controller
             'username' => $request->input('username'),
             'password' => $request->input('password')
         ];
-        // return dd($data);
-
+        
+        // return dd(Auth::getDefaultDriver());
 
         if (Auth::guard('admin')->attempt($data)) {
             return redirect('/admin-dashboard');
         } else {
-            return back()->withErrors([
-                'username' => 'Username atau password salah.',
-            ]);
+            return redirect('/admin-dashboard/login');
         }
     }
 
     public function logoutAdmin()
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         return redirect('/admin-dashboard/login');
     }
 }

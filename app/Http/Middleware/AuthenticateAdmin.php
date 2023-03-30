@@ -2,7 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthenticateAdmin extends Middleware
 {
@@ -12,10 +15,13 @@ class AuthenticateAdmin extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-    protected function redirectTo($request)
+    public function handle($request, Closure $next, ...$guards)
     {
-        if (! $request->expectsJson()) {
+        // $cekAdmin = \App\Models\Admin::where('username', $request->username)->first();
+        // Log::info('check = '.Auth::guard('admin')->check());
+        if(!Auth::guard('admin')->check()){
             return route('loginAdmin');
         }
+        return $next($request);
     }
 }

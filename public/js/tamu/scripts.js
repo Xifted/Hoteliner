@@ -9,6 +9,7 @@
 function dropDown() {
     document.getElementById("dropDownItems").classList.toggle("tampil");
 }
+
 window.onclick = function (event) {
     if (!event.target.matches('#profileBtn')) {
         var dropdowns = document.getElementById("dropDownItems");
@@ -20,6 +21,10 @@ window.onclick = function (event) {
             }
         }
     }
+}
+
+const clearLocalStorage = () => {
+    localStorage.removeItem("cart");
 }
 
 window.addEventListener('DOMContentLoaded', event => {

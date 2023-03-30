@@ -13,8 +13,35 @@ window.addEventListener("DOMContentLoaded", (event) => {
         );
 });
 
+function dropDown() {
+    document.getElementById("dropDownItems").classList.toggle("tampil");
+}
+
+window.onclick = function (event) {
+    if (!event.target.matches('#profileBtn')) {
+        var dropdowns = document.getElementById("dropDownItems");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('tampil')) {
+                openDropdown.classList.remove('tampil');
+            }
+        }
+    }
+}
+
+const clearLocalStorage = () => {
+    localStorage.removeItem("cart");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    getCartItems();
+    const statusLogin = document.getElementById('statusLogin').dataset.loginStatus;
+    // console.log(statusLogin);
+    if (statusLogin == 'logged out'){
+        localStorage.removeItem("cart");
+    }else{
+        getCartItems();
+    }
 });
 
 const addCartItem = (e) => {
@@ -26,6 +53,7 @@ const addCartItem = (e) => {
     const checkIn = '';
     const checkOut = '';
     const catatan = '';
+    
 
     if (localStorage.getItem("cart") == null) {
         localStorage.setItem("cart", JSON.stringify([]));

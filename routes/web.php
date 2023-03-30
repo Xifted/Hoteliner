@@ -40,7 +40,7 @@ Route::get('rooms/detailreservasi/{id}', [RoomsController::class, 'detailReserva
 Route::get('admin-dashboard/login', [AccountsController::class, 'loginAdmin'])->name('loginAdmin');
 Route::post('admin-dashboard/login/action', [AccountsController::class, 'actionLoginAdmin'])->name('actionLoginAdmin');
 Route::get('admin-dashboard/logout', [AccountsController::class, 'logoutAdmin'])->name('logoutAdmin');
-Route::get('admin-dashboard', [AdminController::class, 'index']);
+Route::get('admin-dashboard', [AdminController::class, 'index'])->middleware('auth.admin');
 Route::get('admin-dashboard/listreservasi', [AdminController::class, 'listReservasi']);
 Route::get('admin-dashboard/listtransaksi', [AdminController::class, 'listTransaksi']);
 

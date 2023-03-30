@@ -25,7 +25,8 @@
                         <div id="dropDownItems" class="nav-item bg-white p-1 rounded shadow-lg" style="display: none;">
                             <a href="{{ url('/profile/' . Auth::user()->id_tamu) }}"
                                 class="nav-link text-primary px-3 fw-bold border-bottom">Profile</a>
-                            <a href="/logout" class="nav-link text-primary px-3 fw-bold">Logout</a>
+                            <a onclick="clearLocalStorage()" href="/logout" class="nav-link text-primary px-3 fw-bold">Logout</a>
+                            <p id="statusLogin" data-login-status="{{Auth::check() == null || '' ? "logged out" : "logged in"}}" hidden></p>
                         </div>
                     </li>
                 @else
