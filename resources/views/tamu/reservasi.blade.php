@@ -34,16 +34,16 @@
                         <div id="checkForm" class="d-grid bg-white rounded p-4"
                             style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
                             <h4>Tanggal Check-In</h4>
-                            <input onchange="getDetailData(idTipe)" id="checkIn"
+                            <input onchange="getDetailData(idKamar)" id="checkIn" data-id-rsv="{{ $reservasi->id_rsv }}"
                                 class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Tanggal Check-Out</h4>
-                            <input onchange="getDetailData(idTipe)" id="checkOut"
+                            <input onchange="getDetailData(idKamar)" id="checkOut"
                                 class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Catatan : </h4>
                             <div class="form-floating ms-4">
-                                <textarea onchange="getDetailData(idTipe)" id="catatan" class="form-control" placeholder="Leave a comment here"
+                                <textarea onchange="getDetailData(idKamar)" id="catatan" class="form-control" placeholder="Leave a comment here"
                                     id="floatingTextarea2" style="height: 150px"></textarea>
                                 <label for="floatingTextarea2">Catatan</label>
                             </div>
@@ -56,10 +56,12 @@
                     </div>
                     <div id="cartTotalContainer"
                         class="d-flex justify-content-between border-top mt-2 p-3 align-items-center bg-white">
-                        <h5 id="cartTotal"></h5>
+                        <h5 id="cartTotal" class="w-75"></h5>
                         @if (Auth::check())
-                            <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
-                                href="{{ url('rooms/reservasi/action') }}">Pesan</a>
+                            <form action="{{ route('detailReservasiSubmit') }}" method="POST" class="w-25">
+                                @csrf
+                                <button type="submit" class="w-100 btn btn-warning nav-link text-black fw-bold">Pesan</button>
+                            </form>
                         @else
                             <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold" href="/login">Pesan</a>
                         @endif
@@ -69,6 +71,7 @@
         </div>
     </section>
     @include('tamu.layouts.footer')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->

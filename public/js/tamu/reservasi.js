@@ -65,10 +65,12 @@ let checkIn = document.querySelector("#checkIn");
 let checkOut = document.querySelector("#checkOut");
 let catatan = document.querySelector("#catatan");
 
-const getDetailData = (idTipe) => {
-    checkIn.dataset.idItem = idTipe;
-    checkOut.dataset.idItem = idTipe;
-    catatan.dataset.idItem = idTipe;
+const getDetailData = (idKamar) => {
+    checkIn.dataset.idItem = idKamar;
+    checkOut.dataset.idItem = idKamar;
+    catatan.dataset.idItem = idKamar;
+
+    // console.log(checkIn.dataset.idRsv);
 
     const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
     const id = checkIn.dataset.idItem;
@@ -208,3 +210,18 @@ const getCartItems = () => {
             "Total Harga : " + IDRRupiah.format(totalHarga);
     }
 };
+
+const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+$.ajax({
+    type: 'POST',
+    url: '/rooms/detailreservasi/action',
+    data: {
+        details: cart
+    },
+    success: function(response) {
+        console.log(response);
+    },
+    error: function(xhr, textStatus, error) {
+        console.error(error);
+    }
+});

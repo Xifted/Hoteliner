@@ -24,9 +24,9 @@
     @include('tamu.layouts.navbar2')
 
     <section class="page-section bg-light" id="services">
-        <div class="container d-flex justify-content-evenly align-content-evenly mt-4">
+        <div class="d-flex justify-content-evenly align-content-evenly mt-4">
             <div class="d-flex bg-white flex-column overflow-hidden shadow-lg py-4"
-                style="width: 45%; border-radius: 20px">
+                style="width: 30%; border-radius: 20px">
                 <div class="d-flex justify-content-center border-bottom p-4">
                     <img class="img-fluid rounded-circle h-auto" width="200px"
                         src="{{ asset('assets/img/team/1.jpg') }}" alt="ProfilePic">
@@ -69,16 +69,35 @@
                     <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold w-100">EDIT</button>
                 </div>
             </div>
-            <div class="d-flex bg-white flex-column overflow-hidden shadow-lg" style="width: 45%; border-radius: 20px">
+            <div class="d-flex bg-white flex-column overflow-hidden shadow-lg" style="width: 60%; border-radius: 20px">
                 <h4 class="p-4 px-5 border-bottom">Riwayat Reservasi</h4>
-                <div class="d-flex flex-column">
-                    @foreach ($listReservasi as $item)
-                        <div class="d-flex justify-content-evenly align-items-center border-bottom p-3">
-                            <h5 style="width: 30%">{{ $item->tgl_rsv }}</h5>
-                            <p style="width: 35%" class="text-wrap">{{ $item->booking_code }}</p>
-                            <p id="harga" style="width: 35%" class="text-center">Rp 500.000</p>
-                        </div>
-                    @endforeach
+                <div class="d-flex flex-column px-5">
+                    <table class="table table-striped rounded">
+                        <thead>
+                            <tr>
+                              <th scope="col">Tanggal Reservasi</th>
+                              <th scope="col">Booking Code</th>
+                              <th scope="col">Harga</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($listReservasi as $item)
+                            <tr>
+                              <td>{{ $item->tgl_rsv }}</td>
+                              <td>{{ $item->booking_code }}</td>
+                              <td>Rp 500.000</td>
+                              <td><button class="col-sm-6 btn btn-warning nav-link text-black fw-bold w-100">Detail</button></td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                    </table>
+                        {{-- <div class="d-flex justify-content-evenly align-items-center justify-content-center border-bottom p-3">
+                            <h5 style="width: 20%">{{ $item->tgl_rsv }}</h5>
+                            <p style="width: 25%" class="text-wrap">{{ $item->booking_code }}</p>
+                            <p id="harga" style="width: 25%" class="text-center">Rp 500.000</p>
+                            
+                        </div> --}}
                 </div>
             </div>
         </div>

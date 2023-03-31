@@ -25,7 +25,6 @@
                             <a href="{{ url('/profile/' . Auth::user()->id_tamu)}}" class="nav-link text-primary px-3 fw-bold border-bottom">Profile</a>
                             <a onclick="clearLocalStorage()" href="/logout" class="nav-link text-primary px-3 fw-bold">Logout</a>
                         </div>
-                        <p id="statusLogin" data-login-status="{{Auth::check()}}" hidden></p>
                     </li>
                 @else
                     <li class="nav-item"><a class="btn btn-warning nav-link text-black fw-bold" href="/login">Sign

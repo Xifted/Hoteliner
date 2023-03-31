@@ -35,13 +35,14 @@ Route::get('rooms/cari', [RoomsController::class, 'cari']);
 //reservasi
 Route::get('rooms/reservasi/action', [RoomsController::class, 'prosesReservasi'])->middleware('auth');
 Route::get('rooms/detailreservasi/{id}', [RoomsController::class, 'detailReservasi'])->middleware('auth');
+Route::post('rooms/detailreservasi/action/', [RoomsController::class, 'detailReservasiSubmit'])->name('detailReservasiSubmit')->middleware('auth');
 
 //admin
 Route::get('admin-dashboard/login', [AccountsController::class, 'loginAdmin'])->name('loginAdmin');
 Route::post('admin-dashboard/login/action', [AccountsController::class, 'actionLoginAdmin'])->name('actionLoginAdmin');
 Route::get('admin-dashboard/logout', [AccountsController::class, 'logoutAdmin'])->name('logoutAdmin');
 Route::get('admin-dashboard', [AdminController::class, 'index'])->middleware('auth.admin');
-Route::get('admin-dashboard/listreservasi', [AdminController::class, 'listReservasi']);
-Route::get('admin-dashboard/listtransaksi', [AdminController::class, 'listTransaksi']);
+Route::get('admin-dashboard/listreservasi', [AdminController::class, 'listReservasi'])->middleware('auth.admin');
+Route::get('admin-dashboard/listtransaksi', [AdminController::class, 'listTransaksi'])->middleware('auth.admin');
 
 Route::get('roomsedit', [RoomsController::class, 'edit']);

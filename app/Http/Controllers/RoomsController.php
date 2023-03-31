@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detail_Reservasi;
 use App\Models\Kamar;
 use App\Models\Reservasi;
 use App\Models\Tamu;
@@ -15,11 +16,11 @@ class RoomsController extends Controller
 {
     public function index()
     {
-        $LTipe = Tipe_kamar::all();
+        $LTipe = DB::table('kamar')->select('id_kamar', 'kamar.nama AS namaKamar','tipe_kamar.*')->where('kamar.status', '=', 'tersedia')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')->get();
         $KQty = DB::table('kamar')->select(array('id_tipe', DB::raw('COUNT(id_tipe) AS maxQty')))->where('status', '=', 'Tersedia')->groupBy('id_tipe')->get();
-
         $RoomAvailability = [];
-
+        // return dd($KQty);
+        
         foreach ($KQty as $Qty) {
             $RoomAvailability[$Qty->id_tipe] = $Qty->maxQty;
         }
@@ -83,6 +84,24 @@ class RoomsController extends Controller
             return redirect('/login');
         }
     }
+
+    // public function detailReservasiSubmit(Request $request)
+    // {
+    //     $details = $request->input('details');
+    //     $insertData = [];
+
+    //     foreach ($details as $detail){
+    //         $insertData[] = [
+    //             'id_rsv'
+    //             'id_kamar' => $detail['id'],
+    //             'id_tipe' => $detail['id_tipe'],
+    //             'harga' => $detail['harga'],
+    //             'tanggal' => $detail['tanggal'],
+    //             'created_at' => now(),
+    //             'updated_at' => now(),
+    //         ];
+    //     }
+    // }
 
     public function edit($id)
     {

@@ -57,37 +57,30 @@
                             <img class="col-sm-5 img-fluid" src="{{ $LTipe->img_url }}" alt="Tipe">
                             <div class="d-flex col-sm-6 flex-column justify-content-between flex-wrap">
                                 <div class="text-wrap">
-                                    <h4>{{ $LTipe->nama }}</h4>
+                                    <h4>{{ $LTipe->nama }} - {{ $LTipe->namaKamar }}</h4>
                                     <p>{{ $LTipe->deskripsi }}</p>
-                                    <p class="fw-bold">
+                                    {{-- <p class="fw-bold">
                                         {{ $KQty[$LTipe->id_tipe] ?? 0 ? 'Tersedia : ' . $KQty[$LTipe->id_tipe] : 'Status : Tidak Tersedia' }}
-                                    </p>
-                                    {{-- <ol class="list-group">
-                                    @foreach ($daftarFasilitas as $Fasilitas)
-                                    <li class="list-group-item border-0">{{$Fasilitas->nama}}</li>    
-                                    @endforeach
-                                </ol> --}}
+                                    </p> --}}
                                 </div>
                                 <div class="d-flex flex-row justify-content-between w-100" style="">
                                     <p class="fw-bold room-price">{{ $LTipe->harga }}</p>
                                     @if (Auth::check())
-                                        @if ($KQty[$LTipe->id_tipe] ?? 0)
+                                        {{-- @if ($KQty[$LTipe->id_tipe] ?? 0) --}}
                                             <button id="tambahBtn"
                                                 class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
                                                 onclick="addCartItem(this)" data-id-tipe="{{ $LTipe->id_tipe }}"
-                                                data-img-url="{{ $LTipe->img_url }}"
-                                                data-nama-kamar="{{ $LTipe->nama }}"
-                                                data-harga-kamar="{{ $LTipe->harga }}"
-                                                data-max-qty="{{ $KQty[$LTipe->id_tipe] ?? 0 }}">Tambah</button>
-                                        @else
+                                                data-img-url="{{ $LTipe->img_url }}" data-id-kamar="{{ $LTipe->id_kamar }}"
+                                                data-nama-kamar="{{ $LTipe->nama }} - {{ $LTipe->namaKamar }}"
+                                                data-harga-kamar="{{ $LTipe->harga }}">Tambah</button>
+                                        {{-- @else
                                             <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
                                                 disabled>Tidak Tersedia</button>
-                                        @endif
+                                        @endif --}}
                                     @else
                                         <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
                                             href="/login">Tambah</a>
                                     @endif
-
                                 </div>
                             </div>
                         </div>

@@ -45,11 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const addCartItem = (e) => {
+    const idRsv = '';
     const idTipe = e.dataset.idTipe;
+    const idKamar = e.dataset.idKamar;
     const namaKamar = e.dataset.namaKamar;
     const hargaKamar = e.dataset.hargaKamar;
     const imgUrl = e.dataset.imgUrl;
-    const maxQty = e.dataset.maxQty;
+    // const maxQty = e.dataset.maxQty;
     const checkIn = '';
     const checkOut = '';
     const catatan = '';
@@ -61,22 +63,22 @@ const addCartItem = (e) => {
     let cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
 
     // Ngecek apakah kamar sudah pernah ditambahkan ke keranjang
-    if (cart.find((item) => item.id === idTipe)) {
+    if (cart.find((item) => item.id === idKamar)) {
         // Kalau sudah pernah maka diloop untuk mencari id kamarnya, lalu kuantitasnya ditamabah
         cart.forEach((item, i) => {
-            if (item.id === idTipe) {
-                if (item.qty == maxQty) {
-                    alert("Stok "+ namaKamar + " Saat Ini Hanya Tersedia " + maxQty + " Kamar")
-                } else {
-                    item.qty += 1;
-                    cart[i] = item;
-                    return;
-                }
+            if (item.id === idKamar) {
+                // if (item.qty == maxQty) {
+                //     alert("Stok "+ namaKamar + " Saat Ini Hanya Tersedia " + maxQty + " Kamar")
+                // } else {
+                //     item.qty += 1;
+                //     cart[i] = item;
+                //     return;
+                // }
             }
         });
     } else {
         // Kalau tidak ketemu maka akan ditambah id baru ke dalam keranjang, dengan qty 1
-        cart.push({ id: idTipe, qty: 1, namaKamar, hargaKamar, imgUrl, checkIn, checkOut, catatan });
+        cart.push({idRsv, id: idKamar, idTipe: idTipe, qty: 1, namaKamar, hargaKamar, imgUrl, checkIn, checkOut, catatan });
     }
 
     // Save keranjang ke dalam localStorage
@@ -84,7 +86,7 @@ const addCartItem = (e) => {
     getCartItems();
 };
 
-const removeCartItem = (idTipe) => {
+const removeCartItem = (idKamar) => {
     if (localStorage.getItem("cart") == null) {
         return;
     }
@@ -93,7 +95,7 @@ const removeCartItem = (idTipe) => {
     let newCart = [];
     cart.forEach((item) => {
         // Ngecek apakah kamar ada di keranjang
-        if (item.id == idTipe) {
+        if (item.id == idKamar) {
             // Kalau ada maka qty dikurangi 1
             item.qty -= 1;
             if (item.qty <= 0) {
