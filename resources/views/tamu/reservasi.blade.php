@@ -34,9 +34,9 @@
                         <div id="checkForm" class="d-grid bg-white rounded p-4"
                             style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
                             <h4>Tanggal Check-In</h4>
-                            <input onchange="getDetailData(idKamar)" id="checkIn" data-id-rsv="{{ $reservasi->id_rsv }}"
-                                class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
-                                placeholder="Tanggal Check-In *" required />
+                            <input onchange="getDetailData(idKamar)" id="checkIn"
+                                data-id-rsv="{{ $reservasi->id_rsv }}" class="form-control text-dark w-50 ms-4"
+                                name="tgl_in" type="date" placeholder="Tanggal Check-In *" required />
                             <h4>Tanggal Check-Out</h4>
                             <input onchange="getDetailData(idKamar)" id="checkOut"
                                 class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
@@ -60,7 +60,8 @@
                         @if (Auth::check())
                             <form action="{{ route('detailReservasiSubmit') }}" method="POST" class="w-25">
                                 @csrf
-                                <button type="submit" class="w-100 btn btn-warning nav-link text-black fw-bold">Pesan</button>
+                                <button id="submitBtn" type="submit"
+                                    class="w-100 btn btn-warning nav-link text-black fw-bold">Pesan</button>
                             </form>
                         @else
                             <a class="col-sm-4 btn btn-warning nav-link text-black fw-bold" href="/login">Pesan</a>

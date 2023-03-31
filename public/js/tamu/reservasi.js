@@ -22,44 +22,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 document.addEventListener("DOMContentLoaded", () => {
     getCartItems();
-    // getDetailData();
 });
-
-// const saveDetailValue = () => {
-//     const id_tipe = document.querySelector("#form-pengubahan").dataset.id;
-//     let checkIn = document.querySelector("#checkIn").value;
-//     let checkOut = document.querySelector("#checkOut").value;
-//     let catatan = document.querySelector("#catatan").value;
-
-//     let cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-
-//     editedItem = cart.find(function (item) {
-//         if (item.id == id_tipe) {
-//             return item.id;
-//         } else {
-//             return -1;
-//         }
-//     });
-
-//     if (editedItem == -1) {
-//         return;
-//     }
-
-//     cart[editedItem].checkIn = checkIn;
-//     cart[editedItem].checkOut = checkOut;
-//     cart[editedItem].catatan = catatan;
-
-//     // if (cart.find((item) => item.id)) {
-//     //     cart.forEach((item) => {
-//     //         item.checkIn = checkIn;
-//     //         item.checkOut = checkOut;
-//     //         item.catatan = catatan;
-//     //         return;
-//     //     });
-//     // }
-
-//     localStorage.setItem("cart", JSON.stringify(cart));
-// };
 
 let checkIn = document.querySelector("#checkIn");
 let checkOut = document.querySelector("#checkOut");
@@ -73,6 +36,8 @@ const getDetailData = (idKamar) => {
     // console.log(checkIn.dataset.idRsv);
 
     const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    // console.log(cart);
+    
     const id = checkIn.dataset.idItem;
     const item = cart.find((cartItem) => cartItem.id == id);
     checkIn.value = item.checkIn;
@@ -82,39 +47,43 @@ const getDetailData = (idKamar) => {
     checkIn.addEventListener("change", (event) => {
         // console.log(checkIn.value);
         const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-    
+
         const id = checkIn.dataset.idItem;
         const item = cart.find((cartItem) => cartItem.id == id);
-        const updatedData = { ...item, checkIn: event.target.value };
-    
+        const updatedData = {
+            ...item,
+            checkIn: event.target.value,
+            idRsv: checkIn.dataset.idRsv,
+        };
+
         // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
         const updatedCart = cart.map((cartItem) =>
             cartItem.id == id ? updatedData : cartItem
         );
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     });
-    
+
     checkOut.addEventListener("change", (event) => {
         const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-    
+
         const id = event.target.dataset.idItem;
         const item = cart.find((cartItem) => cartItem.id == id);
         const updatedData = { ...item, checkOut: event.target.value };
-    
+
         // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
         const updatedCart = cart.map((cartItem) =>
             cartItem.id == id ? updatedData : cartItem
         );
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     });
-    
+
     catatan.addEventListener("change", (event) => {
         const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-    
+
         const id = event.target.dataset.idItem;
         const item = cart.find((cartItem) => cartItem.id == id);
         const updatedData = { ...item, catatan: event.target.value };
-    
+
         // Menyimpan data yang diperbarui ke dalam localStorage berdasarkan id
         const updatedCart = cart.map((cartItem) =>
             cartItem.id == id ? updatedData : cartItem
@@ -123,11 +92,10 @@ const getDetailData = (idKamar) => {
     });
 };
 
-
 const getCartItems = () => {
     // Ngambil node 'cart' dari HTML
     const cartTable = document.querySelector("#cart");
-    let checkForm = document.querySelector("#checkForm")
+    let checkForm = document.querySelector("#checkForm");
 
     const cart = JSON.parse(localStorage.getItem("cart") ?? "[]");
 
@@ -140,12 +108,16 @@ const getCartItems = () => {
     cart.forEach((item) => {
         totalHarga += item.qty * item.hargaKamar;
         cartTable.innerHTML += `
-        <button onclick="getDetailData(${item.id})" id="dataBtn" type="button" class="btn d-flex justify-content-between border-top border-bottom p-3 border-0 bg-white mb-1">
+        <button onclick="getDetailData(${
+            item.id
+        })" id="dataBtn" type="button" class="btn d-flex justify-content-between border-top border-bottom p-3 border-0 bg-white mb-1">
             <img class="img-fluid" style="width: 40%;" src="${item.imgUrl}"
                 alt="">
             <div style="width: 55%;">
                 <h5 class:"text-start">${item.namaKamar}</h5>
-                <p class:"text-start">Room${item.qty > 1 ? "s" : ""} : ${item.qty}</p>
+                <p class:"text-start">Room${item.qty > 1 ? "s" : ""} : ${
+            item.qty
+        }</p>
             </div>
         </button>
       `;
@@ -211,17 +183,27 @@ const getCartItems = () => {
     }
 };
 
-const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-$.ajax({
-    type: 'POST',
-    url: '/rooms/detailreservasi/action',
-    data: {
-        details: cart
-    },
-    success: function(response) {
-        console.log(response);
-    },
-    error: function(xhr, textStatus, error) {
-        console.error(error);
-    }
+const submitBtn = document.getElementById("submitBtn");
+
+submitBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    const cart = localStorage.getItem("cart") ?? [];
+    const csrf = document.querySelector("input[name='_token']").value;
+    cart.forEach(item => {
+        console.log(item.idRsv);
+      });
+
+    $.ajax({
+        method: "POST",
+        url: "/rooms/detailreservasi/action/",
+        headers: { "X-CSRF-TOKEN": csrf },
+        data: { details: cart },
+        success: function (response) {
+            window.location = "/rooms/" ;
+            localStorage.removeItem("cart");
+        },
+        error: function (xhr, textStatus, error) {
+            console.error(error);
+        },
+    });
 });

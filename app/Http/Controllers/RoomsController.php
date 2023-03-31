@@ -16,11 +16,11 @@ class RoomsController extends Controller
 {
     public function index()
     {
-        $LTipe = DB::table('kamar')->select('id_kamar', 'kamar.nama AS namaKamar','tipe_kamar.*')->where('kamar.status', '=', 'tersedia')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')->get();
+        $LTipe = DB::table('kamar')->select('id_kamar', 'kamar.nama AS namaKamar', 'tipe_kamar.*')->where('kamar.status', '=', 'tersedia')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')->get();
         $KQty = DB::table('kamar')->select(array('id_tipe', DB::raw('COUNT(id_tipe) AS maxQty')))->where('status', '=', 'Tersedia')->groupBy('id_tipe')->get();
         $RoomAvailability = [];
         // return dd($KQty);
-        
+
         foreach ($KQty as $Qty) {
             $RoomAvailability[$Qty->id_tipe] = $Qty->maxQty;
         }
@@ -40,7 +40,7 @@ class RoomsController extends Controller
         $LTipe = DB::table('tipe_kamar')
             ->where('nama', 'like', "%" . $cari . "%")
             ->paginate();
-        
+
         $KQty = DB::table('kamar')->select(array('id_tipe', DB::raw('COUNT(id_tipe) AS maxQty')))->where('status', '=', 'Tersedia')->groupBy('id_tipe')->get();
 
         $RoomAvailability = [];
@@ -85,23 +85,61 @@ class RoomsController extends Controller
         }
     }
 
-    // public function detailReservasiSubmit(Request $request)
-    // {
-    //     $details = $request->input('details');
-    //     $insertData = [];
+    public function detailReservasiSubmit(Request $request)
+    {
+        $details = json_decode($request->input('details'));
+        $insertData = [];
 
-    //     foreach ($details as $detail){
-    //         $insertData[] = [
-    //             'id_rsv'
-    //             'id_kamar' => $detail['id'],
-    //             'id_tipe' => $detail['id_tipe'],
-    //             'harga' => $detail['harga'],
-    //             'tanggal' => $detail['tanggal'],
-    //             'created_at' => now(),
-    //             'updated_at' => now(),
-    //         ];
-    //     }
-    // }
+        foreach ($details as $detail) {
+            array_push(
+                $insertData,
+                [
+                    'id_rsv' => $detail->idRsv,
+                    'id_kamar' => $detail->id,
+                    'tgl_in' => $detail->checkIn,
+                    'tgl_out' => $detail->checkOut,
+                    'harga' => $detail->hargaKamar,
+                    // 'created_at' => now(),
+                    // 'updated_at' => now(),
+                ]
+            );
+        }
+
+        DB::table('detail_reservasi')->insert($insertData);
+
+        return response()->json(['message' => 'Detail reservasi berhasil disimpan.']);
+    }
+
+    public function transaksi()
+    {
+        $listDetail = DB::table('detail_reservasi')->where('id_rsv', '=', '26')->get();
+        return dd($listDetail);
+
+        return view('tamu.transaksi');
+        // // Set your Merchant Server Key
+        // \Midtrans\Config::$serverKey = 'YOUR_SERVER_KEY';
+        // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        // \Midtrans\Config::$isProduction = false;
+        // // Set sanitization on (default)
+        // \Midtrans\Config::$isSanitized = true;
+        // // Set 3DS transaction for credit card to true
+        // \Midtrans\Config::$is3ds = true;
+
+        // $params = array(
+        //     'transaction_details' => array(
+        //         'order_id' => rand(),
+        //         'gross_amount' => 10000,
+        //     ),
+        //     'customer_details' => array(
+        //         'first_name' => 'budi',
+        //         'last_name' => 'pratama',
+        //         'email' => 'budi.pra@example.com',
+        //         'phone' => '08111222333',
+        //     ),
+        // );
+
+        // $snapToken = \Midtrans\Snap::getSnapToken($params);
+    }
 
     public function edit($id)
     {
@@ -109,10 +147,5 @@ class RoomsController extends Controller
         return view('admin.roomsedit', [
             'LKamar' => $LKamar
         ]);
-    }
-
-    public function copy()
-    {
-        return view('tamu.copy');
     }
 }
