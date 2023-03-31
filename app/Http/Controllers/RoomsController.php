@@ -110,12 +110,12 @@ class RoomsController extends Controller
         return response()->json(['message' => 'Detail reservasi berhasil disimpan.']);
     }
 
-    public function transaksi()
+    public function transaksi(Request $request, $id)
     {
-        $listDetail = DB::table('detail_reservasi')->where('id_rsv', '=', '26')->get();
-        return dd($listDetail);
+        $idRsv = $id;
+        $listDetail = DB::table('detail_reservasi')->select('detail_reservasi.*', 'kamar.nama as namaKamar', 'tipe_kamar.nama as namaTipe', 'tipe_kamar.img_url as imgKamar')->where('id_rsv', '=', $id)->join('kamar', 'detail_reservasi.id_kamar', '=', 'kamar.id_kamar')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')->get();
 
-        return view('tamu.transaksi');
+        // return dd($listDetail);
         // // Set your Merchant Server Key
         // \Midtrans\Config::$serverKey = 'YOUR_SERVER_KEY';
         // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -139,6 +139,11 @@ class RoomsController extends Controller
         // );
 
         // $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        return view('tamu.transaksi', [
+            'listDetail' => $listDetail,
+            'id_rsv' => $idRsv
+        ]);
     }
 
     public function edit($id)

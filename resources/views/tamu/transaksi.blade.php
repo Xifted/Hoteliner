@@ -29,12 +29,46 @@
             </div>
             <div class="bg-white shadow-sm d-flex flex-column h-100 w-100 ms-5 rounded overflow-hidden">
                 <h4 class="bg-dark text-white p-1 ps-2">Detail</h4>
-                <div class="d-flex justify-content-between border-bottom p-3">
-                    <img class="img-fluid" style="width: 40%;" src="${item.imgUrl}"
-                        alt="">
-                    <div style="width: 55%;">
-                        <h5>${item.namaKamar}</h5>
-                        <p>Harga : </p>
+                <div class="d-flex flex-column justify-content-between border-bottom p-3 gap-3">
+                    {{-- @foreach ($listDetail as $item)
+                        <img class="img-fluid" style="width: 30%;" src="{{ $item->imgKamar }}" alt="">
+                        <div style="width: 55%;">
+                            <h5>{{ $item->namaTipe }} - {{ $item->namaKamar }}</h5>
+                            <p>{{ $item->harga }}</p>
+                        </div>
+                    @endforeach --}}
+                    <table class="table table-striped rounded">
+                        <thead>
+                            <tr>
+                              {{-- <th scope="col">Gambar</th> --}}
+                              <th scope="col">Nama Kamar</th>
+                              <th scope="col">Tanggal In</th>
+                              <th scope="col">Tanggal Out</th>
+                              <th scope="col">Harga</th>
+                              {{-- <th scope="col">Action</th> --}}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($listDetail as $item)
+                            <tr>
+                              {{-- <td class="w-25"><img src="{{ $item->imgKamar }}" alt="" class="img-fluid" /></td> --}}
+                              <td class="w-">{{ $item->namaTipe }} - {{ $item->namaKamar }}</td>
+                              <td class="w-">{{ $item->tgl_in }}</td>
+                              <td class="w-">{{ $item->tgl_out }}</td>
+                              <td>{{ $item->harga }}</td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                    </table>
+                    <div class="d-flex flex-row-reverse justify-content-between gap-5">
+                        <form action="" method="POST" class="w-25 d-flex flex-row-reverse align-items-center">
+                            @csrf
+                            <button id="submitBtn" type="submit" class="w-100 btn btn-primary nav-link text-black fw-bold">Bayar</button>
+                        </form>
+                        <form action="" method="POST" class="d-flex flex-row-reverse align-items-center">
+                            @csrf
+                            <button id="submitBtn" type="submit" class="w-100 btn btn-danger nav-link text-white fw-bold">Cancel</button>
+                        </form>
                     </div>
                 </div>
             </div>

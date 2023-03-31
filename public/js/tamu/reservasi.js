@@ -189,9 +189,7 @@ submitBtn.addEventListener("click", (event) => {
     event.preventDefault();
     const cart = localStorage.getItem("cart") ?? [];
     const csrf = document.querySelector("input[name='_token']").value;
-    cart.forEach(item => {
-        console.log(item.idRsv);
-      });
+    const idRsv = JSON.parse(localStorage.getItem('cart'))[0].idRsv;
 
     $.ajax({
         method: "POST",
@@ -199,7 +197,7 @@ submitBtn.addEventListener("click", (event) => {
         headers: { "X-CSRF-TOKEN": csrf },
         data: { details: cart },
         success: function (response) {
-            window.location = "/rooms/" ;
+            window.location = "/rooms/transaksi/" + idRsv;
             localStorage.removeItem("cart");
         },
         error: function (xhr, textStatus, error) {
