@@ -37,7 +37,7 @@ Route::get('rooms/reservasi/action', [RoomsController::class, 'prosesReservasi']
 Route::get('rooms/detailreservasi/{id}', [RoomsController::class, 'detailReservasi'])->middleware('auth');
 Route::post('rooms/detailreservasi/action', [RoomsController::class, 'detailReservasiSubmit'])->name('detailReservasiSubmit')->middleware('auth');
 Route::get('rooms/transaksi/{id}', [RoomsController::class, 'transaksi'])->middleware('auth');
-Route::get('rooms/transaksi/action/{id}', [RoomsController::class, 'transaksi'])->middleware('auth');
+Route::post('rooms/transaksi/action/{id}', [RoomsController::class, 'transaksiAction'])->name('transaksiSubmit')->middleware('auth');
 
 //admin
 Route::get('admin-dashboard/login', [AccountsController::class, 'loginAdmin'])->name('loginAdmin');

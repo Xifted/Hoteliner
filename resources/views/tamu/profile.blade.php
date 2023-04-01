@@ -75,24 +75,29 @@
                     <table class="table table-striped rounded">
                         <thead>
                             <tr>
-                              <th scope="col">Tanggal Reservasi</th>
-                              <th scope="col">Booking Code</th>
-                              <th scope="col">Harga</th>
-                              <th scope="col">Action</th>
+                                <th scope="col">Tanggal Reservasi</th>
+                                <th scope="col">Booking Code</th>
+                                <th scope="col">Harga</th>
+                                <th scope="col">Status Pembayaran</th>
+                                <th scope="col">Action</th>
                             </tr>
-                          </thead>
-                          <tbody>
+                        </thead>
+                        <tbody>
                             @foreach ($listReservasi as $item)
-                            <tr>
-                              <td>{{ $item->tgl_rsv }}</td>
-                              <td>{{ $item->booking_code }}</td>
-                              <td>Rp 500.000</td>
-                              <td><button class="col-sm-6 btn btn-warning nav-link text-black fw-bold w-100">Detail</button></td>
-                            </tr>
+                                <tr>
+                                    <td style="width: 20%">{{ $item->tgl_rsv }}</td>
+                                    <td style="width: 30%">{{ $item->booking_code }}</td>
+                                    <td id="harga">{{ $item->total_harga }}</td>
+                                    <td>{{ $item->status_pembayaran }}</td>
+                                    <td class="d-flex flex-column gap-3">
+                                        <button class="col-sm-6 btn btn-warning nav-link  fw-bold w-100"><a class="text-black text-decoration-none" href="{{ $item->pdf_url }}" target="blank">Payment</a></button>
+                                        <button class="col-sm-6 btn btn-warning nav-link text-black fw-bold w-100">Detail</button>
+                                    </td>
+                                </tr>
                             @endforeach
-                          </tbody>
+                        </tbody>
                     </table>
-                        {{-- <div class="d-flex justify-content-evenly align-items-center justify-content-center border-bottom p-3">
+                    {{-- <div class="d-flex justify-content-evenly align-items-center justify-content-center border-bottom p-3">
                             <h5 style="width: 20%">{{ $item->tgl_rsv }}</h5>
                             <p style="width: 25%" class="text-wrap">{{ $item->booking_code }}</p>
                             <p id="harga" style="width: 25%" class="text-center">Rp 500.000</p>
@@ -103,6 +108,15 @@
         </div>
         </div>
     </section>
+    @if (session('alert-success'))
+        <script>
+            alert("{{ session('alert-success') }}")
+        </script>
+    @elseif(session('alert-failed'))
+        <script>
+            alert("{{ session('alert-failed') }}")
+        </script>
+    @endif
     <!-- Footer-->
     @include('tamu.layouts.footer')
     <!-- Bootstrap core JS-->

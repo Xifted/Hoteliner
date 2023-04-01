@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-3UxdpBlb9pOnLh_a"></script>
     <title>Hoteliner - Transaksi</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('/assets/img//logos/Hoteliner-logos.jpeg') }}" />
@@ -40,37 +42,42 @@
                     <table class="table table-striped rounded">
                         <thead>
                             <tr>
-                              {{-- <th scope="col">Gambar</th> --}}
-                              <th scope="col">Nama Kamar</th>
-                              <th scope="col">Tanggal In</th>
-                              <th scope="col">Tanggal Out</th>
-                              <th scope="col">Harga</th>
-                              {{-- <th scope="col">Action</th> --}}
+                                {{-- <th scope="col">Gambar</th> --}}
+                                <th scope="col">Nama Kamar</th>
+                                <th scope="col">Tanggal In</th>
+                                <th scope="col">Tanggal Out</th>
+                                <th scope="col">Harga</th>
+                                {{-- <th scope="col">Action</th> --}}
                             </tr>
-                          </thead>
-                          <tbody>
+                        </thead>
+                        <tbody>
                             @foreach ($listDetail as $item)
-                            <tr>
-                              {{-- <td class="w-25"><img src="{{ $item->imgKamar }}" alt="" class="img-fluid" /></td> --}}
-                              <td class="w-">{{ $item->namaTipe }} - {{ $item->namaKamar }}</td>
-                              <td class="w-">{{ $item->tgl_in }}</td>
-                              <td class="w-">{{ $item->tgl_out }}</td>
-                              <td>{{ $item->harga }}</td>
-                            </tr>
+                                <tr>
+                                    {{-- <td class="w-25"><img src="{{ $item->imgKamar }}" alt="" class="img-fluid" /></td> --}}
+                                    <td class="w-">{{ $item->namaTipe }} - {{ $item->namaKamar }}</td>
+                                    <td class="w-">{{ $item->tgl_in }}</td>
+                                    <td class="w-">{{ $item->tgl_out }}</td>
+                                    <td id="harga">{{ $item->harga }}</td>
+                                </tr>
                             @endforeach
-                          </tbody>
+                        </tbody>
                     </table>
                     <div class="d-flex flex-row-reverse justify-content-between gap-5">
-                        <form action="" method="POST" class="w-25 d-flex flex-row-reverse align-items-center">
-                            @csrf
-                            <button id="submitBtn" type="submit" class="w-100 btn btn-primary nav-link text-black fw-bold">Bayar</button>
-                        </form>
+                        <div class="w-25 d-flex flex-row-reverse align-items-center">
+                            <button id="submitBtn"
+                                class="w-100 btn btn-primary nav-link text-black fw-bold">Bayar</button>
+                        </div>
                         <form action="" method="POST" class="d-flex flex-row-reverse align-items-center">
                             @csrf
-                            <button id="submitBtn" type="submit" class="w-100 btn btn-danger nav-link text-white fw-bold">Cancel</button>
+                            <button type="submit"
+                                class="w-100 btn btn-danger nav-link text-white fw-bold">Cancel</button>
                         </form>
                     </div>
                 </div>
+                <form action="{{ url('rooms/transaksi/action/' . $id_rsv)}}" method="post" id="submit_form">
+                    @csrf
+                    <input type="hidden" name="json" id="json_callback">
+                </form>
             </div>
         </div>
     </section>
@@ -86,6 +93,42 @@
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script type="text/javascript">
+        let payButton = document.getElementById('submitBtn');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('{{ $snap_token }}', {
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment success!");
+                    console.log(result);
+                    send_response_to_form(result);
+                },
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    // alert("wating your payment!");
+                    // console.log(result);
+                    send_response_to_form(result);
+                },
+                onError: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment failed!");
+                    console.log(result);
+                    send_response_to_form(result);
+                },
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('you closed the popup without finishing the payment');
+                }
+            })
+        });
+
+        function send_response_to_form(result){
+            document.getElementById('json_callback').value = JSON.stringify(result);
+            // alert(document.getElementById('json_callback').value)
+            $('#submit_form').submit();
+        }
+    </script>
 </body>
 
 </html>

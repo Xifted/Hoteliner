@@ -7,6 +7,7 @@ use App\Models\Kamar;
 use App\Models\Reservasi;
 use App\Models\Tamu;
 use App\Models\Tipe_kamar;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -39,8 +40,8 @@ class RoomsController extends Controller
         // mengambil data dari table tipe sesuai pencarian data
         
         $LTipe = DB::table('kamar')->select('id_kamar', 'kamar.nama AS namaKamar', 'tipe_kamar.*')->where('kamar.status', '=', 'tersedia')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')
-        ->where('nama', 'like', "%" . $cari . "%")
-        ->paginate();
+        ->where('tipe_kamar.nama', 'like', "%" . $cari . "%")
+        ->get();
         // $LTipe = DB::table('tipe_kamar')
         //     ->where('nama', 'like', "%" . $cari . "%")
         //     ->paginate();
@@ -117,11 +118,19 @@ class RoomsController extends Controller
     public function transaksi(Request $request, $id)
     {
         $idRsv = $id;
+        // return dd($idRsv);
         $listDetail = DB::table('detail_reservasi')->select('detail_reservasi.*', 'kamar.nama as namaKamar', 'tipe_kamar.nama as namaTipe', 'tipe_kamar.img_url as imgKamar')->where('id_rsv', '=', $id)->join('kamar', 'detail_reservasi.id_kamar', '=', 'kamar.id_kamar')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')->get();
+        // return dd($listDetail);
+        // $arrayDetails = [];
 
+        // foreach( $listDetail as $item ){
+        //     $arrayDetails([
+                
+        //     ]);
+        // }
         // return dd($listDetail);
         // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-6LCs4lAxHv6yT1byiO1viTW2';
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
         // Set sanitization on (default)
@@ -132,12 +141,26 @@ class RoomsController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => rand(),
-                'gross_amount' => 10000,
+                // 'gross_amount' => 10000,
+            ),
+            'item_details' => array(
+                [
+                    'id' => '1',
+                    'price' => '12000',
+                    'quantity' => 2,
+                    'name' => 'Apel'
+                ],
+                [
+                    'id' => '1',
+                    'price' => '10000',
+                    'quantity' => 2,
+                    'name' => 'Alpukat'
+                ]
             ),
             'customer_details' => array(
-                'first_name' => 'budi',
-                'last_name' => 'pratama',
-                'email' => 'budi.pra@example.com',
+                'first_name' => Auth::user()->nama,
+                'last_name' => 'Hermawan',
+                'email' => 'Vin@example.com',
                 'phone' => '08111222333',
             ),
         );
@@ -149,6 +172,23 @@ class RoomsController extends Controller
             'id_rsv' => $idRsv,
             'snap_token' => $snapToken
         ]);
+    }
+
+    public function transaksiAction($id, Request $request){
+        $idUser = Auth::user()->id_tamu;
+        $transaksiJson = json_decode($request->get('json'));
+        // return dd($transaksiJson);
+        $bayar = new Transaksi();
+        $bayar->id_transaksi = $transaksiJson->transaction_id;
+        $bayar->id_rsv = $id;
+        $bayar->payment_type = $transaksiJson->payment_type;
+        $bayar->tgl_transaksi = $transaksiJson->transaction_time;
+        $bayar->status_pembayaran = $transaksiJson->transaction_status;
+        $bayar->total_harga = $transaksiJson->gross_amount;
+        $bayar->payment_code = $transaksiJson->payment_code ?? 0;
+        $bayar->order_id = $transaksiJson->order_id;
+        $bayar->pdf_url = $transaksiJson->pdf_url ?? 0;
+        return $bayar->save() ? redirect(url('/profile/' . $idUser))->with('alert-success', 'Trasaksi Berhasil') : redirect(url('/profile/' . $idUser))->with('alert-failed', 'Transaksi Gagal');
     }
 
     public function edit($id)

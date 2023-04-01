@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2023 at 12:56 AM
+-- Generation Time: Apr 01, 2023 at 02:38 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -70,11 +70,20 @@ CREATE TABLE `detail_reservasi` (
 --
 
 INSERT INTO `detail_reservasi` (`id_rsv`, `id_kamar`, `tgl_in`, `tgl_out`, `harga`) VALUES
-(1, 2, '2023-03-09 09:44:19', '2023-03-08 09:44:19', 1000000),
-(2, 4, '2023-03-26 04:47:42', '2023-03-26 04:47:42', 313131232),
-(3, 5, '2023-03-26 04:48:56', '2023-03-26 04:48:56', 31290412),
-(1, 11, '2023-03-26 06:07:54', '2023-03-26 06:07:54', 42141421421),
-(1, 12, '2023-03-26 06:07:54', '2023-03-26 06:07:54', 412412412);
+(1, 1, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
+(1, 2, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
+(2, 1, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
+(2, 2, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
+(3, 1, '2023-03-24 00:00:00', '2023-03-25 00:00:00', 5000000),
+(3, 2, '2023-03-30 00:00:00', '2023-03-31 00:00:00', 5000000),
+(4, 1, '2023-03-18 00:00:00', '2023-03-19 00:00:00', 5000000),
+(4, 3, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
+(5, 1, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
+(5, 2, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
+(6, 1, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
+(6, 3, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
+(7, 1, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
+(7, 3, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000);
 
 -- --------------------------------------------------------
 
@@ -235,13 +244,13 @@ CREATE TABLE `reservasi` (
 --
 
 INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `tgl_rsv`, `booking_code`) VALUES
-(1, 4, '2023-03-19 21:49:46', '2e075d05-95d9-47fa-8136-4409dbe6cd86'),
-(2, 4, '2023-03-19 22:29:40', '7dec6902-d40f-481a-8fa7-ecd6a549786a'),
-(3, 2, '2023-03-22 06:40:46', 'd151485a-f6e3-46a3-8fbb-8e553ce7c27f'),
-(4, 2, '2023-03-22 06:47:05', 'c50a557d-d996-4b92-865c-40dc3c8605a0'),
-(5, 2, '2023-03-22 07:12:07', 'b2a67eca-c9d0-4899-9494-6962545704c4'),
-(6, 2, '2023-03-22 22:29:41', 'c9abf885-0e5c-495c-99f4-dbd47fdaf2cf'),
-(7, 2, '2023-03-24 04:28:29', '399b400d-8fc8-425e-8d73-e1ed923b71f5');
+(1, 2, '2023-03-31 19:53:09', 'acdfe3f4-a1b1-4124-b157-69cfc867077d'),
+(2, 2, '2023-03-31 21:05:29', '0501b4ef-0c13-4ae3-8bcc-cc17bd4d0af1'),
+(3, 2, '2023-03-31 21:07:34', 'ed6fdc22-98ff-40c4-9b90-50a092ff6fea'),
+(4, 2, '2023-03-31 21:11:31', 'f6f1dac1-43fb-40e1-a621-c391b35306c9'),
+(5, 2, '2023-03-31 21:49:18', '31dc30cf-df8f-436b-bf4d-9e738c452db9'),
+(6, 2, '2023-03-31 22:03:12', '1641001f-82cd-44ef-bc4e-ff38dab80b74'),
+(7, 2, '2023-03-31 22:03:58', '3dee3e73-8dc3-4e70-8df7-d381a2af83cb');
 
 -- --------------------------------------------------------
 
@@ -260,7 +269,7 @@ CREATE TABLE `tamu` (
   `gender` enum('Laki - Laki','Perempuan') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `no_telp` bigint(15) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -269,8 +278,8 @@ CREATE TABLE `tamu` (
 --
 
 INSERT INTO `tamu` (`id_tamu`, `username`, `password`, `email`, `verified`, `nama`, `tgl_lahir`, `gender`, `alamat`, `no_telp`, `created_at`, `updated_at`) VALUES
-(1, 'test', '$2a$12$ckQLPKYauvmLnj7P3c3j/uTPTkV3utVSLJ.J2t/Tt4X9fWgCyENSK', 'test@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'testuser', '$2y$10$.pWdXz.dSV80ZDZqQ8Azbusv5.TtMmkE2SiTfo.2mNZSFmMINAkoW', 'test123@gmail.com', 0, 'Vincent', '2023-03-15', NULL, 'dsadad', 908309128312, NULL, NULL),
+(1, 'test', '$2a$12$ckQLPKYauvmLnj7P3c3j/uTPTkV3utVSLJ.J2t/Tt4X9fWgCyENSK', 'test@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, '2023-03-21 23:28:42', NULL),
+(2, 'testuser', '$2y$10$.pWdXz.dSV80ZDZqQ8Azbusv5.TtMmkE2SiTfo.2mNZSFmMINAkoW', 'test123@gmail.com', 0, 'Vincent', '2023-03-15', NULL, 'dsadad', 908309128312, '2023-03-06 23:28:54', NULL),
 (3, 'test123', '$2y$10$kwxdNlavd46x3uYfgAkvNegl8yioCieI348YXdNo70FFNLoheehxO', 'test@gmail.com', 0, 'Budi', '2000-06-22', NULL, 'Jalan Kaki', 8392183918, NULL, NULL),
 (4, 'Mustofa', '$2y$10$JHeC8ItytJJWUhA6d50bDOr2qfWfmGFFyC33GKzXxFr7dhlW9NM4a', 'mustofa@gmail.com', 0, 'Mustofa Nur Wahid', '2005-04-30', NULL, 'Jalan Jalan', 82187318321, NULL, NULL);
 
@@ -306,14 +315,27 @@ INSERT INTO `tipe_kamar` (`id_tipe`, `img_url`, `nama`, `deskripsi`, `harga`, `s
 --
 
 CREATE TABLE `transaksi` (
-  `id_transaksi` int(11) NOT NULL,
+  `id_transaksi` varchar(50) NOT NULL,
   `id_rsv` int(11) NOT NULL,
-  `metode` int(11) NOT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `payment_code` bigint(20) NOT NULL,
+  `payment_type` varchar(30) NOT NULL,
   `tgl_transaksi` datetime NOT NULL,
-  `no_rekening_tamu` varchar(30) NOT NULL,
-  `total_harga` bigint(15) NOT NULL,
-  `status_pembayaran` enum('Gagal','Pending','berhasil') NOT NULL DEFAULT 'Pending'
+  `no_rekening_tamu` varchar(30) DEFAULT NULL,
+  `total_harga` double NOT NULL,
+  `status_pembayaran` varchar(10) NOT NULL,
+  `pdf_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `id_rsv`, `order_id`, `payment_code`, `payment_type`, `tgl_transaksi`, `no_rekening_tamu`, `total_harga`, `status_pembayaran`, `pdf_url`) VALUES
+('0f8613f5-113d-4806-961a-f3c568b7ab91', 5, 1748633516, 0, 'bank_transfer', '2023-03-31 21:50:38', NULL, 44000, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/633dbaaf-994f-4d7e-9694-70120ed71dc8/pdf'),
+('37001334-6110-4ade-a83e-472975bfe4d4', 2, 1307219630, 217368111222333, 'cstore', '2023-03-31 21:05:54', NULL, 44000, 'pending', 'https://app.sandbox.midtrans.com/snap/v1/transactions/152e8dc7-f1a6-47b6-9d99-6ad68e3c8232/pdf'),
+('5735f793-e420-4529-8930-9488e15b67b3', 1, 611291729, 217318111222333, 'cstore', '2023-03-31 19:53:36', NULL, 44000, 'pending', 'https://app.sandbox.midtrans.com/snap/v1/transactions/14a4ef96-4372-4194-9d14-d6da9a7afee4/pdf'),
+('d2a21f23-aba4-4e29-b6dc-03efd280013c', 4, 785118685, 0, 'qris', '2023-03-31 21:12:33', NULL, 44000, 'settlement', '0');
 
 -- --------------------------------------------------------
 
@@ -419,8 +441,7 @@ ALTER TABLE `tipe_kamar`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `id_rsv` (`id_rsv`),
-  ADD KEY `metode` (`metode`);
+  ADD KEY `id_rsv` (`id_rsv`);
 
 --
 -- Indexes for table `users`
@@ -494,12 +515,6 @@ ALTER TABLE `tipe_kamar`
   MODIFY `id_tipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `transaksi`
---
-ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -532,8 +547,7 @@ ALTER TABLE `reservasi`
 -- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_rsv`) REFERENCES `reservasi` (`id_rsv`),
-  ADD CONSTRAINT `transaksi_ibfk_3` FOREIGN KEY (`metode`) REFERENCES `metode_pembayaran` (`id_metode`);
+  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_rsv`) REFERENCES `reservasi` (`id_rsv`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

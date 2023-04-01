@@ -90,4 +90,5 @@ window.addEventListener("DOMContentLoaded", (event) => {
             (element.textContent =
                 "Harga : " + IDRRupiah.format(element.textContent))
         );
+    // document.querySelector("#harga").textContent = "Harga : " + IDRRupiah.format;
 });

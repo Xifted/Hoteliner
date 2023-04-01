@@ -19,7 +19,7 @@ class HomeController extends Controller
     }
     public function profile($id){
         $dataTamu = Tamu::find($id);
-        $listReservasi = DB::table('reservasi')->select('*')->where('id_tamu', '=', $dataTamu->id_tamu)->orderBy('tgl_rsv', 'desc')->get();
+        $listReservasi = DB::table('reservasi')->select('reservasi.*', 'transaksi.status_pembayaran', 'transaksi.pdf_url', 'transaksi.total_harga')->join('transaksi', 'reservasi.id_rsv', '=', 'transaksi.id_rsv')->where('reservasi.id_tamu', '=', $dataTamu->id_tamu)->orderBy('reservasi.tgl_rsv', 'desc')->get();
         // return dd($listReservasi);
 
         return view('tamu.profile', [
