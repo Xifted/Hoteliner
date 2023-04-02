@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detail_Reservasi;
 use App\Models\Kamar;
 use App\Models\Tamu;
 use App\Models\Tipe_kamar;
@@ -25,6 +26,19 @@ class HomeController extends Controller
         return view('tamu.profile', [
             'dataTamu' => $dataTamu,
             'listReservasi' => $listReservasi
+        ]);
+    }
+
+    public function showDetailReservasi($id){
+        $idUser = Auth::user()->id_tamu;
+        $idRsv = $id;
+        $detailReservasi = DB::table('detail_reservasi')->select('detail_reservasi.*', 'kamar.nama as nama_kamar', 'tipe_kamar.nama as nama_tipe')->join('kamar', 'detail_reservasi.id_kamar', '=', 'kamar.id_kamar')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')->where('id_rsv', '=', $idRsv)->get();
+        // return dd($detailReservasi);
+
+        return view('tamu.showReservasi', [
+            'detail_reservasi' => $detailReservasi,
+            'id_user' => $idUser,
+            'id_rsv' => $idRsv
         ]);
     }
 }

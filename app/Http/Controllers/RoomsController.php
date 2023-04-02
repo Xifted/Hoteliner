@@ -38,10 +38,10 @@ class RoomsController extends Controller
         $cari = $request->cari;
 
         // mengambil data dari table tipe sesuai pencarian data
-        
+
         $LTipe = DB::table('kamar')->select('id_kamar', 'kamar.nama AS namaKamar', 'tipe_kamar.*')->where('kamar.status', '=', 'tersedia')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')
-        ->where('tipe_kamar.nama', 'like', "%" . $cari . "%")
-        ->get();
+            ->where('tipe_kamar.nama', 'like', "%" . $cari . "%")
+            ->get();
         // $LTipe = DB::table('tipe_kamar')
         //     ->where('nama', 'like', "%" . $cari . "%")
         //     ->paginate();
@@ -121,13 +121,16 @@ class RoomsController extends Controller
         // return dd($idRsv);
         $listDetail = DB::table('detail_reservasi')->select('detail_reservasi.*', 'kamar.nama as namaKamar', 'tipe_kamar.nama as namaTipe', 'tipe_kamar.img_url as imgKamar')->where('id_rsv', '=', $id)->join('kamar', 'detail_reservasi.id_kamar', '=', 'kamar.id_kamar')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')->get();
         // return dd($listDetail);
-        // $arrayDetails = [];
+        $arrayDetails = [];
 
-        // foreach( $listDetail as $item ){
-        //     $arrayDetails([
-                
-        //     ]);
-        // }
+        foreach ($listDetail as $item) {
+            array_push($arrayDetails,[
+                'id' => $item->id_rsv,
+                'price' => $item->harga,
+                'name' => $item->namaTipe . " - " . $item->namaKamar,
+                'quantity' => 1
+            ]);
+        }
         // return dd($listDetail);
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
@@ -143,20 +146,8 @@ class RoomsController extends Controller
                 'order_id' => rand(),
                 // 'gross_amount' => 10000,
             ),
-            'item_details' => array(
-                [
-                    'id' => '1',
-                    'price' => '12000',
-                    'quantity' => 2,
-                    'name' => 'Apel'
-                ],
-                [
-                    'id' => '1',
-                    'price' => '10000',
-                    'quantity' => 2,
-                    'name' => 'Alpukat'
-                ]
-            ),
+            'item_details' => $arrayDetails,
+
             'customer_details' => array(
                 'first_name' => Auth::user()->nama,
                 'last_name' => 'Hermawan',
@@ -174,7 +165,8 @@ class RoomsController extends Controller
         ]);
     }
 
-    public function transaksiAction($id, Request $request){
+    public function transaksiAction($id, Request $request)
+    {
         $idUser = Auth::user()->id_tamu;
         $transaksiJson = json_decode($request->get('json'));
         // return dd($transaksiJson);

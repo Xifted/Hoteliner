@@ -25,7 +25,8 @@ Route::post('register/action', [AccountsController::class, 'actionregister'])->n
 Route::get('datadiri', [AccountsController::class, 'datadiri'])->name('datadiri');
 Route::post('datadiri/action', [AccountsController::class, 'actiondatadiri'])->name('actiondatadiri');
 Route::get('logout', [AccountsController::class, 'actionlogout'])->name('actionlogout');
-Route::get('profile/{id}', [HomeController::class, 'profile'])->middleware('auth');
+Route::get('profile/{id}', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
+Route::get('profile/reservasi/{id}', [HomeController::class, 'showDetailReservasi'])->middleware('auth');
 
 //tamu
 Route::get('', [HomeController::class, 'index']);
