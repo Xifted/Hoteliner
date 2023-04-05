@@ -186,6 +186,7 @@ class RoomsController extends Controller
     public function edit($id)
     {
         $LKamar = Kamar::find($id);
+        // DB::table('tamu')->create()->if()
         return view('admin.roomsedit', [
             'LKamar' => $LKamar
         ]);

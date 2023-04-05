@@ -90,8 +90,13 @@
                                     <td id="harga">{{ $item->total_harga }}</td>
                                     <td>{{ $item->status_pembayaran }}</td>
                                     <td class="d-flex flex-column gap-3">
+                                        @if ($item->pdf_url == null || $item->pdf_url == 0)
+                                        <button class="col-sm-6 btn btn-warning nav-link text-black fw-bold w-100 my-2"><a class="text-black text-decoration-none" href="{{ url('/profile/reservasi/' . $item->id_rsv) }}">Detail</a></button>
+                                        @else
                                         <button class="col-sm-6 btn btn-warning nav-link  fw-bold w-100"><a class="text-black text-decoration-none" href="{{ $item->pdf_url }}" target="blank">Payment</a></button>
                                         <button class="col-sm-6 btn btn-warning nav-link text-black fw-bold w-100"><a class="text-black text-decoration-none" href="{{ url('/profile/reservasi/' . $item->id_rsv) }}">Detail</a></button>
+                                        @endif
+                                        
                                     </td>
                                 </tr>
                             @endforeach

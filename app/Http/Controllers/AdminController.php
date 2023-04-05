@@ -30,6 +30,10 @@ class AdminController extends Controller
     }
 
     public function listTransaksi(){
-        return view('admin.list-transaksi');
+        $listTransaksi = DB::table('transaksi')->select('*')->orderBy('tgl_transaksi', 'desc')->get();
+        // return dd($listTransaksi);
+        return view('admin.list-transaksi', [
+            'list_transaksi' => $listTransaksi
+        ]);
     }
 }

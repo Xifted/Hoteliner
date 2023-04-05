@@ -382,14 +382,14 @@
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Tanggal Transaksi</th>
+                                            {{-- <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                No Rekening Tamu</th> --}}
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                No Rekening Tamu</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Total Harga</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center" style="border-inline-end: 1px #a8a8a8 solid">
                                                 Status</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
@@ -397,6 +397,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($list_transaksi as $item)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
@@ -404,37 +405,43 @@
                         <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
                       </div> --}}
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm ps-2">1</h6>
+                                                        <h6 class="mb-0 text-sm ps-2">{{ $item->id_transaksi }}</h6>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <h6 class="mb-0 text-sm">1</h6>
+                                                <h6 class="mb-0 text-sm">{{ $item->id_rsv }}</h6>
                                             </td>
                                             <td>
-                                                <h6 class="mb-0 text-sm">BBBB</h6>
+                                                <h6 class="mb-0 text-sm">{{ $item->payment_type }}</h6>
                                             </td>
                                             <td>
-                                                <h6 class="mb-0 text-sm">1/1/2023</h6>
+                                                <h6 class="mb-0 text-sm">{{ $item->tgl_transaksi}}</h6>
                                             </td>
+                                            {{-- <td>
+                                                <h6 class="mb-0 text-sm"></h6>
+                                            </td> --}}
                                             <td>
-                                                <h6 class="mb-0 text-sm">dsahdkasdkasdhjk</h6>
+                                                <h6 class="mb-0 text-sm">{{ $item->total_harga}}</h6>
                                             </td>
-                                            <td>
-                                                <h6 class="mb-0 text-sm">dsahdkasdkasdhjk</h6>
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-sm bg-gradient-warning w-100 font-weight-bold text-xs justify-content-center align-items-center">Pending</span>
+                                            <td style="border-inline-end: 1px #a8a8a8 solid">
+                                                @if ($item->status_pembayaran == 'pending')
+                                                    <span class="badge badge-sm bg-gradient-warning w-100 font-weight-bold text-xs justify-content-center align-items-center">Pending</span>
+                                                @elseif ($item->status_pembayaran == 'settlement')
+                                                    <span class="badge badge-sm bg-gradient-success w-100 font-weight-bold text-xs justify-content-center align-items-center">Success</span>
+                                                
+                                                @endif
                                             </td>
                                             <td>
                                                 <span class="badge badge-sm bg-gradient-primary w-100 d-flex justify-content-center align-items-center"
                                                     style="cursor: pointer;"><a
                                                         onclick="document.getElementById('modal').style.display='flex'"
                                                         class="text-white font-weight-bold text-xs ">
-                                                        Details
+                                                        Print
                                                     </a></span>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
