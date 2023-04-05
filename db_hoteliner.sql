@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2023 at 02:38 AM
+-- Generation Time: Apr 06, 2023 at 01:26 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -59,7 +59,7 @@ INSERT INTO `admin` (`id_admin`, `username`, `password`, `email`, `nama`, `tgl_l
 
 CREATE TABLE `detail_reservasi` (
   `id_rsv` int(11) NOT NULL,
-  `id_kamar` int(11) NOT NULL,
+  `id_kamar` int(11) DEFAULT NULL,
   `tgl_in` datetime DEFAULT NULL,
   `tgl_out` datetime DEFAULT NULL,
   `harga` double NOT NULL
@@ -83,7 +83,26 @@ INSERT INTO `detail_reservasi` (`id_rsv`, `id_kamar`, `tgl_in`, `tgl_out`, `harg
 (6, 1, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
 (6, 3, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
 (7, 1, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
-(7, 3, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000);
+(7, 3, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
+(8, 1, '2023-04-07 00:00:00', '2023-04-08 00:00:00', 5000000),
+(8, 2, '2023-04-07 00:00:00', '2023-04-08 00:00:00', 5000000),
+(9, 3, '2023-04-07 00:00:00', '2023-04-08 00:00:00', 5000000),
+(9, 5, '2023-04-07 00:00:00', '2023-04-08 00:00:00', 10000000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diskon`
+--
+
+CREATE TABLE `diskon` (
+  `id_diskon` varchar(255) NOT NULL,
+  `value` int(3) NOT NULL,
+  `nama_kupon` varchar(30) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `tgl_diskon` date NOT NULL,
+  `tgl_expired` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -250,7 +269,10 @@ INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `tgl_rsv`, `booking_code`) VALUES
 (4, 2, '2023-03-31 21:11:31', 'f6f1dac1-43fb-40e1-a621-c391b35306c9'),
 (5, 2, '2023-03-31 21:49:18', '31dc30cf-df8f-436b-bf4d-9e738c452db9'),
 (6, 2, '2023-03-31 22:03:12', '1641001f-82cd-44ef-bc4e-ff38dab80b74'),
-(7, 2, '2023-03-31 22:03:58', '3dee3e73-8dc3-4e70-8df7-d381a2af83cb');
+(7, 2, '2023-03-31 22:03:58', '3dee3e73-8dc3-4e70-8df7-d381a2af83cb'),
+(8, 2, '2023-04-06 04:08:53', '2d3bf9d7-d4bd-406e-b13e-39c3d6ba7090'),
+(9, 2, '2023-04-06 04:11:47', '6e126ad0-308d-4831-8d04-bcacb25e3dba'),
+(10, 2, '2023-04-06 05:06:06', 'b6809224-aa71-4bec-8148-b5a98c9d6fdf');
 
 -- --------------------------------------------------------
 
@@ -332,8 +354,10 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `id_rsv`, `order_id`, `payment_code`, `payment_type`, `tgl_transaksi`, `no_rekening_tamu`, `total_harga`, `status_pembayaran`, `pdf_url`) VALUES
+('0b167b70-4c06-428a-bc8a-8f466db1a7e1', 8, 1875584532, 4429159217742792, 'cstore', '2023-04-06 04:09:46', NULL, 10000000, 'pending', 'https://app.sandbox.midtrans.com/snap/v1/transactions/d4f89895-0f9f-407f-a26c-d9c818104b72/pdf'),
 ('0f8613f5-113d-4806-961a-f3c568b7ab91', 5, 1748633516, 0, 'bank_transfer', '2023-03-31 21:50:38', NULL, 44000, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/633dbaaf-994f-4d7e-9694-70120ed71dc8/pdf'),
 ('37001334-6110-4ade-a83e-472975bfe4d4', 2, 1307219630, 217368111222333, 'cstore', '2023-03-31 21:05:54', NULL, 44000, 'pending', 'https://app.sandbox.midtrans.com/snap/v1/transactions/152e8dc7-f1a6-47b6-9d99-6ad68e3c8232/pdf'),
+('48e081b1-447a-41c3-88c3-3e2453ec3462', 9, 1950226482, 223178111222333, 'cstore', '2023-04-06 04:12:04', NULL, 15000000, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/d3f9638d-07a9-4448-af4b-5bc3e985e6de/pdf'),
 ('5735f793-e420-4529-8930-9488e15b67b3', 1, 611291729, 217318111222333, 'cstore', '2023-03-31 19:53:36', NULL, 44000, 'pending', 'https://app.sandbox.midtrans.com/snap/v1/transactions/14a4ef96-4372-4194-9d14-d6da9a7afee4/pdf'),
 ('d2a21f23-aba4-4e29-b6dc-03efd280013c', 4, 785118685, 0, 'qris', '2023-03-31 21:12:33', NULL, 44000, 'settlement', '0');
 
@@ -370,6 +394,12 @@ ALTER TABLE `admin`
 ALTER TABLE `detail_reservasi`
   ADD KEY `id_rsv` (`id_rsv`),
   ADD KEY `id_kamar` (`id_kamar`);
+
+--
+-- Indexes for table `diskon`
+--
+ALTER TABLE `diskon`
+  ADD PRIMARY KEY (`id_diskon`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -500,7 +530,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tamu`

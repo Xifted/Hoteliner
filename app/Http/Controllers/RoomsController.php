@@ -180,7 +180,7 @@ class RoomsController extends Controller
         $bayar->payment_code = $transaksiJson->payment_code ?? 0;
         $bayar->order_id = $transaksiJson->order_id;
         $bayar->pdf_url = $transaksiJson->pdf_url ?? 0;
-        return $bayar->save() ? redirect(url('/profile/' . $idUser))->with('alert-success', 'Trasaksi Berhasil') : redirect(url('/profile/' . $idUser))->with('alert-failed', 'Transaksi Gagal');
+        return $bayar->save() ? redirect(url('/profile/' . $idUser))->with('alert-success', 'Trasaksi Berhasil Dibuat') : redirect(url('/profile/' . $idUser))->with('alert-failed', 'Transaksi Gagal');
     }
 
     public function edit($id)

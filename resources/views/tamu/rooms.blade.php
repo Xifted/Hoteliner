@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{{ asset('css/styles.css')}}" rel="stylesheet" />
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
 </head>
 
 <body class="page-top">
@@ -26,12 +26,13 @@
         <div class="container-fluid px-5 mt-5">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Rooms</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted">Kamar Hotel Terbaik dan Ternyaman.</h3>
             </div>
             <div class="d-flex flex-row-reverse mb-5 me-4">
                 <div class="input-group rounded w-25">
                     <form class="d-flex w-75" action="/rooms/cari" method="GET">
-                        <input type="search" name="cari" class="form-control border-0 shadow-sm" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                        <input type="search" name="cari" class="form-control border-0 shadow-sm"
+                            placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search text-white shadow-sm"></i>
                         </button>
@@ -67,12 +68,12 @@
                                     <p class="fw-bold room-price">{{ $LTipe->harga }}</p>
                                     @if (Auth::check())
                                         {{-- @if ($KQty[$LTipe->id_tipe] ?? 0) --}}
-                                            <button id="tambahBtn"
-                                                class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
-                                                onclick="addCartItem(this)" data-id-tipe="{{ $LTipe->id_tipe }}"
-                                                data-img-url="{{ $LTipe->img_url }}" data-id-kamar="{{ $LTipe->id_kamar }}"
-                                                data-nama-kamar="{{ $LTipe->nama }} - {{ $LTipe->namaKamar }}"
-                                                data-harga-kamar="{{ $LTipe->harga }}">Tambah</button>
+                                        <button id="tambahBtn"
+                                            class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
+                                            onclick="addCartItem(this)" data-id-tipe="{{ $LTipe->id_tipe }}"
+                                            data-img-url="{{ $LTipe->img_url }}" data-id-kamar="{{ $LTipe->id_kamar }}"
+                                            data-nama-kamar="{{ $LTipe->nama }} - {{ $LTipe->namaKamar }}"
+                                            data-harga-kamar="{{ $LTipe->harga }}">Tambah</button>
                                         {{-- @else
                                             <button class="col-sm-4 btn btn-warning nav-link text-black fw-bold"
                                                 disabled>Tidak Tersedia</button>

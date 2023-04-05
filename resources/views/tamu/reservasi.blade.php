@@ -35,7 +35,7 @@
                             style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
                             <h4>Tanggal Check-In</h4>
                             <input onchange="getDetailData(idKamar)" id="checkIn"
-                                data-id-rsv="{{ $reservasi->id_rsv }}" class="form-control text-dark w-50 ms-4"
+                                data-id-rsv="{{ $reservasi->id_rsv }}" data-min-harga="" class="form-control text-dark w-50 ms-4"
                                 name="tgl_in" type="date" placeholder="Tanggal Check-In *" required />
                             <h4>Tanggal Check-Out</h4>
                             <input onchange="getDetailData(idKamar)" id="checkOut"

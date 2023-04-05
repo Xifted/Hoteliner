@@ -106,7 +106,7 @@
                 <h2 class="section-heading text-uppercase">About</h2>
                 <h3 class="section-subheading text-muted">Untuk Mengenal Kami Lebih Jauh</h3>
             </div>
-            <div class=".flex-row d-flex justify-content-around mb-5 border-bottom pb-5">
+            <div class="flex-row d-flex justify-content-around pb-5">
                 <div class="col-sm-4">
                     <img class="img-fluid" src="{{ asset('/assets/img/about/about1.jpg') }}" alt="">
                 </div>
@@ -128,6 +128,9 @@
                         animi quae quis beatae fugiat maiores aspernatur repellendus, laborum qui nobis voluptatibus
                         numquam rem.</p>
                 </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center border-bottom pb-5 mb-5">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18868.375533724924!2d106.72791432992813!3d-6.185941633266633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f75b4cbed98f%3A0x861e14b77e8a559c!2sHARRIS%20Suites%20Puri%20Mansion!5e0!3m2!1sid!2sid!4v1680731947078!5m2!1sid!2sid" width="1130" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <h2 class="text-center section-heading text-uppercase my-5">Timeline</h2>
             <ul class="timeline">
