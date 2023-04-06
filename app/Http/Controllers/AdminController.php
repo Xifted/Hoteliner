@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diskon;
 use App\Models\Reservasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
@@ -35,5 +38,24 @@ class AdminController extends Controller
         return view('admin.list-transaksi', [
             'list_transaksi' => $listTransaksi
         ]);
+    }
+    public function listDiskon(){
+        $listDiskon = Diskon::all();
+
+        return view('admin.list-diskon', [
+            'list_diskon' => $listDiskon
+        ]);
+    }
+    public function actionDiskon(Request $request){
+        Diskon::create([
+            'id_diskon' => Str::uuid()->toString(),
+            'value' => $request->input('valueDiskon'),
+            'nama_diskon' => $request->input('namaDiskon'),
+            'deskripsi' => $request->input('deskripsiDiskon'),
+            'tgl_diskon' => $request->input('tglDiskon'),
+            'tgl_expired' => $request->input('tglExpired'),
+        ]);
+
+        return redirect('/admin-dashboard/listdiskon');
     }
 }

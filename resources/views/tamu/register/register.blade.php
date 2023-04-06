@@ -22,8 +22,8 @@
 
     @include('tamu.layouts.navbar2')
 
-    <section class="" style="margin-top: 70px;" id="contact">
-        <div class="container col-md-3 bg-light py-5 rounded">
+    <section class="" id="contact">
+        <div class="container col-md-4 bg-light py-5 rounded">
             <div class="text-center mb-5">
                 <h2 class="section-heading text-dark text-uppercase">Register</h2>
             </div>

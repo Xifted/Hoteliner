@@ -33,13 +33,20 @@
                     <form action="" id="form-pengubahan" data-id="-1">
                         <div id="checkForm" class="d-grid bg-white rounded p-4"
                             style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
+                            <h4>Kupon</h4>
+                            <select name="diskon" class="bg-white border-1 rounded text-dark w-75 ms-4" id="diskon">
+                                <option value="">Diskon</option>
+                                @foreach ($list_diskon as $item)
+                                    <option value="{{ $item->id_diskon }}">{{ $item->nama_diskon }}</option>
+                                @endforeach
+                            </select>
                             <h4>Tanggal Check-In</h4>
                             <input onchange="getDetailData(idKamar)" id="checkIn"
-                                data-id-rsv="{{ $reservasi->id_rsv }}" data-min-harga="" class="form-control text-dark w-50 ms-4"
+                                data-id-rsv="{{ $reservasi->id_rsv }}" data-min-harga="" class="form-control text-dark w-75 ms-4"
                                 name="tgl_in" type="date" placeholder="Tanggal Check-In *" required />
                             <h4>Tanggal Check-Out</h4>
                             <input onchange="getDetailData(idKamar)" id="checkOut"
-                                class="form-control text-dark w-50 ms-4" name="tgl_in" type="date"
+                                class="form-control text-dark w-75 ms-4" name="tgl_in" type="date"
                                 placeholder="Tanggal Check-In *" required />
                             <h4>Catatan : </h4>
                             <div class="form-floating ms-4">

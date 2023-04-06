@@ -22,7 +22,7 @@
 
     @include('tamu.layouts.navbar2')
 
-    <section class="" style="margin-top: 70px;" id="contact">
+    <section class="" id="contact">
         <div class="container col-md-5 bg-light py-5 rounded">
             <div class="text-center mb-5">
                 <h2 class="section-heading text-dark text-uppercase">Data Diri</h2>
@@ -47,12 +47,12 @@
                             <div class="d-flex flex-column" style="width: 30%;">
                                 <div class="d-flex form-check">
                                     <input class="form-check-input" style="padding: 0.8rem;" type="radio"
-                                        name="metode-pembayaran" id="" value="Laki - Laki" />
+                                        name="gender" id="" value="Laki - Laki" />
                                     <label class="form-check-label ms-2" for="html">Laki - Laki</label><br>
                                 </div>
                                 <div class="d-flex form-check">
                                     <input class="form-check-input" style="padding: 0.8rem;" type="radio"
-                                        name="metode-pembayaran" id="" value="Perempuan" />
+                                        name="gender" id="" value="Perempuan" />
                                     <label class="form-check-label ms-2" for="html">Perempuan</label><br>
                                 </div>
                             </div>

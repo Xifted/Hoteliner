@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2023 at 01:26 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Generation Time: Apr 06, 2023 at 11:13 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -65,30 +65,6 @@ CREATE TABLE `detail_reservasi` (
   `harga` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `detail_reservasi`
---
-
-INSERT INTO `detail_reservasi` (`id_rsv`, `id_kamar`, `tgl_in`, `tgl_out`, `harga`) VALUES
-(1, 1, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
-(1, 2, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
-(2, 1, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
-(2, 2, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
-(3, 1, '2023-03-24 00:00:00', '2023-03-25 00:00:00', 5000000),
-(3, 2, '2023-03-30 00:00:00', '2023-03-31 00:00:00', 5000000),
-(4, 1, '2023-03-18 00:00:00', '2023-03-19 00:00:00', 5000000),
-(4, 3, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
-(5, 1, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
-(5, 2, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
-(6, 1, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
-(6, 3, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
-(7, 1, '2023-03-17 00:00:00', '2023-03-18 00:00:00', 5000000),
-(7, 3, '2023-03-31 00:00:00', '2023-04-01 00:00:00', 5000000),
-(8, 1, '2023-04-07 00:00:00', '2023-04-08 00:00:00', 5000000),
-(8, 2, '2023-04-07 00:00:00', '2023-04-08 00:00:00', 5000000),
-(9, 3, '2023-04-07 00:00:00', '2023-04-08 00:00:00', 5000000),
-(9, 5, '2023-04-07 00:00:00', '2023-04-08 00:00:00', 10000000);
-
 -- --------------------------------------------------------
 
 --
@@ -98,11 +74,18 @@ INSERT INTO `detail_reservasi` (`id_rsv`, `id_kamar`, `tgl_in`, `tgl_out`, `harg
 CREATE TABLE `diskon` (
   `id_diskon` varchar(255) NOT NULL,
   `value` int(3) NOT NULL,
-  `nama_kupon` varchar(30) NOT NULL,
+  `nama_diskon` varchar(30) NOT NULL,
   `deskripsi` text NOT NULL,
   `tgl_diskon` date NOT NULL,
   `tgl_expired` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `diskon`
+--
+
+INSERT INTO `diskon` (`id_diskon`, `value`, `nama_diskon`, `deskripsi`, `tgl_diskon`, `tgl_expired`) VALUES
+('107d7289-ec20-4741-89ad-79e2cca69b54', 50, 'Diskon Ramadhan', 'Ini Deskripsi', '2023-04-06', '2023-04-08');
 
 -- --------------------------------------------------------
 
@@ -263,16 +246,7 @@ CREATE TABLE `reservasi` (
 --
 
 INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `tgl_rsv`, `booking_code`) VALUES
-(1, 2, '2023-03-31 19:53:09', 'acdfe3f4-a1b1-4124-b157-69cfc867077d'),
-(2, 2, '2023-03-31 21:05:29', '0501b4ef-0c13-4ae3-8bcc-cc17bd4d0af1'),
-(3, 2, '2023-03-31 21:07:34', 'ed6fdc22-98ff-40c4-9b90-50a092ff6fea'),
-(4, 2, '2023-03-31 21:11:31', 'f6f1dac1-43fb-40e1-a621-c391b35306c9'),
-(5, 2, '2023-03-31 21:49:18', '31dc30cf-df8f-436b-bf4d-9e738c452db9'),
-(6, 2, '2023-03-31 22:03:12', '1641001f-82cd-44ef-bc4e-ff38dab80b74'),
-(7, 2, '2023-03-31 22:03:58', '3dee3e73-8dc3-4e70-8df7-d381a2af83cb'),
-(8, 2, '2023-04-06 04:08:53', '2d3bf9d7-d4bd-406e-b13e-39c3d6ba7090'),
-(9, 2, '2023-04-06 04:11:47', '6e126ad0-308d-4831-8d04-bcacb25e3dba'),
-(10, 2, '2023-04-06 05:06:06', 'b6809224-aa71-4bec-8148-b5a98c9d6fdf');
+(1, 5, '2023-04-06 07:55:14', '615609c9-4f9c-4e10-98f7-b0460d2419c8');
 
 -- --------------------------------------------------------
 
@@ -303,7 +277,8 @@ INSERT INTO `tamu` (`id_tamu`, `username`, `password`, `email`, `verified`, `nam
 (1, 'test', '$2a$12$ckQLPKYauvmLnj7P3c3j/uTPTkV3utVSLJ.J2t/Tt4X9fWgCyENSK', 'test@gmail.com', 0, NULL, NULL, NULL, NULL, NULL, '2023-03-21 23:28:42', NULL),
 (2, 'testuser', '$2y$10$.pWdXz.dSV80ZDZqQ8Azbusv5.TtMmkE2SiTfo.2mNZSFmMINAkoW', 'test123@gmail.com', 0, 'Vincent', '2023-03-15', NULL, 'dsadad', 908309128312, '2023-03-06 23:28:54', NULL),
 (3, 'test123', '$2y$10$kwxdNlavd46x3uYfgAkvNegl8yioCieI348YXdNo70FFNLoheehxO', 'test@gmail.com', 0, 'Budi', '2000-06-22', NULL, 'Jalan Kaki', 8392183918, NULL, NULL),
-(4, 'Mustofa', '$2y$10$JHeC8ItytJJWUhA6d50bDOr2qfWfmGFFyC33GKzXxFr7dhlW9NM4a', 'mustofa@gmail.com', 0, 'Mustofa Nur Wahid', '2005-04-30', NULL, 'Jalan Jalan', 82187318321, NULL, NULL);
+(4, 'Mustofa', '$2y$10$JHeC8ItytJJWUhA6d50bDOr2qfWfmGFFyC33GKzXxFr7dhlW9NM4a', 'mustofa@gmail.com', 0, 'Mustofa Nur Wahid', '2005-04-30', NULL, 'Jalan Jalan', 82187318321, NULL, NULL),
+(5, 'testuser2', '$2y$10$l59h1vHUCzC5wV5QMf673enLcdMGwLCOBKa9eSy02cetPbnrfOeSe', 'test2@gmail.com', 0, 'Akbar', '2005-04-06', 'Laki - Laki', 'Jalan Jalan Kaki', 812329329842, '2023-04-06 00:41:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -348,18 +323,6 @@ CREATE TABLE `transaksi` (
   `status_pembayaran` varchar(10) NOT NULL,
   `pdf_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transaksi`
---
-
-INSERT INTO `transaksi` (`id_transaksi`, `id_rsv`, `order_id`, `payment_code`, `payment_type`, `tgl_transaksi`, `no_rekening_tamu`, `total_harga`, `status_pembayaran`, `pdf_url`) VALUES
-('0b167b70-4c06-428a-bc8a-8f466db1a7e1', 8, 1875584532, 4429159217742792, 'cstore', '2023-04-06 04:09:46', NULL, 10000000, 'pending', 'https://app.sandbox.midtrans.com/snap/v1/transactions/d4f89895-0f9f-407f-a26c-d9c818104b72/pdf'),
-('0f8613f5-113d-4806-961a-f3c568b7ab91', 5, 1748633516, 0, 'bank_transfer', '2023-03-31 21:50:38', NULL, 44000, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/633dbaaf-994f-4d7e-9694-70120ed71dc8/pdf'),
-('37001334-6110-4ade-a83e-472975bfe4d4', 2, 1307219630, 217368111222333, 'cstore', '2023-03-31 21:05:54', NULL, 44000, 'pending', 'https://app.sandbox.midtrans.com/snap/v1/transactions/152e8dc7-f1a6-47b6-9d99-6ad68e3c8232/pdf'),
-('48e081b1-447a-41c3-88c3-3e2453ec3462', 9, 1950226482, 223178111222333, 'cstore', '2023-04-06 04:12:04', NULL, 15000000, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/d3f9638d-07a9-4448-af4b-5bc3e985e6de/pdf'),
-('5735f793-e420-4529-8930-9488e15b67b3', 1, 611291729, 217318111222333, 'cstore', '2023-03-31 19:53:36', NULL, 44000, 'pending', 'https://app.sandbox.midtrans.com/snap/v1/transactions/14a4ef96-4372-4194-9d14-d6da9a7afee4/pdf'),
-('d2a21f23-aba4-4e29-b6dc-03efd280013c', 4, 785118685, 0, 'qris', '2023-03-31 21:12:33', NULL, 44000, 'settlement', '0');
 
 -- --------------------------------------------------------
 
@@ -530,13 +493,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tamu`
 --
 ALTER TABLE `tamu`
-  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tipe_kamar`

@@ -47,5 +47,7 @@ Route::get('admin-dashboard/logout', [AccountsController::class, 'logoutAdmin'])
 Route::get('admin-dashboard', [AdminController::class, 'index'])->middleware('auth.admin');
 Route::get('admin-dashboard/listreservasi', [AdminController::class, 'listReservasi'])->middleware('auth.admin');
 Route::get('admin-dashboard/listtransaksi', [AdminController::class, 'listTransaksi'])->middleware('auth.admin');
+Route::get('admin-dashboard/listdiskon', [AdminController::class, 'listDiskon'])->middleware('auth.admin');
+Route::post('admin-dashboard/listdiskon/action', [AdminController::class, 'actionDiskon'])->name('actionDiskon')->middleware('auth.admin');
 
 Route::get('roomsedit', [RoomsController::class, 'edit']);

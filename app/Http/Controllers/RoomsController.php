@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Detail_Reservasi;
+use App\Models\Diskon;
 use App\Models\Kamar;
 use App\Models\Reservasi;
 use App\Models\Tamu;
@@ -81,9 +82,11 @@ class RoomsController extends Controller
     {
         if (Auth::check()) {
             $reservasi = Reservasi::find($id);
+            $listDiskon = Diskon::all();
 
             return view('tamu.reservasi', [
-                'reservasi' => $reservasi
+                'reservasi' => $reservasi,
+                'list_diskon' => $listDiskon
             ]);
         } else {
             return redirect('/login');
