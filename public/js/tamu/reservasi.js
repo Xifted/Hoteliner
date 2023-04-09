@@ -24,6 +24,46 @@ document.addEventListener("DOMContentLoaded", () => {
     getCartItems();
 });
 
+const diskon = document.querySelector("#diskon");
+
+diskon.addEventListener('change', function (e) {
+    const diskonId = e.target.value;
+    // const diskonName = this.textContent;
+    const idRsv = e.target.querySelector(`option[value="${e.target.value}"]`).dataset.idRsv;
+    const diskonValue = e.target.querySelector(`option[value="${e.target.value}"]`).dataset.diskonValue;
+    console.log(diskonValue);
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const totalHarga = cart.reduce((total, item) => total + parseInt(item.hargaKamar), 0);
+    // console.log(totalHarga)
+    const diskonIndex = cart.findIndex(item => item.type === 'coupon');
+
+    if (diskonIndex >= 0) {
+        // Jika sudah ada, update data kupon dengan data yang sudah ada
+        cart[diskonIndex] = {
+            type: 'coupon',
+            id: '',
+            idTipe: '',
+            idRsv: idRsv,
+            hargaKamar: '0',
+            id_diskon: diskonId
+        };
+    } else {
+        // Jika belum ada, tambahkan data kupon ke dalam local storage cart
+        cart.push({
+            type: 'coupon',
+            id: '',
+            idTipe: '',
+            idRsv: idRsv,
+            hargaKamar: '0',
+            id_diskon: diskonId
+        });
+    }
+    if (diskonId == null || diskonId == '') {
+        cart.splice(diskonIndex);
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+});
+
 let checkIn = document.querySelector("#checkIn");
 let checkOut = document.querySelector("#checkOut");
 let catatan = document.querySelector("#catatan");

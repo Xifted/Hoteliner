@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2023 at 11:13 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Apr 10, 2023 at 12:57 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,6 +60,7 @@ INSERT INTO `admin` (`id_admin`, `username`, `password`, `email`, `nama`, `tgl_l
 CREATE TABLE `detail_reservasi` (
   `id_rsv` int(11) NOT NULL,
   `id_kamar` int(11) DEFAULT NULL,
+  `id_diskon` varchar(255) DEFAULT NULL,
   `tgl_in` datetime DEFAULT NULL,
   `tgl_out` datetime DEFAULT NULL,
   `harga` double NOT NULL
@@ -85,7 +86,8 @@ CREATE TABLE `diskon` (
 --
 
 INSERT INTO `diskon` (`id_diskon`, `value`, `nama_diskon`, `deskripsi`, `tgl_diskon`, `tgl_expired`) VALUES
-('107d7289-ec20-4741-89ad-79e2cca69b54', 50, 'Diskon Ramadhan', 'Ini Deskripsi', '2023-04-06', '2023-04-08');
+('107d7289-ec20-4741-89ad-79e2cca69b54', 50, 'Diskon Ramadhan', 'Ini Deskripsi', '2023-04-06', '2023-04-08'),
+('b2874fed-4b4a-42f4-a66c-298e726e7dfd', 20, 'Diskon 20%', 'Gk Tau', '2023-04-07', '2023-04-13');
 
 -- --------------------------------------------------------
 
@@ -246,7 +248,10 @@ CREATE TABLE `reservasi` (
 --
 
 INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `tgl_rsv`, `booking_code`) VALUES
-(1, 5, '2023-04-06 07:55:14', '615609c9-4f9c-4e10-98f7-b0460d2419c8');
+(1, 5, '2023-04-06 07:55:14', '615609c9-4f9c-4e10-98f7-b0460d2419c8'),
+(2, 5, '2023-04-06 18:54:50', '65386d17-bb99-4533-a19c-54035e46bb14'),
+(3, 5, '2023-04-06 23:01:50', 'ece20913-75e7-41d2-b56c-ab61a6221a39'),
+(4, 2, '2023-04-09 18:28:29', '7f16026f-a1e5-4523-81e6-e6a97862abcc');
 
 -- --------------------------------------------------------
 
@@ -356,7 +361,8 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `detail_reservasi`
   ADD KEY `id_rsv` (`id_rsv`),
-  ADD KEY `id_kamar` (`id_kamar`);
+  ADD KEY `id_kamar` (`id_kamar`),
+  ADD KEY `id_diskon` (`id_diskon`);
 
 --
 -- Indexes for table `diskon`
@@ -493,7 +499,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tamu`
@@ -522,7 +528,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `detail_reservasi`
   ADD CONSTRAINT `detail_reservasi_ibfk_1` FOREIGN KEY (`id_rsv`) REFERENCES `reservasi` (`id_rsv`),
-  ADD CONSTRAINT `detail_reservasi_ibfk_3` FOREIGN KEY (`id_kamar`) REFERENCES `kamar` (`id_kamar`);
+  ADD CONSTRAINT `detail_reservasi_ibfk_3` FOREIGN KEY (`id_kamar`) REFERENCES `kamar` (`id_kamar`),
+  ADD CONSTRAINT `detail_reservasi_ibfk_4` FOREIGN KEY (`id_diskon`) REFERENCES `diskon` (`id_diskon`);
 
 --
 -- Constraints for table `kamar`

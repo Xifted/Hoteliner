@@ -34,10 +34,10 @@
                         <div id="checkForm" class="d-grid bg-white rounded p-4"
                             style="grid-template-columns: auto 1fr; grid-row-gap: 1em">
                             <h4>Kupon</h4>
-                            <select name="diskon" class="bg-white border-1 rounded text-dark w-75 ms-4" id="diskon">
+                            <select name="diskon" class="form-select bg-white border-1 rounded text-dark w-75 ms-4" id="diskon">
                                 <option value="">Diskon</option>
                                 @foreach ($list_diskon as $item)
-                                    <option value="{{ $item->id_diskon }}">{{ $item->nama_diskon }}</option>
+                                    <option value="{{ $item->id_diskon }}" data-id-rsv="{{ $reservasi->id_rsv }}" data-diskon-value="{{ $reservasi->value }}">{{ $item->nama_diskon }}</option>
                                 @endforeach
                             </select>
                             <h4>Tanggal Check-In</h4>
@@ -51,7 +51,7 @@
                             <h4>Catatan : </h4>
                             <div class="form-floating ms-4">
                                 <textarea onchange="getDetailData(idKamar)" id="catatan" class="form-control" placeholder="Leave a comment here"
-                                    id="floatingTextarea2" style="height: 150px"></textarea>
+                                    id="floatingTextarea2" style="height: 150px; width: 80%;"></textarea>
                                 <label for="floatingTextarea2">Catatan</label>
                             </div>
                         </div>

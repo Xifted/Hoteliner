@@ -82,7 +82,7 @@ class RoomsController extends Controller
     {
         if (Auth::check()) {
             $reservasi = Reservasi::find($id);
-            $listDiskon = Diskon::all();
+            $listDiskon = DB::table('diskon')->select('*')->get();
 
             return view('tamu.reservasi', [
                 'reservasi' => $reservasi,
@@ -102,11 +102,11 @@ class RoomsController extends Controller
             array_push(
                 $insertData,
                 [
-                    'id_rsv' => $detail->idRsv,
-                    'id_kamar' => $detail->id,
-                    'tgl_in' => $detail->checkIn,
-                    'tgl_out' => $detail->checkOut,
-                    'harga' => $detail->hargaKamar,
+                    'id_rsv' => $detail->idRsv ?? null,
+                    'id_kamar' => $detail->id ?? null,
+                    'tgl_in' => $detail->checkIn ?? null,
+                    'tgl_out' => $detail->checkOut ?? null,
+                    'harga' => $detail->hargaKamar ?? null,
                     // 'created_at' => now(),
                     // 'updated_at' => now(),
                 ]
