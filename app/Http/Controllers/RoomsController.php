@@ -99,20 +99,22 @@ class RoomsController extends Controller
         $insertData = [];
 
         foreach ($details as $detail) {
+            // $hitungDiskon = DB::table('diskon')->select('value')->where('id_diskon', '=', $detail->id_diskon ?? '0')->get();
             array_push(
                 $insertData,
                 [
-                    'id_rsv' => $detail->idRsv ?? null,
+                    'id_rsv' => $detail->idRsv,
+                    'id_diskon' => $detail->id_diskon ?? null,
                     'id_kamar' => $detail->id ?? null,
-                    'tgl_in' => $detail->checkIn ?? null,
-                    'tgl_out' => $detail->checkOut ?? null,
-                    'harga' => $detail->hargaKamar ?? null,
+                    'tgl_in' => $detail->checkIn ?? now(),
+                    'tgl_out' => $detail->checkOut ?? now(),
+                    'harga' => $detail->hargaKamar,
                     // 'created_at' => now(),
                     // 'updated_at' => now(),
                 ]
             );
         }
-
+        // dd($insertData);
         DB::table('detail_reservasi')->insert($insertData);
 
         return response()->json(['message' => 'Detail reservasi berhasil disimpan.']);
@@ -127,14 +129,14 @@ class RoomsController extends Controller
         $arrayDetails = [];
 
         foreach ($listDetail as $item) {
-            array_push($arrayDetails,[
+            array_push($arrayDetails, [
                 'id' => $item->id_rsv,
                 'price' => $item->harga,
                 'name' => $item->namaTipe . " - " . $item->namaKamar,
                 'quantity' => 1
             ]);
         }
-        // return dd($listDetail);
+        return dd($listDetail);
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).

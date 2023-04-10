@@ -37,7 +37,7 @@
                             <select name="diskon" class="form-select bg-white border-1 rounded text-dark w-75 ms-4" id="diskon">
                                 <option value="">Diskon</option>
                                 @foreach ($list_diskon as $item)
-                                    <option value="{{ $item->id_diskon }}" data-id-rsv="{{ $reservasi->id_rsv }}" data-diskon-value="{{ $reservasi->value }}">{{ $item->nama_diskon }}</option>
+                                    <option value="{{ $item->id_diskon }}" data-id-rsv="{{ $reservasi->id_rsv }}" data-diskon-value="{{ $item->value }}">{{ $item->nama_diskon }}</option>
                                 @endforeach
                             </select>
                             <h4>Tanggal Check-In</h4>

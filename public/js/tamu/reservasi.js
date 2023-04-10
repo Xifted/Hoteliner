@@ -41,20 +41,20 @@ diskon.addEventListener('change', function (e) {
         // Jika sudah ada, update data kupon dengan data yang sudah ada
         cart[diskonIndex] = {
             type: 'coupon',
-            id: '',
             idTipe: '',
             idRsv: idRsv,
-            hargaKamar: '0',
+            hargaKamar: diskonValue,
+            qty: 1,
             id_diskon: diskonId
         };
     } else {
         // Jika belum ada, tambahkan data kupon ke dalam local storage cart
         cart.push({
             type: 'coupon',
-            id: '',
             idTipe: '',
             idRsv: idRsv,
-            hargaKamar: '0',
+            hargaKamar: diskonValue,
+            qty: 1,
             id_diskon: diskonId
         });
     }
