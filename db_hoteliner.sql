@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2023 at 12:57 AM
+-- Generation Time: Apr 14, 2023 at 06:23 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -49,7 +49,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_admin`, `username`, `password`, `email`, `nama`, `tgl_lahir`, `gender`, `jabatan`, `tgl_diterima`, `alamat`, `no_telp`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 'testadmin', '$2a$12$ckQLPKYauvmLnj7P3c3j/uTPTkV3utVSLJ.J2t/Tt4X9fWgCyENSK', 'admin@gmail.com', 'Vicnent', '2023-03-22', 'Laki - Laki', 'Admin', '2023-03-08', 'dadsadasdasda', '2515151423412', 'dasdasdasdadasdas', NULL, NULL);
+(1, 'testadmin', '$2a$12$ckQLPKYauvmLnj7P3c3j/uTPTkV3utVSLJ.J2t/Tt4X9fWgCyENSK', 'admin@gmail.com', 'Vincent Admin', '2023-03-22', 'Laki - Laki', 'Admin', '2023-03-08', 'Jalan Jalan', '2515151423412', 'dasdasdasdadasdas', '2023-04-11 10:17:23', '2023-04-12 06:18:07'),
+(2, 'testrespsionis', '$2a$12$TZNlGfdEN1Stu.FgUqqubu9rKLcKvJifPT5A9ik0t8pz8dn8KpXf2', 'resepsionis@gmail.com', 'Akbar', '2023-03-22', 'Laki - Laki', 'Resepsionis', '2023-03-08', 'dadsadasdasda', '2515151423412', 'dasdasdasdadasdas', '2023-04-11 10:17:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -60,11 +61,30 @@ INSERT INTO `admin` (`id_admin`, `username`, `password`, `email`, `nama`, `tgl_l
 CREATE TABLE `detail_reservasi` (
   `id_rsv` int(11) NOT NULL,
   `id_kamar` int(11) DEFAULT NULL,
-  `id_diskon` varchar(255) DEFAULT NULL,
   `tgl_in` datetime DEFAULT NULL,
   `tgl_out` datetime DEFAULT NULL,
-  `harga` double NOT NULL
+  `harga` double NOT NULL,
+  `status` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detail_reservasi`
+--
+
+INSERT INTO `detail_reservasi` (`id_rsv`, `id_kamar`, `tgl_in`, `tgl_out`, `harga`, `status`) VALUES
+(1, 1, '2023-04-11 00:00:00', '2023-04-12 00:00:00', 5000000, NULL),
+(1, 5, '2023-04-10 00:00:00', '2023-04-11 00:00:00', 10000000, NULL),
+(2, 1, '2023-04-12 00:00:00', '2023-04-13 00:00:00', 5000000, NULL),
+(2, 5, '2023-04-12 00:00:00', '2023-04-13 00:00:00', 10000000, NULL),
+(3, 1, '2023-04-12 00:00:00', '2023-04-13 00:00:00', 5000000, NULL),
+(3, 12, '2023-04-12 00:00:00', '2023-04-13 00:00:00', 20000000, NULL),
+(4, 1, '2023-04-13 00:00:00', '2023-04-14 00:00:00', 5000000, NULL),
+(4, 3, '2023-04-13 00:00:00', '2023-04-14 00:00:00', 5000000, NULL),
+(4, 5, '2023-04-13 00:00:00', '2023-04-14 00:00:00', 10000000, NULL),
+(5, 1, '2023-04-14 00:00:00', '2023-04-15 00:00:00', 5000000, NULL),
+(5, 6, '2023-04-14 00:00:00', '2023-04-15 00:00:00', 10000000, NULL),
+(5, 12, '2023-04-14 00:00:00', '2023-04-15 00:00:00', 20000000, NULL),
+(5, 7, '2023-04-14 00:00:00', '2023-04-15 00:00:00', 15000000, NULL);
 
 -- --------------------------------------------------------
 
@@ -78,16 +98,19 @@ CREATE TABLE `diskon` (
   `nama_diskon` varchar(30) NOT NULL,
   `deskripsi` text NOT NULL,
   `tgl_diskon` date NOT NULL,
-  `tgl_expired` date NOT NULL
+  `tgl_expired` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `diskon`
 --
 
-INSERT INTO `diskon` (`id_diskon`, `value`, `nama_diskon`, `deskripsi`, `tgl_diskon`, `tgl_expired`) VALUES
-('107d7289-ec20-4741-89ad-79e2cca69b54', 50, 'Diskon Ramadhan', 'Ini Deskripsi', '2023-04-06', '2023-04-08'),
-('b2874fed-4b4a-42f4-a66c-298e726e7dfd', 20, 'Diskon 20%', 'Gk Tau', '2023-04-07', '2023-04-13');
+INSERT INTO `diskon` (`id_diskon`, `value`, `nama_diskon`, `deskripsi`, `tgl_diskon`, `tgl_expired`, `created_at`, `updated_at`) VALUES
+('107d7289-ec20-4741-89ad-79e2cca69b54', 50, 'Diskon Ramadhan Berkah', 'Ini Deskripsi WKWK', '2023-04-06', '2023-04-09', '2023-04-13 05:23:22', '2023-04-12 22:24:25'),
+('b2874fed-4b4a-42f4-a66c-298e726e7dfd', 20, 'Diskon 20%', 'Gk Tau', '2023-04-07', '2023-04-13', '2023-04-13 05:23:22', NULL),
+('d3e0812c-ccf0-470a-b083-bafc1af81ac4', 30, 'Diskon Asal Asalan', 'HEHE', '2023-04-13', '2023-04-14', '2023-04-13 05:25:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -147,7 +170,7 @@ CREATE TABLE `kamar` (
 --
 
 INSERT INTO `kamar` (`id_kamar`, `id_tipe`, `nama`, `deskripsi`, `status`) VALUES
-(1, 1, 'Room 1', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(1, 1, 'Room 1', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum123.', 'Tersedia'),
 (2, 1, 'Room 2', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
 (3, 1, 'Room 3', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
 (4, 2, 'Room 4', 'dashdasdaskdasjhdjasdkjas', 'Tidak Tersedia'),
@@ -158,7 +181,9 @@ INSERT INTO `kamar` (`id_kamar`, `id_tipe`, `nama`, `deskripsi`, `status`) VALUE
 (9, 3, 'Room 9', 'dashdasdaskdasjhdjasdkjas', 'Tidak Tersedia'),
 (10, 4, 'Room 10', 'dashdasdaskdasjhdjasdkjas', 'Tidak Tersedia'),
 (11, 4, 'Room 11', 'dashdasdaskdasjhdjasdkjas', 'Tidak Tersedia'),
-(12, 4, 'Room 12', 'dashdasdaskdasjhdjasdkjas', 'Tersedia');
+(12, 4, 'Room 12', 'dashdasdaskdasjhdjasdkjas', 'Tersedia'),
+(13, 3, 'Room 13', 'dsadadsa', 'Tersedia'),
+(14, 4, 'Room 14', 'sdakldhlasdasjdkas', 'Tersedia');
 
 -- --------------------------------------------------------
 
@@ -239,6 +264,7 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `reservasi` (
   `id_rsv` int(11) NOT NULL,
   `id_tamu` int(11) NOT NULL,
+  `id_diskon` varchar(255) DEFAULT NULL,
   `tgl_rsv` datetime NOT NULL DEFAULT current_timestamp(),
   `booking_code` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -247,11 +273,12 @@ CREATE TABLE `reservasi` (
 -- Dumping data for table `reservasi`
 --
 
-INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `tgl_rsv`, `booking_code`) VALUES
-(1, 5, '2023-04-06 07:55:14', '615609c9-4f9c-4e10-98f7-b0460d2419c8'),
-(2, 5, '2023-04-06 18:54:50', '65386d17-bb99-4533-a19c-54035e46bb14'),
-(3, 5, '2023-04-06 23:01:50', 'ece20913-75e7-41d2-b56c-ab61a6221a39'),
-(4, 2, '2023-04-09 18:28:29', '7f16026f-a1e5-4523-81e6-e6a97862abcc');
+INSERT INTO `reservasi` (`id_rsv`, `id_tamu`, `id_diskon`, `tgl_rsv`, `booking_code`) VALUES
+(1, 5, '107d7289-ec20-4741-89ad-79e2cca69b54', '2023-04-10 22:06:35', 'dcf836ac-040d-4fd8-ab2a-ccc5b92ab7d4'),
+(2, 5, NULL, '2023-04-12 15:16:08', 'd33b8e24-189d-4518-8db5-c38e4203edb6'),
+(3, 5, '107d7289-ec20-4741-89ad-79e2cca69b54', '2023-04-12 15:33:41', 'e16e1635-2dbd-4488-9a42-2d12c99b0736'),
+(4, 2, 'd3e0812c-ccf0-470a-b083-bafc1af81ac4', '2023-05-13 13:12:57', '59f0e173-9c26-4138-8f0f-85861bda62ad'),
+(5, 6, '107d7289-ec20-4741-89ad-79e2cca69b54', '2023-04-14 10:22:06', '9a9502bf-241d-4f57-b288-76482c804926');
 
 -- --------------------------------------------------------
 
@@ -283,7 +310,8 @@ INSERT INTO `tamu` (`id_tamu`, `username`, `password`, `email`, `verified`, `nam
 (2, 'testuser', '$2y$10$.pWdXz.dSV80ZDZqQ8Azbusv5.TtMmkE2SiTfo.2mNZSFmMINAkoW', 'test123@gmail.com', 0, 'Vincent', '2023-03-15', NULL, 'dsadad', 908309128312, '2023-03-06 23:28:54', NULL),
 (3, 'test123', '$2y$10$kwxdNlavd46x3uYfgAkvNegl8yioCieI348YXdNo70FFNLoheehxO', 'test@gmail.com', 0, 'Budi', '2000-06-22', NULL, 'Jalan Kaki', 8392183918, NULL, NULL),
 (4, 'Mustofa', '$2y$10$JHeC8ItytJJWUhA6d50bDOr2qfWfmGFFyC33GKzXxFr7dhlW9NM4a', 'mustofa@gmail.com', 0, 'Mustofa Nur Wahid', '2005-04-30', NULL, 'Jalan Jalan', 82187318321, NULL, NULL),
-(5, 'testuser2', '$2y$10$l59h1vHUCzC5wV5QMf673enLcdMGwLCOBKa9eSy02cetPbnrfOeSe', 'test2@gmail.com', 0, 'Akbar', '2005-04-06', 'Laki - Laki', 'Jalan Jalan Kaki', 812329329842, '2023-04-06 00:41:55', NULL);
+(5, 'testuser2', '$2y$10$l59h1vHUCzC5wV5QMf673enLcdMGwLCOBKa9eSy02cetPbnrfOeSe', 'test2@gmail.com', 0, 'Akbar', '2005-04-06', 'Laki - Laki', 'Jalan Jalan Kaki', 812329329842, '2023-04-06 00:41:55', NULL),
+(6, 'testuser123', '$2y$10$adKPmZ5urzQGVfFm5ikD4u4KipXQiZM4KvwpoJnbPK197RABQGiB2', 'test12323@gmail.com', 0, 'Rafi Irfan', '2005-06-25', 'Laki - Laki', 'Jalan', 812397428472, '2023-04-14 03:20:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -308,7 +336,7 @@ INSERT INTO `tipe_kamar` (`id_tipe`, `img_url`, `nama`, `deskripsi`, `harga`, `s
 (1, 'http://127.0.0.1:8000/assets/img/rooms/room1.jpg', 'Standard Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum.', 5000000, 'Tersedia'),
 (2, 'http://127.0.0.1:8000/assets/img/rooms/room2.jpg', 'Deluxe Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum.', 10000000, 'Tersedia'),
 (3, 'http://127.0.0.1:8000/assets/img/rooms/room2.jpg', 'Superior Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum.', 15000000, 'Tersedia'),
-(4, 'http://127.0.0.1:8000/assets/img/rooms/room3.jpg', 'Presidential Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum.', 20000000, 'Tersedia');
+(4, 'http://127.0.0.1:8000/assets/img/rooms/room3.jpg', 'Presidential Room', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ut facilis harum incidunt est, perferendis hic non ab, nihil sunt cum ipsa deleniti laboriosam! Pariatur nostrum soluta eaque cupiditate. Praesentium, dolorum! Molestias sit, nulla maxime adipisci, eum voluptates at, deleniti dicta enim praesentium esse harum? Numquam quod asperiores voluptatem ipsum123.', 20000000, 'Tersedia');
 
 -- --------------------------------------------------------
 
@@ -324,10 +352,20 @@ CREATE TABLE `transaksi` (
   `payment_type` varchar(30) NOT NULL,
   `tgl_transaksi` datetime NOT NULL,
   `no_rekening_tamu` varchar(30) DEFAULT NULL,
-  `total_harga` double NOT NULL,
   `status_pembayaran` varchar(10) NOT NULL,
   `pdf_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `id_rsv`, `order_id`, `payment_code`, `payment_type`, `tgl_transaksi`, `no_rekening_tamu`, `status_pembayaran`, `pdf_url`) VALUES
+('5f99cfef-7487-418b-92e1-4bc0b1949393', 4, 2080705565, 231078309128312, 'cstore', '2023-04-13 13:13:47', NULL, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/6d7a4e01-3b7f-44d2-9539-cb2358bfc7e9/pdf'),
+('a93f149e-a474-457e-ba88-1377c6593fa1', 1, 1684042813, 228872329329842, 'cstore', '2023-04-10 22:21:40', NULL, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/212b5b84-66e7-4b2b-8903-36d5c3df34b7/pdf'),
+('c04fbf44-1cef-4a67-abd6-8e607c69d55b', 3, 905282781, 230642329329842, 'cstore', '2023-04-12 15:35:35', NULL, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/9be8ac1f-184a-4ff1-b8ab-91cc59904bac/pdf'),
+('d570fc6c-14e8-4bed-b46c-48e261a4043c', 2, 94893516, 230622329329842, 'cstore', '2023-04-12 15:31:26', NULL, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/a2f3d539-5713-4f79-839e-ca58531526eb/pdf'),
+('e6ed4e9c-f4fc-445e-94b0-ec8bebaeb84b', 5, 1683124860, 231772397428472, 'cstore', '2023-04-14 10:23:03', NULL, 'settlement', 'https://app.sandbox.midtrans.com/snap/v1/transactions/8020cbc1-1d68-4d89-9a42-88692aafcdfa/pdf');
 
 -- --------------------------------------------------------
 
@@ -361,8 +399,7 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `detail_reservasi`
   ADD KEY `id_rsv` (`id_rsv`),
-  ADD KEY `id_kamar` (`id_kamar`),
-  ADD KEY `id_diskon` (`id_diskon`);
+  ADD KEY `id_kamar` (`id_kamar`);
 
 --
 -- Indexes for table `diskon`
@@ -421,7 +458,8 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `reservasi`
   ADD PRIMARY KEY (`id_rsv`),
-  ADD KEY `id_tamu` (`id_tamu`);
+  ADD KEY `id_tamu` (`id_tamu`),
+  ADD KEY `id_diskon` (`id_diskon`);
 
 --
 -- Indexes for table `tamu`
@@ -457,7 +495,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -475,7 +513,7 @@ ALTER TABLE `fasilitas_tambahan`
 -- AUTO_INCREMENT for table `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `metode_pembayaran`
@@ -499,13 +537,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_rsv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tamu`
 --
 ALTER TABLE `tamu`
-  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_tamu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tipe_kamar`
@@ -528,8 +566,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `detail_reservasi`
   ADD CONSTRAINT `detail_reservasi_ibfk_1` FOREIGN KEY (`id_rsv`) REFERENCES `reservasi` (`id_rsv`),
-  ADD CONSTRAINT `detail_reservasi_ibfk_3` FOREIGN KEY (`id_kamar`) REFERENCES `kamar` (`id_kamar`),
-  ADD CONSTRAINT `detail_reservasi_ibfk_4` FOREIGN KEY (`id_diskon`) REFERENCES `diskon` (`id_diskon`);
+  ADD CONSTRAINT `detail_reservasi_ibfk_3` FOREIGN KEY (`id_kamar`) REFERENCES `kamar` (`id_kamar`);
 
 --
 -- Constraints for table `kamar`
@@ -541,7 +578,8 @@ ALTER TABLE `kamar`
 -- Constraints for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  ADD CONSTRAINT `reservasi_ibfk_1` FOREIGN KEY (`id_tamu`) REFERENCES `tamu` (`id_tamu`);
+  ADD CONSTRAINT `reservasi_ibfk_1` FOREIGN KEY (`id_tamu`) REFERENCES `tamu` (`id_tamu`),
+  ADD CONSTRAINT `reservasi_ibfk_2` FOREIGN KEY (`id_diskon`) REFERENCES `diskon` (`id_diskon`);
 
 --
 -- Constraints for table `transaksi`
