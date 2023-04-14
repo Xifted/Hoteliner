@@ -159,7 +159,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="../pages/rtl.html">
+                    <a class="nav-link  " href="{{ url('admin-dashboard/rooms-edit')}}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
@@ -192,7 +192,7 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pengaturan Akun</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="../pages/profile.html">
+                    <a class="nav-link  " href="{{ url('/admin-dashboard/profile/' . $id_admin)}}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -263,9 +263,9 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm opacity-5 text-dark">Hoteliner</li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">List Reservasi</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">List Transaksi</li>
                     </ol>
-                    <h6 class="font-weight-bolder mb-0">List Reservasi</h6>
+                    <h6 class="font-weight-bolder mb-0">List Transaksi</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -275,11 +275,18 @@
                             <input type="text" class="form-control" placeholder="Type here...">
                         </div>
                     </div>
+                    
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                            <a href="/admin-dashboard/logout" class="nav-link text-body font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
+                                @if (Auth::guard('admin')->check())
+                                    <span class="d-sm-inline d-none">Logout - {{ Auth::guard('admin')->user()->nama }}
+                                    </span>
+                                @else
+                                    no
+                                @endif
+
                             </a>
                         </li>
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -405,16 +412,22 @@
                                                 ID Reservasi</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Metode</th>
+                                                ID Order</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                Kode Pembayaran</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                Metode Pembayaran</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Tanggal Transaksi</th>
-                                            {{-- <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                No Rekening Tamu</th> --}}
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Total Harga</th>
+                                                No Rekening Tamu</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                Total Pembayaran</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center" style="border-inline-end: 1px #a8a8a8 solid">
                                                 Status</th>
@@ -428,9 +441,6 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
-                                                    {{-- <div>
-                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                      </div> --}}
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm ps-2">{{ $item->id_transaksi }}</h6>
                                                     </div>
@@ -440,10 +450,19 @@
                                                 <h6 class="mb-0 text-sm">{{ $item->id_rsv }}</h6>
                                             </td>
                                             <td>
+                                                <h6 class="mb-0 text-sm">{{ $item->order_id }}</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-0 text-sm">{{ $item->payment_code }}</h6>
+                                            </td>
+                                            <td>
                                                 <h6 class="mb-0 text-sm">{{ $item->payment_type }}</h6>
                                             </td>
                                             <td>
                                                 <h6 class="mb-0 text-sm">{{ $item->tgl_transaksi}}</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-0 text-sm">{{ $item->no_rekening_tamu }}</h6>
                                             </td>
                                             {{-- <td>
                                                 <h6 class="mb-0 text-sm"></h6>

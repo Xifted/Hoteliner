@@ -104,95 +104,98 @@
                         <span class="nav-link-text ms-1">List Reservasi</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link  " href="/admin-dashboard/listtransaksi">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>List Transaksi</title>
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
-                                        <g transform="translate(1716.000000, 291.000000)">
-                                            <g transform="translate(453.000000, 454.000000)">
-                                                <path class="color-background opacity-6"
-                                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z">
-                                                </path>
-                                                <path class="color-background"
-                                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                                </path>
+                @if (Auth::guard('admin')->user()->jabatan == 'Admin')
+                    <li class="nav-item">
+                        <a class="nav-link  " href="/admin-dashboard/listtransaksi">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>List Transaksi</title>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
+                                            fill-rule="nonzero">
+                                            <g transform="translate(1716.000000, 291.000000)">
+                                                <g transform="translate(453.000000, 454.000000)">
+                                                    <path class="color-background opacity-6"
+                                                        d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z">
+                                                    </path>
+                                                    <path class="color-background"
+                                                        d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
+                                                    </path>
+                                                </g>
                                             </g>
                                         </g>
                                     </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <span class="nav-link-text ms-1">List Transaksi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin-dashboard/listdiskon">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>List Diskon</title>
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
-                                        <g transform="translate(1716.000000, 291.000000)">
-                                            <g transform="translate(453.000000, 454.000000)">
-                                                <path class="color-background opacity-6"
-                                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z">
-                                                </path>
-                                                <path class="color-background"
-                                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                                </path>
+                                </svg>
+                            </div>
+                            <span class="nav-link-text ms-1">List Transaksi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin-dashboard/listdiskon">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>List Diskon</title>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
+                                            fill-rule="nonzero">
+                                            <g transform="translate(1716.000000, 291.000000)">
+                                                <g transform="translate(453.000000, 454.000000)">
+                                                    <path class="color-background opacity-6"
+                                                        d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z">
+                                                    </path>
+                                                    <path class="color-background"
+                                                        d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
+                                                    </path>
+                                                </g>
                                             </g>
                                         </g>
                                     </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <span class="nav-link-text ms-1">List Diskon</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  " href="../pages/rtl.html">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>CMS</title>
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
-                                        <g transform="translate(1716.000000, 291.000000)">
-                                            <g transform="translate(304.000000, 151.000000)">
-                                                <polygon class="color-background opacity-6"
-                                                    points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
-                                                </polygon>
-                                                <path class="color-background opacity-6"
-                                                    d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z">
-                                                </path>
-                                                <path class="color-background"
-                                                    d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z">
-                                                </path>
+                                </svg>
+                            </div>
+                            <span class="nav-link-text ms-1">List Diskon</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " href="{{ url('admin-dashboard/rooms-edit')}}">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>CMS</title>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF"
+                                            fill-rule="nonzero">
+                                            <g transform="translate(1716.000000, 291.000000)">
+                                                <g transform="translate(304.000000, 151.000000)">
+                                                    <polygon class="color-background opacity-6"
+                                                        points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
+                                                    </polygon>
+                                                    <path class="color-background opacity-6"
+                                                        d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z">
+                                                    </path>
+                                                    <path class="color-background"
+                                                        d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z">
+                                                    </path>
+                                                </g>
                                             </g>
                                         </g>
                                     </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <span class="nav-link-text ms-1">Konten Hotel</span>
-                    </a>
-                </li>
+                                </svg>
+                            </div>
+                            <span class="nav-link-text ms-1">Konten Hotel</span>
+                        </a>
+                    </li>
+                @else
+                @endif
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pengaturan Akun</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="../pages/profile.html">
+                    <a class="nav-link  " href="{{ url('/admin-dashboard/profile/' . $id_admin) }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -277,9 +280,15 @@
                     </div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                            <a href="/admin-dashboard/logout" class="nav-link text-body font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
+                                @if (Auth::guard('admin')->check())
+                                    <span class="d-sm-inline d-none">Logout - {{ Auth::guard('admin')->user()->nama }}
+                                    </span>
+                                @else
+                                    no
+                                @endif
+
                             </a>
                         </li>
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -405,6 +414,9 @@
                                                 ID Tamu</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                ID Diskon</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Nama Tamu</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -434,6 +446,9 @@
                                                     <h6 class="mb-0 text-sm">{{ $item->id_tamu }}</h6>
                                                 </td>
                                                 <td>
+                                                    <h6 class="mb-0 text-sm">{{ $item->id_diskon !== null ? $item->id_diskon : 'Tidak Memakai Diskon'}}</h6>
+                                                </td>
+                                                <td>
                                                     <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
                                                 </td>
                                                 <td>
@@ -443,27 +458,12 @@
                                                     <h6 class="mb-0 text-sm">{{ $item->booking_code }}</h6>
                                                 </td>
                                                 <td class="d-flex flex-column gap-2 justify-content-center px-3">
-                                                    <div class="d-flex gap-2 w-100">
-                                                        <span
-                                                        class="badge badge-sm bg-gradient-info w-50 d-flex justify-content-center"
-                                                        style="cursor: pointer;"><a href="javascript:;"
-                                                            class="text-white font-weight-bold text-xs "
-                                                            data-toggle="tooltip" data-original-title="Edit user">
-                                                            Check-In
-                                                        </a>
-                                                    </span>
-                                                    <span
-                                                        class="badge badge-sm bg-gradient-warning w-50 d-flex justify-content-center"
-                                                        style="cursor: pointer;"><a href="javascript:;"
-                                                            class="text-white font-weight-bold text-xs "
-                                                            data-toggle="tooltip" data-original-title="Edit user">
-                                                            Check-Out
-                                                        </a>
-                                                    </span>
-                                                    </div>
                                                     <button
-                                                        class="badge badge-sm text-white font-weight-bold text-xs bg-gradient-primary w-100 d-flex justify-content-center border-0" onclick="document.getElementById('modal{{ $item->id_rsv }}').style.display='flex'"
-                                                        style="cursor: pointer;">Details</button>
+                                                        class="badge badge-sm text-white font-weight-bold text-xs bg-gradient-primary w-100 d-flex justify-content-center border-0"
+                                                        onclick="document.getElementById('modal{{ $item->id_rsv }}').style.display='flex'"
+                                                        style="cursor: pointer;"><a
+                                                            href="?id_rsv={{ $item->id_rsv }}"
+                                                            class="w-100 text-white">Details</a></button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -476,14 +476,15 @@
             </div>
             @foreach ($listRsv as $item)
                 <div id="modal{{ $item->id_rsv }}"
-                    style="display: none; position: fixed; height: 100vw; width:100vw !important; top:0; left:0; background-color: #00000077; z-index: 1000000;">
+                    style="display: {{ $_GET['id_rsv'] !== null ? 'flex !important' : 'none !important' }}; position: fixed; height: 100vw; width:100vw !important; top:0; left:0; background-color: #00000077; z-index: 1000000;">
                     <div class="d-flex flex-column w-50 bg-white mt-3"
                         style="margin-left: 25%; border-radius: 10px 10px 10px 10px; overflow:hidden; height:44%">
                         <header
                             class="d-flex flex-row-reverse justify-content-between bg-secondary align-items-center">
-                            <span onclick="document.getElementById('modal{{ $item->id_rsv }}').style.display='none'"
-                                class="d-flex justify-content-center align-items-center fs-3 bg-success h-100 text-white"
-                                style="width: 85px; cursor: pointer;">&times;</span>
+                            <button onclick="document.getElementById('modal{{ $item->id_rsv }}').style.display='none'"
+                                class="d-flex justify-content-center align-items-center fs-3 bg-success h-100 border-0"
+                                style="width: 85px; cursor: pointer;"><a class="w-100 text-white"
+                                    href="/admin-dashboard/listreservasi">&times;</a></button>
                             <h6 class="text-white p-3 pt-4">Detail Reservasi - {{ $item->id_rsv }}</h6>
                         </header>
                         <div>
@@ -505,6 +506,12 @@
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Harga</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Status</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -528,6 +535,50 @@
                                             </td>
                                             <td>
                                                 <h6 class="mb-0 text-sm">{{ $item->harga }}</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-0 text-sm">{{ $item->status }}</h6>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex gap-2 w-100">
+                                                    @if ($item->status == null)
+                                                        <button
+                                                            class="badge badge-sm text-white font-weight-bold text-xs bg-transparent w-100 d-flex justify-content-center border-0 p-0"
+                                                            style="cursor: pointer;">
+                                                            <span
+                                                                class="badge badge-sm bg-gradient-info w-100 h-100 d-flex justify-content-center align-items-center"
+                                                                style="cursor: pointer;"><a href="javascript:;"
+                                                                    class="text-white font-weight-bold text-xs ">
+                                                                    Check-In
+                                                                </a>
+                                                            </span>
+                                                        </button>
+                                                    @elseif($item->status == 'in')
+                                                        <button
+                                                            class="badge badge-sm text-white font-weight-bold text-xs bg-transparent w-100 d-flex justify-content-center border-0 p-0"
+                                                            style="cursor: pointer;">
+                                                            <span
+                                                                class="badge badge-sm bg-gradient-info w-100 h-100 d-flex justify-content-center align-items-center"
+                                                                style="cursor: pointer;"><a href="javascript:;"
+                                                                    class="text-white font-weight-bold text-xs ">
+                                                                    Check-Out
+                                                                </a>
+                                                            </span>
+                                                        </button>
+                                                    @elseif($item->status == 'out')
+                                                        <button
+                                                            class="badge badge-sm text-white font-weight-bold text-xs bg-transparent w-100 d-flex justify-content-center border-0 p-0"
+                                                            style="cursor: pointer;" disabled>
+                                                            <span
+                                                                class="badge badge-sm bg-gradient-info w-100 h-100 d-flex justify-content-center align-items-center"
+                                                                style="cursor: pointer;"><a href="javascript:;"
+                                                                    class="text-white font-weight-bold text-xs ">
+                                                                    Check-Out
+                                                                </a>
+                                                            </span>
+                                                        </button>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

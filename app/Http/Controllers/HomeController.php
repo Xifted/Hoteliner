@@ -20,7 +20,7 @@ class HomeController extends Controller
     }
     public function profile($id){
         $dataTamu = Tamu::find($id);
-        $listReservasi = DB::table('reservasi')->select('reservasi.*', 'transaksi.status_pembayaran', 'transaksi.pdf_url', 'transaksi.total_harga')->join('transaksi', 'reservasi.id_rsv', '=', 'transaksi.id_rsv')->where('reservasi.id_tamu', '=', $dataTamu->id_tamu)->orderBy('reservasi.tgl_rsv', 'desc')->get();
+        $listReservasi = DB::table('reservasi')->select('reservasi.*', 'transaksi.status_pembayaran', 'transaksi.pdf_url', DB::raw('SUM(CASE WHEN IFNULL(diskon.value, 0) = 0 THEN detail_reservasi.harga ELSE detail_reservasi.harga * diskon.value / 100 END) AS total_harga'))->leftjoin('diskon', 'reservasi.id_diskon', '=', 'diskon.id_diskon')->join('transaksi', 'reservasi.id_rsv', '=', 'transaksi.id_rsv')->join('detail_reservasi', 'reservasi.id_rsv', '=', 'detail_reservasi.id_rsv')->where('reservasi.id_tamu', '=', $dataTamu->id_tamu)->groupBy('reservasi.id_rsv', 'transaksi.status_pembayaran', 'transaksi.pdf_url', 'reservasi.tgl_rsv', 'reservasi.id_tamu', 'reservasi.id_diskon', 'reservasi.booking_code')->orderBy('reservasi.tgl_rsv', 'desc')->get();
         // return dd($listReservasi);
 
         return view('tamu.profile', [

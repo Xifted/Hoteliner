@@ -30,38 +30,32 @@ diskon.addEventListener('change', function (e) {
     const diskonId = e.target.value;
     // const diskonName = this.textContent;
     const idRsv = e.target.querySelector(`option[value="${e.target.value}"]`).dataset.idRsv;
-    const diskonValue = e.target.querySelector(`option[value="${e.target.value}"]`).dataset.diskonValue;
-    console.log(diskonValue);
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const totalHarga = cart.reduce((total, item) => total + parseInt(item.hargaKamar), 0);
+    // const diskonValue = e.target.querySelector(`option[value="${e.target.value}"]`).dataset.diskonValue;
+    // console.log(diskonValue);
+    let diskon = JSON.parse(localStorage.getItem('diskon') || '[]');
+    const totalHarga = diskon.reduce((total, item) => total + parseInt(item.hargaKamar), 0);
     // console.log(totalHarga)
-    const diskonIndex = cart.findIndex(item => item.type === 'coupon');
+    const diskonIndex = diskon.findIndex(item => item.type === 'coupon');
 
     if (diskonIndex >= 0) {
         // Jika sudah ada, update data kupon dengan data yang sudah ada
-        cart[diskonIndex] = {
+        diskon[diskonIndex] = {
             type: 'coupon',
-            idTipe: '',
             idRsv: idRsv,
-            hargaKamar: diskonValue,
-            qty: 1,
             id_diskon: diskonId
         };
     } else {
-        // Jika belum ada, tambahkan data kupon ke dalam local storage cart
-        cart.push({
+        // Jika belum ada, tambahkan data kupon ke dalam local storage diskon
+        diskon.push({
             type: 'coupon',
-            idTipe: '',
             idRsv: idRsv,
-            hargaKamar: diskonValue,
-            qty: 1,
             id_diskon: diskonId
         });
     }
     if (diskonId == null || diskonId == '') {
-        cart.splice(diskonIndex);
+        diskon.splice(diskonIndex);
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('diskon', JSON.stringify(diskon));
 });
 
 let checkIn = document.querySelector("#checkIn");
@@ -227,6 +221,7 @@ const submitBtn = document.getElementById("submitBtn");
 
 submitBtn.addEventListener("click", (event) => {
     event.preventDefault();
+    const diskon = localStorage.getItem('diskon') ?? [];
     const cart = localStorage.getItem("cart") ?? [];
     const csrf = document.querySelector("input[name='_token']").value;
     const idRsv = JSON.parse(localStorage.getItem('cart'))[0].idRsv;
@@ -235,7 +230,7 @@ submitBtn.addEventListener("click", (event) => {
         method: "POST",
         url: "/rooms/detailreservasi/action/",
         headers: { "X-CSRF-TOKEN": csrf },
-        data: { details: cart },
+        data: { details: cart, diskon: diskon},
         success: function (response) {
             window.location = "/rooms/transaksi/" + idRsv;
             localStorage.removeItem("cart");

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//acc
+//akun
 Route::get('login', [AccountsController::class, 'login'])->name('login');
 Route::post('actionlogin', [AccountsController::class, 'actionlogin'])->name('actionlogin');
 Route::get('register', [AccountsController::class, 'register'])->name('register');
@@ -46,8 +46,14 @@ Route::post('admin-dashboard/login/action', [AccountsController::class, 'actionL
 Route::get('admin-dashboard/logout', [AccountsController::class, 'logoutAdmin'])->name('logoutAdmin');
 Route::get('admin-dashboard', [AdminController::class, 'index'])->middleware('auth.admin');
 Route::get('admin-dashboard/listreservasi', [AdminController::class, 'listReservasi'])->middleware('auth.admin');
+Route::get('admin-dashboard/listreservasi?id_rsv={id}', [AdminController::class, 'listReservasi'])->middleware('auth.admin');
 Route::get('admin-dashboard/listtransaksi', [AdminController::class, 'listTransaksi'])->middleware('auth.admin');
 Route::get('admin-dashboard/listdiskon', [AdminController::class, 'listDiskon'])->middleware('auth.admin');
+Route::get('admin-dashboard/profile/{id}', [AdminController::class, 'profile'])->middleware('auth.admin');
+Route::post('admin-dashboard/profile/action', [AccountsController::class, 'profileEdit'])->name('profileEdit')->middleware('auth.admin');
 Route::post('admin-dashboard/listdiskon/action', [AdminController::class, 'actionDiskon'])->name('actionDiskon')->middleware('auth.admin');
-
-Route::get('roomsedit', [RoomsController::class, 'edit']);
+Route::post('admin-dashboard/listdiskon/actionEdit/{id}', [AdminController::class, 'actionEditDiskon'])->name('actionEditDiskon')->middleware('auth.admin');
+Route::get('admin-dashboard/rooms-edit', [AdminController::class, 'rooms'])->middleware('auth.admin');
+Route::get('admin-dashboard/rooms-edit?id_kamar={id}', [AdminController::class, 'rooms'])->middleware('auth.admin');
+Route::post('admin-dashboard/rooms-edit/action', [AdminController::class, 'roomsAdd'])->middleware('auth.admin');
+Route::post('admin-dashboard/rooms-edit/actionEdit/{id}', [AdminController::class, 'roomsEdit'])->middleware('auth.admin');

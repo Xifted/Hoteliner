@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Constraint\Count;
 
 class RoomsController extends Controller
 {
@@ -96,26 +97,36 @@ class RoomsController extends Controller
     public function detailReservasiSubmit(Request $request)
     {
         $details = json_decode($request->input('details'));
-        $insertData = [];
+        $diskon = json_decode($request->input('diskon'));
+        $detailData = [];
+        $diskonData = [];
 
         foreach ($details as $detail) {
-            // $hitungDiskon = DB::table('diskon')->select('value')->where('id_diskon', '=', $detail->id_diskon ?? '0')->get();
             array_push(
-                $insertData,
+                $detailData,
                 [
                     'id_rsv' => $detail->idRsv,
-                    'id_diskon' => $detail->id_diskon ?? null,
-                    'id_kamar' => $detail->id ?? null,
-                    'tgl_in' => $detail->checkIn ?? now(),
-                    'tgl_out' => $detail->checkOut ?? now(),
+                    'id_kamar' => $detail->id,
+                    'tgl_in' => $detail->checkIn,
+                    'tgl_out' => $detail->checkOut,
                     'harga' => $detail->hargaKamar,
                     // 'created_at' => now(),
                     // 'updated_at' => now(),
                 ]
             );
         }
-        // dd($insertData);
-        DB::table('detail_reservasi')->insert($insertData);
+        foreach ($diskon as $item) {
+            array_push(
+                $diskonData,
+                [
+                    'id_diskon' => $item->id_diskon,
+                    'id_rsv' => $item->idRsv,
+                ]
+            );
+        }
+        // return dd($diskonData[0]['id_diskon']);
+        DB::table('detail_reservasi')->insert($detailData);
+        DB::table('reservasi')->where('id_rsv', '=', $diskonData[0]['id_rsv'])->update(['id_diskon' => $diskonData[0]['id_diskon']]);
 
         return response()->json(['message' => 'Detail reservasi berhasil disimpan.']);
     }
@@ -125,18 +136,29 @@ class RoomsController extends Controller
         $idRsv = $id;
         // return dd($idRsv);
         $listDetail = DB::table('detail_reservasi')->select('detail_reservasi.*', 'kamar.nama as namaKamar', 'tipe_kamar.nama as namaTipe', 'tipe_kamar.img_url as imgKamar')->where('id_rsv', '=', $id)->join('kamar', 'detail_reservasi.id_kamar', '=', 'kamar.id_kamar')->join('tipe_kamar', 'kamar.id_tipe', '=', 'tipe_kamar.id_tipe')->get();
-        // return dd($listDetail);
+        $totalHarga = DB::table('detail_reservasi')->where('id_rsv', '=', $id)->sum('harga');
+        $diskon = DB::table('reservasi')->select('reservasi.*', 'diskon.value')->where('reservasi.id_rsv', '=', $id)->leftjoin('diskon', 'reservasi.id_diskon', '=', 'diskon.id_diskon')->get();
+        // return dd($diskon);
         $arrayDetails = [];
-
-        foreach ($listDetail as $item) {
-            array_push($arrayDetails, [
-                'id' => $item->id_rsv,
-                'price' => $item->harga,
-                'name' => $item->namaTipe . " - " . $item->namaKamar,
-                'quantity' => 1
-            ]);
+        if($diskon[0]->id_diskon !== null){
+            foreach ($listDetail as $item) {
+                array_push($arrayDetails, [
+                    'id' => $item->id_rsv,
+                    'price' => $item->harga * $diskon[0]->value / 100,
+                    'name' => $item->namaTipe . " - " . $item->namaKamar,
+                    'quantity' => 1
+                ]);
+            }
+        }else{
+            foreach ($listDetail as $item) {
+                array_push($arrayDetails, [
+                    'id' => $item->id_rsv,
+                    'price' => $item->harga,
+                    'name' => $item->namaTipe . " - " . $item->namaKamar,
+                    'quantity' => 1
+                ]);
+            }
         }
-        return dd($listDetail);
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -149,15 +171,15 @@ class RoomsController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => rand(),
-                // 'gross_amount' => 10000,
+                // 'gross_amount' => $hargaAkhir,
             ),
             'item_details' => $arrayDetails,
 
             'customer_details' => array(
                 'first_name' => Auth::user()->nama,
-                'last_name' => 'Hermawan',
-                'email' => 'Vin@example.com',
-                'phone' => '08111222333',
+                'last_name' => '',
+                'email' => Auth::user()->email,
+                'phone' => Auth::user()->no_telp,
             ),
         );
 
@@ -181,19 +203,10 @@ class RoomsController extends Controller
         $bayar->payment_type = $transaksiJson->payment_type;
         $bayar->tgl_transaksi = $transaksiJson->transaction_time;
         $bayar->status_pembayaran = $transaksiJson->transaction_status;
-        $bayar->total_harga = $transaksiJson->gross_amount;
+        // $bayar->total_harga = $transaksiJson->gross_amount;
         $bayar->payment_code = $transaksiJson->payment_code ?? 0;
         $bayar->order_id = $transaksiJson->order_id;
         $bayar->pdf_url = $transaksiJson->pdf_url ?? 0;
         return $bayar->save() ? redirect(url('/profile/' . $idUser))->with('alert-success', 'Trasaksi Berhasil Dibuat') : redirect(url('/profile/' . $idUser))->with('alert-failed', 'Transaksi Gagal');
-    }
-
-    public function edit($id)
-    {
-        $LKamar = Kamar::find($id);
-        // DB::table('tamu')->create()->if()
-        return view('admin.roomsedit', [
-            'LKamar' => $LKamar
-        ]);
     }
 }

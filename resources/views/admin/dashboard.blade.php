@@ -104,6 +104,7 @@
                         <span class="nav-link-text ms-1">List Reservasi</span>
                     </a>
                 </li>
+                @if (Auth::guard('admin')->user()->jabatan == 'Admin')
                 <li class="nav-item">
                     <a class="nav-link  " href="/admin-dashboard/listtransaksi">
                         <div
@@ -159,7 +160,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="../pages/rtl.html">
+                    <a class="nav-link  " href="{{ url('admin-dashboard/rooms-edit')}}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
@@ -188,11 +189,15 @@
                         <span class="nav-link-text ms-1">Konten Hotel</span>
                     </a>
                 </li>
+                @else
+                    
+                @endif
+                
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pengaturan Akun</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="../pages/profile.html">
+                    <a class="nav-link  " href="{{ url('/admin-dashboard/profile/' . $id_admin)}}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -393,16 +398,18 @@
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
-                <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4 w-50">
                     <div class="card">
                         <div class="card-body p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
-                                        <h5 class="font-weight-bolder mb-0">
-                                            $53,000
-                                            <span class="text-success text-sm font-weight-bolder">+55%</span>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Pendapatan Hari Ini</p>
+                                        <h5 class="font-weight-bolder mb-0" id="pendapatan">
+                                            @foreach ($pendapatan_harian as $item)
+                                                {{ $item->total_pendapatan }}
+                                            @endforeach
+                                            {{-- <span class="text-success text-sm font-weight-bolder">+55%</span> --}}
                                         </h5>
                                     </div>
                                 </div>
@@ -416,16 +423,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4 w-50">
                     <div class="card">
                         <div class="card-body p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Reservasi Hari Ini</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            2,300
-                                            <span class="text-success text-sm font-weight-bolder">+3%</span>
+                                            {{ $reservasi_harian }}
+                                            {{-- <span class="text-success text-sm font-weight-bolder">+3%</span> --}}
                                         </h5>
                                     </div>
                                 </div>
@@ -439,7 +446,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                {{-- <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                     <div class="card">
                         <div class="card-body p-3">
                             <div class="row">
@@ -461,7 +468,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="row mt-4">
                 {{-- <div class="col-lg-7 mb-lg-0 mb-4">
@@ -518,14 +525,9 @@
                 </div>
             </div> --}}
                 <div class="row mt-4">
-                    <div class="col-lg-5 mb-lg-0 mb-4">
+                    {{-- <div class="col-lg-5 mb-lg-0 mb-4">
                         <div class="card z-index-2">
                             <div class="card-body p-3">
-                                <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
-                                    <div class="chart">
-                                        <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
-                                    </div>
-                                </div>
                                 <h6 class="ms-2 mt-4 mb-0"> Active Users </h6>
                                 <p class="text-sm ms-2"> (<span class="font-weight-bolder">+23%</span>) than last week
                                 </p>
@@ -681,15 +683,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-7">
+                    </div> --}}
+                    <div class="col-lg-7 w-100">
                         <div class="card z-index-2">
                             <div class="card-header pb-0">
-                                <h6>Sales overview</h6>
-                                <p class="text-sm">
+                                <h6>Pendapatan Tahun Ini</h6>
+                                {{-- <p class="text-sm">
                                     <i class="fa fa-arrow-up text-success"></i>
                                     <span class="font-weight-bold">4% more</span> in 2021
-                                </p>
+                                </p> --}}
                             </div>
                             <div class="card-body p-3">
                                 <div class="chart">
@@ -1261,71 +1263,71 @@
     <script src="../assets/soft-ui/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="{{asset('/assets/soft-ui/js/plugins/chartjs.min.js')}}"></script>
     <script>
-        var ctx = document.getElementById("chart-bars").getContext("2d");
+        // var ctx = document.getElementById("chart-bars").getContext("2d");
 
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Sales",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "#fff",
-                    data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-                    maxBarThickness: 6
-                }, ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                        },
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 500,
-                            beginAtZero: true,
-                            padding: 15,
-                            font: {
-                                size: 14,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                            color: "#fff"
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false
-                        },
-                        ticks: {
-                            display: false
-                        },
-                    },
-                },
-            },
-        });
+        // new Chart(ctx, {
+        //     type: "bar",
+        //     data: {
+        //         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        //         datasets: [{
+        //             label: "Sales",
+        //             tension: 0.4,
+        //             borderWidth: 0,
+        //             borderRadius: 4,
+        //             borderSkipped: false,
+        //             backgroundColor: "#fff",
+        //             data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
+        //             maxBarThickness: 6
+        //         }, ],
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         maintainAspectRatio: false,
+        //         plugins: {
+        //             legend: {
+        //                 display: false,
+        //             }
+        //         },
+        //         interaction: {
+        //             intersect: false,
+        //             mode: 'index',
+        //         },
+        //         scales: {
+        //             y: {
+        //                 grid: {
+        //                     drawBorder: false,
+        //                     display: false,
+        //                     drawOnChartArea: false,
+        //                     drawTicks: false,
+        //                 },
+        //                 ticks: {
+        //                     suggestedMin: 0,
+        //                     suggestedMax: 500,
+        //                     beginAtZero: true,
+        //                     padding: 15,
+        //                     font: {
+        //                         size: 14,
+        //                         family: "Open Sans",
+        //                         style: 'normal',
+        //                         lineHeight: 2
+        //                     },
+        //                     color: "#fff"
+        //                 },
+        //             },
+        //             x: {
+        //                 grid: {
+        //                     drawBorder: false,
+        //                     display: false,
+        //                     drawOnChartArea: false,
+        //                     drawTicks: false
+        //                 },
+        //                 ticks: {
+        //                     display: false
+        //                 },
+        //             },
+        //         },
+        //     },
+        // });
 
 
         var ctx2 = document.getElementById("chart-line").getContext("2d");
@@ -1345,9 +1347,9 @@
         new Chart(ctx2, {
             type: "line",
             data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: {!! json_encode($labels) !!},
                 datasets: [{
-                        label: "Mobile apps",
+                        label: "Pendapatan",
                         tension: 0.4,
                         borderWidth: 0,
                         pointRadius: 0,
@@ -1355,22 +1357,22 @@
                         borderWidth: 3,
                         backgroundColor: gradientStroke1,
                         fill: true,
-                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                        data: {!! json_encode($data) !!},
                         maxBarThickness: 6
 
                     },
-                    {
-                        label: "Websites",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "#3A416F",
-                        borderWidth: 3,
-                        backgroundColor: gradientStroke2,
-                        fill: true,
-                        data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-                        maxBarThickness: 6
-                    },
+                    // {
+                    //     label: "Websites",
+                    //     tension: 0.4,
+                    //     borderWidth: 0,
+                    //     pointRadius: 0,
+                    //     borderColor: "#3A416F",
+                    //     borderWidth: 3,
+                    //     backgroundColor: gradientStroke2,
+                    //     fill: true,
+                    //     data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+                    //     maxBarThickness: 6
+                    // },
                 ],
             },
             options: {
@@ -1443,6 +1445,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/soft-ui/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+    <script src="{{ asset('/js/admin/dashboard.js')}}"></script>
 </body>
 
 </html>

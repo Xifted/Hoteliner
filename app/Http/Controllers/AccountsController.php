@@ -54,7 +54,7 @@ class AccountsController extends Controller
             'password' => Hash::make($request->password),
             'email' => $request->email
         ]);
-        
+
         Session::flash('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan username dan password.');
         return redirect('/login');
     }
@@ -81,7 +81,7 @@ class AccountsController extends Controller
                 'alamat' => $request->alamat,
                 'no_telp' => $request->no_telp
             ]);
-        
+
         Session::flash('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan username dan password.');
         return redirect('/login');
     }
@@ -101,7 +101,7 @@ class AccountsController extends Controller
             'username' => $request->input('username'),
             'password' => $request->input('password')
         ];
-        
+
         // return dd(Auth::getDefaultDriver());
 
         if (Auth::guard('admin')->attempt($data)) {
@@ -115,5 +115,21 @@ class AccountsController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect('/admin-dashboard/login');
+    }
+
+    public function profileEdit(Request $request)
+    {
+        $idAdmin = Auth::guard('admin')->user()->id_admin;
+        DB::table('admin')->where('id_admin', '=', $idAdmin)
+            ->update([
+                'nama' => $request -> input('nama'),
+                'email' => $request -> input('email'),
+                'tgl_lahir' => $request -> input('tgl_lahir'),
+                'no_telp' => $request -> input('no_telp'),
+                'alamat' => $request -> input('alamat'),
+                'updated_at' => now()
+            ]);
+
+        return redirect('/admin-dashboard/profile/' . $idAdmin);
     }
 }

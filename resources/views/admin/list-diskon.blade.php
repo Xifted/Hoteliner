@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/assets/img//logos/Hoteliner-logos.jpeg') }}">
     <link rel="icon" type="image/png" href="{{ asset('/assets/img//logos/Hoteliner-logos.jpeg') }}">
     <title>
-        Hoteliner - List Reservasi
+        Hoteliner - List Diskon
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -133,7 +133,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/admin-dashboard/listtransaksi">
+                    <a class="nav-link active" href="/admin-dashboard/listdiskon">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
@@ -160,7 +160,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="../pages/rtl.html">
+                    <a class="nav-link  " href="{{ url('admin-dashboard/rooms-edit')}}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
@@ -193,7 +193,7 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pengaturan Akun</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="../pages/profile.html">
+                    <a class="nav-link  " href="{{ url('/admin-dashboard/profile/' . $id_admin) }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -264,9 +264,9 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm opacity-5 text-dark">Hoteliner</li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">List Reservasi</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">List Diskon</li>
                     </ol>
-                    <h6 class="font-weight-bolder mb-0">List Reservasi</h6>
+                    <h6 class="font-weight-bolder mb-0">List Diskon</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -278,9 +278,15 @@
                     </div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                            <a href="/admin-dashboard/logout" class="nav-link text-body font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
+                                @if (Auth::guard('admin')->check())
+                                    <span class="d-sm-inline d-none">Logout - {{ Auth::guard('admin')->user()->nama }}
+                                    </span>
+                                @else
+                                    no
+                                @endif
+
                             </a>
                         </li>
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -391,11 +397,11 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0 d-flex justify-content-between">
-                            <h6>Table Reservasi</h6>
+                            <h6>Table Diskon</h6>
                             <button
-                                class="badge badge-sm text-white font-weight-bold text-xs bg-gradient-primary d-flex gap-3 align-items-center border-0"
+                                class="badge badge-sm text-white font-weight-bold text-xs bg-gradient-primary d-flex gap-3 justify-content-center align-items-center border-0 px-3"
                                 onclick="document.getElementById('modal').style.display='flex'"
-                                style="cursor: pointer; width:15%;"><i class="bi bi-plus-lg fs-6"></i>Tambah
+                                style="cursor: pointer; width:fit-content"><i class="bi bi-plus-lg fs-6"></i>Tambah
                                 Diskon</button>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
@@ -455,18 +461,20 @@
                                                     <h6 class="mb-0 text-sm">{{ $item->tgl_expired }}</h6>
                                                 </td>
                                                 <td class="d-flex flex-column gap-2 justify-content-center px-3">
-                                                    <button
+                                                    {{-- <button
                                                         class="badge badge-sm text-white font-weight-bold text-xs bg-gradient-primary w-100 d-flex justify-content-center border-0"
                                                         onclick="document.getElementById('modal').style.display='flex'"
-                                                        style="cursor: pointer;">Details</button>
+                                                        style="cursor: pointer;">Details</button> --}}
                                                     <button
                                                         class="badge badge-sm text-white font-weight-bold text-xs bg-gradient-warning w-100 d-flex justify-content-center border-0"
-                                                        onclick="document.getElementById('modal').style.display='flex'"
-                                                        style="cursor: pointer;">Edit</button>
-                                                    <button
+                                                        onclick="document.getElementById('modal{{ $item->id_diskon }}').style.display='flex'"
+                                                        style="cursor: pointer;"><a
+                                                            href="?id_diskon={{ $item->id_diskon }}"
+                                                            class="w-100 text-white">Edit</a></button>
+                                                    {{-- <button
                                                         class="badge badge-sm text-white font-weight-bold text-xs bg-gradient-danger w-100 d-flex justify-content-center border-0"
                                                         onclick="document.getElementById('modal').style.display='flex'"
-                                                        style="cursor: pointer;">Delete</button>
+                                                        style="cursor: pointer;">Delete</button> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -477,6 +485,60 @@
                     </div>
                 </div>
             </div>
+            {{-- {{$_GET['id_diskon']}} --}}
+            @foreach ($item_diskon as $item)
+                <div id="modal"
+                    style="display: {{ $_GET['id_diskon'] !== null ? 'flex' : 'none' }}; position: fixed; height: 100vw; width:100vw !important; top:0; left:0; background-color: #00000077; z-index: 1000000;">
+                    <div class="d-flex flex-column w-50 bg-white mt-3"
+                        style="margin-left: 25%; border-radius: 10px 10px 10px 10px; overflow:hidden; height:fit-content;">
+                        <header
+                            class="d-flex flex-row-reverse justify-content-between bg-secondary align-items-center">
+                            <button onclick="document.getElementById('modal').style.display='none'"
+                                class="d-flex justify-content-center align-items-center fs-3 bg-success h-100 border-0"
+                                style="width: 85px; cursor: pointer;"><a class="w-100 text-white"
+                                    href="/admin-dashboard/listdiskon">&times;</a></button>
+                            <h6 class="text-white p-3 pt-4">Edit Diskon - {{ $item->nama_diskon }}</h6>
+                        </header>
+                        <form action="{{ url('admin-dashboard/listdiskon/actionEdit/' . $item->id_diskon ) }}" method="POST">
+                            @csrf
+                            <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
+                                <h6 class="w-25">Nama Diskon</h6>
+                                <div class="input-group w-75">
+                                    <input type="text" name="namaDiskon" class="form-control"
+                                        placeholder="Nama Diskon*" value="{{ $item->nama_diskon }}" required>
+                                </div>
+                            </div>
+                            <div class="ms-md-auto pe-md-3 d-flex w-100 p-3 pe-5">
+                                <h6 class="w-25">Deskripsi</h6>
+                                <div class="input-group w-75">
+                                    <textarea name="deskripsiDiskon" id="" class="form-control" placeholder="Deskripsi Diskon*">{{ $item->deskripsi }}</textarea>
+                                </div>
+                            </div>
+                            {{-- <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
+                                <h6 class="w-25">Tanggal Diskon</h6>
+                                <div class="input-group w-75">
+                                    <input type="date" name="tglDiskon" class="form-control"
+                                        placeholder="Tanggal Diskon*" value="{{ $item->tgl_diskon }}" required>
+                                </div>
+                            </div> --}}
+                            <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
+                                <h6 class="w-25">Tanggal Expired</h6>
+                                <div class="input-group w-75">
+                                    <input type="date" name="tglExpired" class="form-control"
+                                        placeholder="Tanggal Expired*" value="{{ $item->tgl_expired }}" required>
+                                </div>
+                            </div>
+                            <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
+                                <div class="input-group w-50">
+                                    <button
+                                        class="badge text-white font-weight-bold fs-6 bg-gradient-warning p-3 w-50 px-5 mt-2 d-flex justify-content-center align-items-center border-0"
+                                        style="cursor: pointer;" type="submit">Edit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endforeach
             <div id="modal"
                 style="display: none; position: fixed; height: 100vw; width:100vw !important; top:0; left:0; background-color: #00000077; z-index: 1000000;">
                 <div class="d-flex flex-column w-50 bg-white mt-3"
@@ -492,13 +554,15 @@
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
                             <h6 class="w-25">Value Diskon</h6>
                             <div class="input-group w-75">
-                                <input type="Number" name="valueDiskon" class="form-control" placeholder="Value Diskon %*" required>
+                                <input type="Number" name="valueDiskon" class="form-control"
+                                    placeholder="Value Diskon %*" required>
                             </div>
                         </div>
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
                             <h6 class="w-25">Nama Diskon</h6>
                             <div class="input-group w-75">
-                                <input type="text" name="namaDiskon" class="form-control" placeholder="Nama Diskon*" required>
+                                <input type="text" name="namaDiskon" class="form-control"
+                                    placeholder="Nama Diskon*" required>
                             </div>
                         </div>
                         <div class="ms-md-auto pe-md-3 d-flex w-100 p-3 pe-5">
@@ -510,20 +574,22 @@
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
                             <h6 class="w-25">Tanggal Diskon</h6>
                             <div class="input-group w-75">
-                                <input type="date" name="tglDiskon" class="form-control" placeholder="Tanggal Diskon*" required>
+                                <input type="date" name="tglDiskon" class="form-control"
+                                    placeholder="Tanggal Diskon*" required>
                             </div>
                         </div>
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
                             <h6 class="w-25">Tanggal Expired</h6>
                             <div class="input-group w-75">
-                                <input type="date" name="tglExpired" class="form-control" placeholder="Tanggal Expired*" required>
+                                <input type="date" name="tglExpired" class="form-control"
+                                    placeholder="Tanggal Expired*" required>
                             </div>
                         </div>
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center w-100 p-3 pe-5">
                             <div class="input-group w-50">
                                 <button
-                                class="badge text-white font-weight-bold text-xs bg-gradient-primary p-3 px-5 d-flex align-items-center border-0"
-                                style="cursor: pointer;" type="submit">Sumbit</button>
+                                    class="badge text-white font-weight-bold text-xs bg-gradient-primary p-3 px-5 d-flex align-items-center border-0"
+                                    style="cursor: pointer;" type="submit">Sumbit</button>
                             </div>
                         </div>
                     </form>

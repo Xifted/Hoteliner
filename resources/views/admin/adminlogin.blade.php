@@ -47,8 +47,6 @@
                 <div class="text-center"><button class="btn btn-primary text-dark btn-lg text-uppercase"
                         style="width: 83%;" id="submitButton" type="submit">Login</button></div>
             </form>
-            <p class="text-center mt-3">Belum Punya Akun? <a class="text-decoration-none" href="/register">Register</a>
-                Sekarang </p>
         </div>
     </section>
 
